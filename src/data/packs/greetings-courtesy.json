@@ -1,0 +1,314 @@
+{
+  "id": "greetings-courtesy",
+  "title": {
+    "en": "Greetings & Courtesy",
+    "zh-CN": "问候与礼貌表达"
+  },
+  "description": {
+    "en": "Essential everyday greetings, polite expressions, and farewells in Italian.",
+    "zh-CN": "意大利语中最核心的日常问候、礼貌用语及道别表达。"
+  },
+  "icon": "Handshake",
+  "words": [
+    {
+      "id": "gc-01",
+      "word": "Ciao",
+      "pinyinHint": "qiào",
+      "phoneticIPA": "/ˈtʃaː.o/",
+      "translations": {
+        "en": "Hello / Hi / Goodbye (informal)",
+        "zh-CN": "你好 / 再见 (非正式，最常用)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Very common informal greeting and parting phrase. \"Ci\" is pronounced like Chinese \"q\".",
+        "zh-CN": "最常用的非正式问候语，见面和道别皆可用。“Ci”发音类似汉语拼音“q”。"
+      },
+      "exampleSentence": {
+        "it": "Ciao Marco, come stai?",
+        "en": "Hi Marco, how are you?",
+        "zh-CN": "你好马可，最近怎么样？"
+      },
+      "media": {
+        "image": "/media/images/gc-01-ciao.svg",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-02",
+      "word": "Buongiorno",
+      "pinyinHint": "bù-on-jiāo-ěr-nuò",
+      "phoneticIPA": "/ˌbwɔnˈdʒor.no/",
+      "translations": {
+        "en": "Good morning / Good day (formal/informal)",
+        "zh-CN": "早上好 / 日安 (正式/通用)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Compound of \"buon\" (good) and \"giorno\" (day). \"gi\" sounds like \"ji\".",
+        "zh-CN": "由 buon（好）与 giorno（天）组成。“gi”在元音前发音近“j”。"
+      },
+      "exampleSentence": {
+        "it": "Buongiorno Signora Rossi!",
+        "en": "Good morning Mrs. Rossi!",
+        "zh-CN": "早上好，罗西夫人！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-03",
+      "word": "Buonasera",
+      "pinyinHint": "bù-on-nà-sāi-là",
+      "phoneticIPA": "/ˌbwɔ.naˈseː.ra/",
+      "translations": {
+        "en": "Good evening",
+        "zh-CN": "晚上好"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Used from late afternoon onwards.",
+        "zh-CN": "通常在下午4-5点后使用。末尾“ra”需轻弹舌。"
+      },
+      "exampleSentence": {
+        "it": "Buonasera a tutti!",
+        "en": "Good evening everyone!",
+        "zh-CN": "大家晚上好！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-04",
+      "word": "Buonanotte",
+      "pinyinHint": "bù-on-nà-nuò-tèi",
+      "phoneticIPA": "/ˌbwɔ.naˈnɔt.te/",
+      "translations": {
+        "en": "Good night (before sleeping / parting late)",
+        "zh-CN": "晚安 (睡前或深夜道别)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Notice the double \"tt\" in \"notte\": hold the consonant briefly before releasing.",
+        "zh-CN": "“notte”中有双辅音“tt”，发音时要在闭合处略作停顿再爆破。"
+      },
+      "exampleSentence": {
+        "it": "Vado a letto, buonanotte!",
+        "en": "I'm going to bed, good night!",
+        "zh-CN": "我去睡觉了，晚安！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-05",
+      "word": "Grazie",
+      "pinyinHint": "gé-là-tsi-èi",
+      "phoneticIPA": "/ˈɡrat.tsje/",
+      "translations": {
+        "en": "Thank you / Thanks",
+        "zh-CN": "谢谢 / 感谢"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "\"z\" has a \"ts\" sound. Pronounce the final \"e\" crisply, do not drop it.",
+        "zh-CN": "“z”发清音“ts”（类似“呲”）。末尾“e”要清晰发音，不可吞音。"
+      },
+      "exampleSentence": {
+        "it": "Grazie per il tuo aiuto!",
+        "en": "Thank you for your help!",
+        "zh-CN": "谢谢你的帮助！"
+      },
+      "media": {
+        "image": "/media/images/gc-05-grazie.svg",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-06",
+      "word": "Grazie mille",
+      "pinyinHint": "gé-là-tsi-èi mǐ-lèi",
+      "phoneticIPA": "/ˈɡrat.tsje ˈmil.le/",
+      "translations": {
+        "en": "Thank you very much (literally: a thousand thanks)",
+        "zh-CN": "非常感谢 (字面：千倍感谢)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Double \"ll\" in mille is elongated and pronounced against the upper alveolar ridge.",
+        "zh-CN": "“mille”的双辅音“ll”舌尖抵住上齿龈稍作拉长。"
+      },
+      "exampleSentence": {
+        "it": "Grazie mille per il regalo!",
+        "en": "Thank you very much for the gift!",
+        "zh-CN": "非常感谢你的礼物！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-07",
+      "word": "Prego",
+      "pinyinHint": "pǔ-lèi-gōu",
+      "phoneticIPA": "/ˈprɛː.ɡo/",
+      "translations": {
+        "en": "You're welcome / Please (after you)",
+        "zh-CN": "不用谢 / 不客气 / 请"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Versatile word: standard reply to \"Grazie\", also used when offering something or holding a door.",
+        "zh-CN": "回答“Grazie”的标准用语；给人让路或递东西时亦表示“请”。"
+      },
+      "exampleSentence": {
+        "it": "Prego, si accomodi pure.",
+        "en": "Please, make yourself comfortable.",
+        "zh-CN": "请进，请随便坐。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-08",
+      "word": "Per favore",
+      "pinyinHint": "pēi-ěr fǎ-wō-lèi",
+      "phoneticIPA": "/per faˈvoː.re/",
+      "translations": {
+        "en": "Please",
+        "zh-CN": "请 / 劳驾"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "\"Per piacere\" is an equally valid alternative.",
+        "zh-CN": "用于礼貌请求。同义表达有“per piacere”或“per cortesia”。"
+      },
+      "exampleSentence": {
+        "it": "Un caffè, per favore.",
+        "en": "A coffee, please.",
+        "zh-CN": "请来一杯咖啡。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-09",
+      "word": "Scusa",
+      "pinyinHint": "sī-kū-zà",
+      "phoneticIPA": "/ˈskuː.za/",
+      "translations": {
+        "en": "Excuse me / Sorry (informal, to friends/peers)",
+        "zh-CN": "对不起 / 不好意思 (非正式，对熟人或同辈)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Used when addressing someone you use \"tu\" with.",
+        "zh-CN": "用于非正式场合道歉或打断熟人。"
+      },
+      "exampleSentence": {
+        "it": "Scusa per il ritardo!",
+        "en": "Sorry for being late!",
+        "zh-CN": "抱歉我迟到了！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-10",
+      "word": "Scusi",
+      "pinyinHint": "sī-kū-zǐ",
+      "phoneticIPA": "/ˈskuː.zi/",
+      "translations": {
+        "en": "Excuse me / Pardon (formal, to strangers/elders)",
+        "zh-CN": "打扰一下 / 请原谅 (正式，对陌生人或长辈)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Used when attracting attention politely in public (e.g. asking a stranger for directions).",
+        "zh-CN": "街头问路、餐厅叫侍者时最得体的称呼。"
+      },
+      "exampleSentence": {
+        "it": "Scusi, sa che ore sono?",
+        "en": "Excuse me, do you know what time it is?",
+        "zh-CN": "打扰一下，请问现在几点了？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-11",
+      "word": "Arrivederci",
+      "pinyinHint": "ā-lǐ-wēi-dāi-ěr-qī",
+      "phoneticIPA": "/ar.ri.veˈder.tʃi/",
+      "translations": {
+        "en": "Goodbye / See you again",
+        "zh-CN": "再见 / 后会有期"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Double \"rr\" requires an active alveolar trill. \"ci\" sounds like \"qi\".",
+        "zh-CN": "“rr”需要发颤音。“ci”发音如“qi”。字面意思是“直到我们再次相见”。"
+      },
+      "exampleSentence": {
+        "it": "Grazie di tutto e arrivederci!",
+        "en": "Thank you for everything and goodbye!",
+        "zh-CN": "感谢一切，再见！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-12",
+      "word": "Piacere",
+      "pinyinHint": "piā-qiē-lèi",
+      "phoneticIPA": "/pjaˈtʃeː.re/",
+      "translations": {
+        "en": "Pleased to meet you / Pleasure",
+        "zh-CN": "很高兴认识你 / 荣幸"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Standard greeting when introduced to someone for the first time.",
+        "zh-CN": "初次与人结识握手时的标准致辞。"
+      },
+      "exampleSentence": {
+        "it": "Piacere di conoscerti!",
+        "en": "Nice to meet you!",
+        "zh-CN": "很高兴认识你！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    }
+  ]
+}

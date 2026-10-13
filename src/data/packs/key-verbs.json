@@ -1,0 +1,314 @@
+{
+  "id": "key-verbs",
+  "title": {
+    "en": "Key Verbs",
+    "zh-CN": "核心高频动词"
+  },
+  "description": {
+    "en": "The most essential high-frequency Italian verbs in infinitive form.",
+    "zh-CN": "构建意语句型最关键的高频原型动词。"
+  },
+  "icon": "Flame",
+  "words": [
+    {
+      "id": "kv-01",
+      "word": "Essere",
+      "pinyinHint": "ài-sāi-lèi",
+      "phoneticIPA": "/ˈɛs.se.re/",
+      "translations": {
+        "en": "To be / Exist",
+        "zh-CN": "是 / 存在 (最基础辅助动词)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Irregular auxiliary verb. Double \"ss\" is prolonged.",
+        "zh-CN": "核心助动词。双辅音“ss”要稍作延长。如：Io sono（我是）。"
+      },
+      "exampleSentence": {
+        "it": "Voglio essere felice.",
+        "en": "I want to be happy.",
+        "zh-CN": "我想要幸福。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-02",
+      "word": "Avere",
+      "pinyinHint": "ā-wāi-lèi",
+      "phoneticIPA": "/aˈveː.re/",
+      "translations": {
+        "en": "To have / Own",
+        "zh-CN": "有 / 拥有 (核心辅助动词)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "The \"h\" in conjugated forms (ho, hai, ha, hanno) is completely silent in Italian.",
+        "zh-CN": "其变位形式中（ho, hai, ha, hanno）字母“h”始终不发音。如：Ho fame（我饿了）。"
+      },
+      "exampleSentence": {
+        "it": "Hai tempo oggi?",
+        "en": "Do you have time today?",
+        "zh-CN": "你今天有空吗？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-03",
+      "word": "Andare",
+      "pinyinHint": "ān-dà-lèi",
+      "phoneticIPA": "/anˈdaː.re/",
+      "translations": {
+        "en": "To go",
+        "zh-CN": "去 / 走"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Very common motion verb. Irregular in present tense: vado, vai, va...",
+        "zh-CN": "常用位移动词。现在时变位不规则：vado（我去）, vai（你去）, va（他去）。"
+      },
+      "exampleSentence": {
+        "it": "Dobbiamo andare a Roma.",
+        "en": "We must go to Rome.",
+        "zh-CN": "我们必须去罗马。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-04",
+      "word": "Fare",
+      "pinyinHint": "fǎ-lèi",
+      "phoneticIPA": "/ˈfaː.re/",
+      "translations": {
+        "en": "To do / To make",
+        "zh-CN": "做 / 制作 / 进行"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Used in dozens of common idioms (e.g. fare la doccia = take a shower, fare colazione = have breakfast).",
+        "zh-CN": "万能搭配动词。如 fare colazione（吃早饭）、fare una passeggiata（散步）。"
+      },
+      "exampleSentence": {
+        "it": "Cosa vuoi fare stasera?",
+        "en": "What do you want to do tonight?",
+        "zh-CN": "你今晚想做什么？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-05",
+      "word": "Volere",
+      "pinyinHint": "wō-liè-lèi",
+      "phoneticIPA": "/voˈleː.re/",
+      "translations": {
+        "en": "To want / To wish",
+        "zh-CN": "想要 / 意愿 (情态动词)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Modal verb. The conditional form \"Vorrei\" (I would like) is the polite way to order.",
+        "zh-CN": "情态动词。点餐时用条件式“Vorrei...”（我想来一份...）极具礼貌。"
+      },
+      "exampleSentence": {
+        "it": "Vorrei un bicchiere di vino, grazie.",
+        "en": "I would like a glass of wine, thank you.",
+        "zh-CN": "我想要一杯葡萄酒，谢谢。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-06",
+      "word": "Potere",
+      "pinyinHint": "pōu-tiè-lèi",
+      "phoneticIPA": "/poˈteː.re/",
+      "translations": {
+        "en": "Can / To be able to",
+        "zh-CN": "能够 / 可以 (许可/能力)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Modal verb expressing possibility or permission: \"Posso...?\" = May I...?",
+        "zh-CN": "情态动词。“Posso entrare?”意为“我可以进来吗？”。"
+      },
+      "exampleSentence": {
+        "it": "Posso pagare con carta di credito?",
+        "en": "Can I pay by credit card?",
+        "zh-CN": "我可以用信用卡付款吗？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-07",
+      "word": "Dovere",
+      "pinyinHint": "duō-wāi-lèi",
+      "phoneticIPA": "/doˈveː.re/",
+      "translations": {
+        "en": "Must / To have to / Owe",
+        "zh-CN": "必须 / 应该 / 欠(钱)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Modal verb of obligation: \"Devo andare\" = I have to go.",
+        "zh-CN": "表示义务或必要性。Devo andare = 我得走了。Quanto le devo? = 我欠您多少钱？"
+      },
+      "exampleSentence": {
+        "it": "Devo partire presto domani.",
+        "en": "I have to leave early tomorrow.",
+        "zh-CN": "我明天必须早点出发。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-08",
+      "word": "Mangiare",
+      "pinyinHint": "mān-jià-lèi",
+      "phoneticIPA": "/manˈdʒaː.re/",
+      "translations": {
+        "en": "To eat",
+        "zh-CN": "吃 / 用餐"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "\"gia\" sounds like \"jià\" in Chinese pinyin.",
+        "zh-CN": "“-gia-”发音如汉语拼音“jià”。意大利美食文化核心动词。"
+      },
+      "exampleSentence": {
+        "it": "Andiamo a mangiare una pizza!",
+        "en": "Let's go eat a pizza!",
+        "zh-CN": "我们去吃披萨吧！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-09",
+      "word": "Bere",
+      "pinyinHint": "bēi-lèi",
+      "phoneticIPA": "/ˈbeː.re/",
+      "translations": {
+        "en": "To drink",
+        "zh-CN": "喝 / 饮用"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Short infinitive contracted from historical \"bevere\". Present forms: bevo, bevi, beve...",
+        "zh-CN": "由古意大利语 bevere 缩减而来。现在时变位如：bevo（我喝）, bevi（你喝）。"
+      },
+      "exampleSentence": {
+        "it": "Cosa vuoi bere?",
+        "en": "What do you want to drink?",
+        "zh-CN": "你想喝什么？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-10",
+      "word": "Parlare",
+      "pinyinHint": "pà-ěr-là-lèi",
+      "phoneticIPA": "/parˈlaː.re/",
+      "translations": {
+        "en": "To speak / To talk",
+        "zh-CN": "说 / 讲话 / 谈话"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Regular 1st conjugation verb (-are).",
+        "zh-CN": "规则第一变位动词。Parlo italiano = 我讲意大利语。"
+      },
+      "exampleSentence": {
+        "it": "Vorrei parlare con il direttore.",
+        "en": "I would like to speak with the manager.",
+        "zh-CN": "我想和经理谈谈。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-11",
+      "word": "Capire",
+      "pinyinHint": "kǎ-pī-lèi",
+      "phoneticIPA": "/kaˈpiː.re/",
+      "translations": {
+        "en": "To understand / Comprehend",
+        "zh-CN": "理解 / 明白 / 领会"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "3rd conjugation verb with \"-isc-\" infix in present: capisco, capisci, capisce...",
+        "zh-CN": "第三变位中插入“-isc-”音节的典型动词：Io capisco（我明白）。"
+      },
+      "exampleSentence": {
+        "it": "Ora capisco la regola grammaticale.",
+        "en": "Now I understand the grammar rule.",
+        "zh-CN": "现在我明白这条语法规则了。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-12",
+      "word": "Vedere",
+      "pinyinHint": "wēi-dāi-lèi",
+      "phoneticIPA": "/veˈdeː.re/",
+      "translations": {
+        "en": "To see / To view",
+        "zh-CN": "看 / 看到 / 遇见"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Common phrase: \"Ci vediamo!\" = See you later! / See each other!",
+        "zh-CN": "常用道别俚语“Ci vediamo!”（回见 / 待会见）。"
+      },
+      "exampleSentence": {
+        "it": "Ci vediamo domani sera!",
+        "en": "See you tomorrow evening!",
+        "zh-CN": "明晚见！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    }
+  ]
+}

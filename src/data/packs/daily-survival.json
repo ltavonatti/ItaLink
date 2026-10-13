@@ -1,0 +1,322 @@
+{
+  "id": "daily-survival",
+  "title": {
+    "en": "Daily Survival",
+    "zh-CN": "日常生活与生存应急"
+  },
+  "description": {
+    "en": "Vital survival vocabulary for navigation, dining, transactions, and seeking help.",
+    "zh-CN": "涵盖问路、点餐、支付、求助等意大利旅行或生活必备生存词汇。"
+  },
+  "icon": "Compass",
+  "words": [
+    {
+      "id": "ds-01",
+      "word": "Sì",
+      "pinyinHint": "sì",
+      "phoneticIPA": "/si/",
+      "translations": {
+        "en": "Yes",
+        "zh-CN": "是 / 对"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Always accented with grave accent (ì) to distinguish from the reflexive pronoun \"si\".",
+        "zh-CN": "书写带开音符“ì”，发音短促有力。"
+      },
+      "exampleSentence": {
+        "it": "Sì, sono pronto.",
+        "en": "Yes, I am ready.",
+        "zh-CN": "是的，我准备好了。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-02",
+      "word": "No",
+      "pinyinHint": "nuò",
+      "phoneticIPA": "/nɔ/",
+      "translations": {
+        "en": "No",
+        "zh-CN": "不 / 不是"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Open \"o\" sound, not a diphthong like English \"no\".",
+        "zh-CN": "发开门音“o”，不要念成英语的双元音 /noʊ/。"
+      },
+      "exampleSentence": {
+        "it": "No, grazie, va bene così.",
+        "en": "No, thank you, that is fine.",
+        "zh-CN": "不用了，谢谢，这样就好。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-03",
+      "word": "Dov'è...?",
+      "pinyinHint": "duō-wāi...?",
+      "phoneticIPA": "/doˈvɛ/",
+      "translations": {
+        "en": "Where is...?",
+        "zh-CN": "...在哪里？"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Elision of \"Dove\" + \"è\". Essential for asking directions.",
+        "zh-CN": "Dove（哪里）+ è（是）的缩合形式，问路最关键句型。"
+      },
+      "exampleSentence": {
+        "it": "Dov'è la stazione ferroviaria?",
+        "en": "Where is the train station?",
+        "zh-CN": "火车站建在哪里？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-04",
+      "word": "Il bagno",
+      "pinyinHint": "yī-lù bā-niù",
+      "phoneticIPA": "/il ˈbaɲ.ɲo/",
+      "translations": {
+        "en": "The bathroom / toilet",
+        "zh-CN": "洗手间 / 卫生间"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "plural": "I bagni",
+      "pronunciationNotes": {
+        "en": "\"gn\" makes the palatal nasal /ɲ/ sound, like \"ni\" in onion or \"ni\" in Chinese.",
+        "zh-CN": "“gn”发硬腭鼻音，类似于拼音的“ni-”加上鼻音。"
+      },
+      "exampleSentence": {
+        "it": "Dov'è il bagno, per favore?",
+        "en": "Where is the restroom, please?",
+        "zh-CN": "请问洗手间在哪里？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-05",
+      "word": "Quanto costa?",
+      "pinyinHint": "kuàn-tuò kōu-sī-tǎ?",
+      "phoneticIPA": "/ˈkwan.to ˈkɔs.ta/",
+      "translations": {
+        "en": "How much does it cost?",
+        "zh-CN": "多少钱？/ 价格是多少？"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "For plural items, use \"Quanto costano?\".",
+        "zh-CN": "问单件物品价格时使用；若问多件物品复数则用“Quanto costano?”。"
+      },
+      "exampleSentence": {
+        "it": "Quanto costa questo maglione?",
+        "en": "How much does this sweater cost?",
+        "zh-CN": "这件毛衣多少钱？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-06",
+      "word": "Il conto, per favore",
+      "pinyinHint": "yī-lù kōng-tuò, pēi-ěr fǎ-wō-lèi",
+      "phoneticIPA": "/il ˈkon.to per faˈvoː.re/",
+      "translations": {
+        "en": "The bill, please",
+        "zh-CN": "请结账 / 请买单"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Said to the waiter when finishing a meal in a restaurant or café.",
+        "zh-CN": "在餐厅用完餐准备买单时对服务生说的关键句子。"
+      },
+      "exampleSentence": {
+        "it": "Possiamo avere il conto, per favore?",
+        "en": "Could we have the bill, please?",
+        "zh-CN": "我们可以买单吗，谢谢？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-07",
+      "word": "Aiuto!",
+      "pinyinHint": "ā-yù-tuò!",
+      "phoneticIPA": "/aˈjuː.to/",
+      "translations": {
+        "en": "Help!",
+        "zh-CN": "救命！/ 帮帮我！"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Universal emergency distress exclamation.",
+        "zh-CN": "紧急呼救信号。发音清晰响亮。"
+      },
+      "exampleSentence": {
+        "it": "Aiuto! Ho perso il passaporto!",
+        "en": "Help! I lost my passport!",
+        "zh-CN": "救命！我的护照丢了！"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-08",
+      "word": "Non capisco",
+      "pinyinHint": "nōng kǎ-pī-sī-kōu",
+      "phoneticIPA": "/non kaˈpi.sko/",
+      "translations": {
+        "en": "I don't understand",
+        "zh-CN": "我不明白 / 我听不懂"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "First person present indicative of \"capire\" (to understand).",
+        "zh-CN": "动词 capire（理解）的第一人称否定式。听不懂时直接使用。"
+      },
+      "exampleSentence": {
+        "it": "Mi dispiace, non capisco l’italiano bene.",
+        "en": "I'm sorry, I don't understand Italian well.",
+        "zh-CN": "不好意思，我意大利语听不太懂。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-09",
+      "word": "Parla inglese?",
+      "pinyinHint": "pà-ěr-lǎ yīng-gé-lèi-zèi?",
+      "phoneticIPA": "/ˈpar.la iŋˈɡleː.ze/",
+      "translations": {
+        "en": "Do you speak English? (formal)",
+        "zh-CN": "您会说英语吗？(尊称)"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Formal 3rd person (Lei). For informal (friends), say \"Parli inglese?\".",
+        "zh-CN": "尊称敬语。向陌生人求助英语交流时的首选句子。"
+      },
+      "exampleSentence": {
+        "it": "Scusi signore, parla inglese?",
+        "en": "Excuse me sir, do you speak English?",
+        "zh-CN": "先生打扰一下，请问您会说英语吗？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-10",
+      "word": "Acqua",
+      "pinyinHint": "à-kuǎ",
+      "phoneticIPA": "/ˈak.kwa/",
+      "translations": {
+        "en": "Water",
+        "zh-CN": "水"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "plural": "Acque",
+      "pronunciationNotes": {
+        "en": "Spelled with \"cq\" to indicate double consonant /k.kw/.",
+        "zh-CN": "拼写包含“cq”，表示发音中强化的双辅音停顿。点餐常说“Acqua naturale”（静水）或“frizzante”（气泡水）。"
+      },
+      "exampleSentence": {
+        "it": "Una bottiglia d’acqua naturale, grazie.",
+        "en": "A bottle of still water, please.",
+        "zh-CN": "请来一瓶不带气的水，谢谢。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-11",
+      "word": "Pane",
+      "pinyinHint": "pā-nèi",
+      "phoneticIPA": "/ˈpaː.ne/",
+      "translations": {
+        "en": "Bread",
+        "zh-CN": "面包"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "plural": "Pani",
+      "pronunciationNotes": {
+        "en": "Final \"e\" sounds like \"èi\", crisp and pure.",
+        "zh-CN": "末尾元音“e”发音清脆，如汉语“内”的元音部分。"
+      },
+      "exampleSentence": {
+        "it": "Il pane fresco è sul tavolo.",
+        "en": "Fresh bread is on the table.",
+        "zh-CN": "新鲜面包在桌上。"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-12",
+      "word": "Caffè",
+      "pinyinHint": "kǎ-fāi",
+      "phoneticIPA": "/kafˈfɛ/",
+      "translations": {
+        "en": "Coffee (espresso by default)",
+        "zh-CN": "咖啡 (在意大利默认指意式浓缩 espresso)"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "plural": "Caffè",
+      "pronunciationNotes": {
+        "en": "Stress on the final accented \"è\" with double \"ff\".",
+        "zh-CN": "重音落在末尾带音符的“è”上，带有延长的双辅音“ff”。"
+      },
+      "exampleSentence": {
+        "it": "Prendiamo un caffè al bar?",
+        "en": "Shall we grab a coffee at the bar?",
+        "zh-CN": "我们去吧台喝杯咖啡吗？"
+      },
+      "media": {
+        "image": null,
+        "audio": null
+      }
+    }
+  ]
+}
