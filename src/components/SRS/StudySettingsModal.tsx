@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { X, Sliders, Check, Clock, Sparkles } from 'lucide-react';
+import { X, Sliders, Check, Clock, Sparkles, RotateCcw, Layers, Shuffle } from 'lucide-react';
 import { useTranslation } from '../../i18n';
 import { SRSSettings } from '../../services/srsService';
+import { VOCABULARY_PACKS } from '../../data/italianVocabulary';
 
 interface StudySettingsModalProps {
   isOpen: boolean;
   onClose: () => void;
   settings: SRSSettings;
-  onSave: (newSettings: SRSSettings) => void;
+  onSave: (newSettings: SRSSettings) => void | Promise<void>;
+  onResetDailyQuota?: () => void | Promise<void>;
+  onResetLearningCards?: () => void | Promise<void>;
 }
 
 export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
@@ -15,11 +18,16 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
   onClose,
   settings,
   onSave,
+  onResetDailyQuota,
+  onResetLearningCards,
 }) => {
   const { t, currentLang } = useTranslation();
   const [newCards, setNewCards] = useState<number>(settings.newCardsPerDay);
   const [maxReviews, setMaxReviews] = useState<number>(settings.maxReviewsPerDay);
   const [cutoffHour, setCutoffHour] = useState<number>(settings.dayCutoffHour);
+  const [selectedPacks, setSelectedPacks] = useState<string[]>(settings.selectedPackIds || ['all']);
+  const [randomizeNew, setRandomizeNew] = useState<boolean>(settings.randomizeNewCards !== false);
+  const [isSaving, setIsSaving] = useState(false);
   const [showSavedFeedback, setShowSavedFeedback] = useState(false);
 
   useEffect(() => {
@@ -27,35 +35,49 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
       setNewCards(settings.newCardsPerDay);
       setMaxReviews(settings.maxReviewsPerDay);
       setCutoffHour(settings.dayCutoffHour);
+      setSelectedPacks(settings.selectedPackIds && settings.selectedPackIds.length > 0 ? settings.selectedPackIds : ['all']);
+      setRandomizeNew(settings.randomizeNewCards !== false);
+      setIsSaving(false);
       setShowSavedFeedback(false);
     }
   }, [isOpen, settings]);
 
   if (!isOpen) return null;
 
-  const handleSave = () => {
-    onSave({
-      newCardsPerDay: Math.max(1, Math.min(100, Number(newCards) || 15)),
-      maxReviewsPerDay: Math.max(10, Math.min(1000, Number(maxReviews) || 100)),
-      dayCutoffHour: Math.max(0, Math.min(23, Number(cutoffHour) || 4)),
-    });
-    setShowSavedFeedback(true);
-    setTimeout(() => {
-      onClose();
-    }, 400);
+  const handleSave = async () => {
+    try {
+      setIsSaving(true);
+      await Promise.resolve(
+        onSave({
+          newCardsPerDay: Math.max(1, Math.min(100, Number(newCards) || 15)),
+          maxReviewsPerDay: Math.max(10, Math.min(1000, Number(maxReviews) || 100)),
+          dayCutoffHour: Math.max(0, Math.min(23, Number(cutoffHour) || 4)),
+          selectedPackIds: selectedPacks,
+          randomizeNewCards: randomizeNew,
+        })
+      );
+      setShowSavedFeedback(true);
+      setTimeout(() => {
+        setIsSaving(false);
+        onClose();
+      }, 450);
+    } catch (err) {
+      console.error('Failed to save settings:', err);
+      setIsSaving(false);
+    }
   };
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/70 backdrop-blur-sm animate-in fade-in duration-150"
       onClick={onClose}
     >
       <div
-        className="relative max-w-md w-full bg-zen-surface-lowest dark:bg-zen-dark-surface rounded-3xl p-6 sm:p-7 shadow-2xl border border-zen-border/60 dark:border-zen-dark-border flex flex-col space-y-5 animate-in zoom-in-95 duration-150"
+        className="relative max-w-lg w-full max-h-[92vh] sm:max-h-[88vh] bg-zen-surface-lowest dark:bg-zen-dark-surface rounded-3xl shadow-2xl border border-zen-border/60 dark:border-zen-dark-border flex flex-col overflow-hidden animate-in zoom-in-95 duration-150"
         onClick={(e) => e.stopPropagation()}
       >
-        {/* Header */}
-        <div className="flex items-center justify-between pb-3 border-b border-zen-border/40 dark:border-zen-dark-border/60">
+        {/* Header - Pinned */}
+        <div className="flex items-center justify-between px-5 py-4 sm:px-6 sm:py-4.5 border-b border-zen-border/40 dark:border-zen-dark-border/60 shrink-0 bg-zen-surface-lowest dark:bg-zen-dark-surface">
           <div className="flex items-center gap-2.5">
             <div className="p-2 rounded-xl bg-zen-primary/10 dark:bg-zen-dark-primary/20 text-zen-primary dark:text-zen-dark-primary">
               <Sliders className="w-5 h-5" />
@@ -79,37 +101,52 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           </button>
         </div>
 
-        {/* Form Body */}
-        <div className="space-y-5">
+        {/* Form Body - Scrollable */}
+        <div className="flex-1 overflow-y-auto px-5 py-4 sm:px-6 sm:py-5 space-y-5 overscroll-contain">
           {/* 1. New Cards Per Day */}
           <div className="space-y-2.5">
             <div className="flex items-center justify-between">
               <label className="text-xs sm:text-sm font-bold text-zen-text dark:text-zen-dark-text">
                 {t('srs.newCardsPerDay')}
               </label>
-              <span className="font-mono font-bold text-sm text-zen-primary dark:text-zen-dark-primary px-2.5 py-0.5 rounded-lg bg-zen-primary/10 dark:bg-zen-dark-primary/20">
-                {newCards}
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="text-xs text-zen-text-muted font-medium">
+                  {currentLang === 'zh-CN' ? `约 ${newCards} 分钟/天` : `~${newCards} min/day`}
+                </span>
+                <div className="flex items-center gap-1 bg-zen-primary/10 dark:bg-zen-dark-primary/20 px-2.5 py-1 rounded-xl border border-zen-primary/30">
+                  <input
+                    type="number"
+                    min="1"
+                    max="50"
+                    value={newCards}
+                    onChange={(e) => {
+                      const v = parseInt(e.target.value, 10);
+                      if (!isNaN(v)) setNewCards(Math.max(1, Math.min(50, v)));
+                    }}
+                    className="w-10 text-center font-mono font-bold text-sm text-zen-primary dark:text-zen-dark-primary bg-transparent focus:outline-none"
+                  />
+                  <span className="text-xs font-bold text-zen-primary dark:text-zen-dark-primary">
+                    {currentLang === 'zh-CN' ? '词' : 'words'}
+                  </span>
+                </div>
+              </div>
             </div>
 
-            {/* Presets */}
-            <div className="grid grid-cols-3 gap-2">
-              {[
-                { label: t('srs.casual'), val: 5 },
-                { label: t('srs.standard'), val: 15 },
-                { label: t('srs.intensive'), val: 25 },
-              ].map((p) => (
+            {/* Quick Presets */}
+            <div className="grid grid-cols-5 gap-1.5">
+              {[5, 10, 15, 20, 25].map((val) => (
                 <button
-                  key={p.val}
+                  key={val}
                   type="button"
-                  onClick={() => setNewCards(p.val)}
-                  className={`py-1.5 px-2 rounded-xl text-xs font-bold border transition-all cursor-pointer ${
-                    newCards === p.val
-                      ? 'bg-zen-primary text-white border-zen-primary shadow-sm'
+                  onClick={() => setNewCards(val)}
+                  className={`py-2 px-1 rounded-xl text-xs font-bold border transition-all cursor-pointer text-center leading-tight ${
+                    newCards === val
+                      ? 'bg-zen-primary text-white border-zen-primary shadow-sm scale-102'
                       : 'bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border-zen-border/40 text-zen-text-muted hover:text-zen-text'
                   }`}
                 >
-                  {p.label}
+                  <span className="block font-black text-sm">{val}</span>
+                  <span className="text-[10px] opacity-80">{currentLang === 'zh-CN' ? '词' : 'words'}</span>
                 </button>
               ))}
             </div>
@@ -166,7 +203,116 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
             />
           </div>
 
-          {/* 3. Day Rollover Hour */}
+          {/* 3. Study Source Packs (Global Queue Source) */}
+          <div className="space-y-2.5 p-3.5 rounded-2xl bg-zen-surface-container/40 dark:bg-zen-dark-surface-high/40 border border-zen-border/40 dark:border-zen-dark-border">
+            <div className="flex items-center justify-between">
+              <span className="text-xs font-bold text-zen-text dark:text-zen-dark-text flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-zen-primary" />
+                <span>{t('srs.studySource')}</span>
+              </span>
+              <span className="text-[11px] font-mono text-zen-text-muted">
+                {selectedPacks.includes('all')
+                  ? (currentLang === 'zh-CN' ? '全部卡包' : 'All Packs')
+                  : `${selectedPacks.length} ${currentLang === 'zh-CN' ? '个卡包' : 'selected'}`}
+              </span>
+            </div>
+            <p className="text-[11px] text-zen-text-muted leading-tight">
+              {t('srs.studySourceDesc')}
+            </p>
+
+            {/* All Packs vs Custom Selection */}
+            <div className="flex flex-col gap-2 pt-1">
+              <button
+                type="button"
+                onClick={() => setSelectedPacks(['all'])}
+                className={`w-full py-2 px-3 rounded-xl text-xs font-bold border transition-all flex items-center justify-between cursor-pointer ${
+                  selectedPacks.includes('all')
+                    ? 'bg-zen-primary text-white border-zen-primary shadow-sm'
+                    : 'bg-zen-surface-lowest dark:bg-zen-dark-surface border-zen-border/50 text-zen-text dark:text-zen-dark-text hover:border-zen-primary/40'
+                }`}
+              >
+                <div className="flex items-center gap-2">
+                  <span>🎲</span>
+                  <span>{t('srs.allPacksRandom')}</span>
+                </div>
+                {selectedPacks.includes('all') && <Check className="w-4 h-4 text-white" />}
+              </button>
+
+              {/* Individual Pack Chips */}
+              <div className="grid grid-cols-1 gap-1.5 pt-1">
+                {VOCABULARY_PACKS.map((pack) => {
+                  const isChecked = !selectedPacks.includes('all') && selectedPacks.includes(pack.id);
+                  const packName = pack.title[currentLang as 'en' | 'zh-CN'] || pack.title.en;
+
+                  return (
+                    <button
+                      key={pack.id}
+                      type="button"
+                      onClick={() => {
+                        if (selectedPacks.includes('all')) {
+                          setSelectedPacks([pack.id]);
+                        } else if (isChecked) {
+                          const remaining = selectedPacks.filter((id) => id !== pack.id);
+                          setSelectedPacks(remaining.length === 0 ? ['all'] : remaining);
+                        } else {
+                          const updated = [...selectedPacks, pack.id];
+                          setSelectedPacks(updated.length === VOCABULARY_PACKS.length ? ['all'] : updated);
+                        }
+                      }}
+                      className={`py-1.5 px-3 rounded-xl text-xs font-semibold border transition-all flex items-center justify-between cursor-pointer ${
+                        isChecked
+                          ? 'bg-zen-primary/15 dark:bg-zen-dark-primary/25 border-zen-primary text-zen-primary dark:text-zen-dark-primary font-bold'
+                          : 'bg-zen-surface-lowest dark:bg-zen-dark-surface border-zen-border/40 text-zen-text-muted hover:text-zen-text hover:border-zen-border'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm">{pack.icon || '📖'}</span>
+                        <span>{packName}</span>
+                        {pack.id === 'italian-slang' && (
+                          <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">
+                            18+
+                          </span>
+                        )}
+                        <span className="text-[10px] text-zen-text-muted font-normal font-mono">
+                          ({pack.words.length})
+                        </span>
+                      </div>
+                      <div
+                        className={`w-4 h-4 rounded-md flex items-center justify-center border transition-all ${
+                          isChecked
+                            ? 'bg-zen-primary border-zen-primary text-white'
+                            : 'border-zen-border/60 bg-transparent'
+                        }`}
+                      >
+                        {isChecked && <Check className="w-3 h-3 text-white" />}
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+
+            {/* Randomize intake order toggle */}
+            <label className="flex items-start gap-2.5 pt-2 border-t border-zen-border/30 dark:border-zen-dark-border/40 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={randomizeNew}
+                onChange={(e) => setRandomizeNew(e.target.checked)}
+                className="mt-0.5 w-4 h-4 rounded text-zen-primary focus:ring-zen-primary cursor-pointer accent-zen-primary"
+              />
+              <div className="text-[11px] leading-tight">
+                <span className="font-bold text-zen-text dark:text-zen-dark-text flex items-center gap-1">
+                  <Shuffle className="w-3 h-3 text-zen-primary" />
+                  {t('srs.randomizeOrder')}
+                </span>
+                <p className="text-zen-text-muted mt-0.5">
+                  {t('srs.randomizeOrderDesc')}
+                </p>
+              </div>
+            </label>
+          </div>
+
+          {/* 4. Day Rollover Hour */}
           <div className="space-y-1.5 p-3 rounded-2xl bg-zen-surface-container/40 dark:bg-zen-dark-surface-high/40 border border-zen-border/40 dark:border-zen-dark-border">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-zen-text dark:text-zen-dark-text flex items-center gap-1.5">
@@ -188,10 +334,49 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
               {t('srs.dayCutoffDesc')}
             </p>
           </div>
+
+          {/* Optional Reset Daily SRS Quota & Learning Cards (For testing & backlog recovery) */}
+        {(onResetDailyQuota || onResetLearningCards) && (
+          <div className="pt-1 flex flex-col items-center gap-2">
+            {onResetDailyQuota && (
+              <button
+                type="button"
+                onClick={async () => {
+                  await Promise.resolve(onResetDailyQuota());
+                  setShowSavedFeedback(true);
+                  setTimeout(() => {
+                    onClose();
+                  }, 400);
+                }}
+                className="text-[11px] font-mono text-zen-text-muted hover:text-amber-600 dark:hover:text-amber-400 transition-colors inline-flex items-center gap-1.5 cursor-pointer underline underline-offset-2"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>{currentLang === 'zh-CN' ? '重置今日学习计数 (测试模式)' : "Reset Today's Study Quota (Test Mode)"}</span>
+              </button>
+            )}
+
+            {onResetLearningCards && (
+              <button
+                type="button"
+                onClick={async () => {
+                  await Promise.resolve(onResetLearningCards());
+                  setShowSavedFeedback(true);
+                  setTimeout(() => {
+                    onClose();
+                  }, 400);
+                }}
+                className="text-[11px] font-mono text-rose-600/80 dark:text-rose-400/80 hover:text-rose-700 dark:hover:text-rose-300 transition-colors inline-flex items-center gap-1.5 cursor-pointer underline underline-offset-2"
+              >
+                <RotateCcw className="w-3 h-3" />
+                <span>{currentLang === 'zh-CN' ? '清空学习中卡片积压 (重置为新词)' : 'Reset In-Progress Learning Cards to New'}</span>
+              </button>
+            )}
+          </div>
+        )}
         </div>
 
-        {/* Footer Actions */}
-        <div className="pt-2 flex items-center gap-3">
+        {/* Footer Actions - Pinned */}
+        <div className="px-5 py-3.5 sm:px-6 sm:py-4 border-t border-zen-border/40 dark:border-zen-dark-border/60 shrink-0 bg-zen-surface-lowest dark:bg-zen-dark-surface flex items-center gap-3">
           <button
             type="button"
             onClick={onClose}
@@ -202,10 +387,11 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
           <button
             type="button"
             onClick={handleSave}
+            disabled={isSaving}
             className={`flex-1 py-2.5 rounded-2xl text-xs sm:text-sm font-bold text-white shadow-zen-md flex items-center justify-center gap-2 transition-all cursor-pointer ${
               showSavedFeedback
                 ? 'bg-emerald-600'
-                : 'bg-zen-primary hover:bg-zen-primary-hover active:scale-95'
+                : 'bg-zen-primary hover:bg-zen-primary-hover active:scale-95 disabled:opacity-50'
             }`}
           >
             {showSavedFeedback ? (
@@ -216,7 +402,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
             ) : (
               <>
                 <Sparkles className="w-4 h-4" />
-                <span>{t('srs.saveSettings')}</span>
+                <span>{isSaving ? (currentLang === 'zh-CN' ? '保存中...' : 'Saving...') : t('srs.saveSettings')}</span>
               </>
             )}
           </button>

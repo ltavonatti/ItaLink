@@ -1,8 +1,11 @@
 /**
- * Standalone Local Authentication Service
- * Uses native Web Crypto API for SHA-256 password hashing and localStorage for persistence.
- * Zero external backend or third-party auth dependencies.
+ * Integrated Authentication Service
+ * 
+ * Direct Supabase Cloud Authentication with fallback to Web Crypto API for offline usage.
+ * Supports registered accounts with cloud sync and isolated Guest mode.
  */
+
+import cloudService from './cloudService';
 
 export interface UserAccount {
   id: string;
@@ -15,12 +18,18 @@ export interface UserAccount {
   isGuest?: boolean;
 }
 
+export interface SignUpResult {
+  user?: UserAccount;
+  requiresConfirmation?: boolean;
+  message?: string;
+}
+
 const USERS_STORAGE_KEY = 'zen_italian_users';
 const SESSION_STORAGE_KEY = 'zen_italian_active_session';
 const SALT_SEED = 'zen_italian_crypto_salt_2026_';
 
 /**
- * Hash password using Web Crypto API SHA-256
+ * Hash password using Web Crypto API SHA-256 (for offline fallback mode)
  */
 async function hashPassword(password: string): Promise<string> {
   if (typeof window !== 'undefined' && window.crypto && window.crypto.subtle) {
@@ -30,7 +39,6 @@ async function hashPassword(password: string): Promise<string> {
     const hashArray = Array.from(new Uint8Array(hashBuffer));
     return hashArray.map((b) => b.toString(16).padStart(2, '0')).join('');
   }
-  // Fallback simple hash if crypto.subtle is unavailable
   let hash = 0;
   for (let i = 0; i < password.length; i++) {
     hash = (hash << 5) - hash + password.charCodeAt(i);
@@ -45,6 +53,43 @@ class AuthService {
 
   constructor() {
     this.restoreSession();
+
+    // Listen to Supabase auth events
+    if (cloudService.isConfigured()) {
+      cloudService.onAuthStateChange((sbUser) => {
+        if (sbUser) {
+          const displayName =
+            sbUser.user_metadata?.displayName ||
+            sbUser.user_metadata?.full_name ||
+            sbUser.email?.split('@')[0] ||
+            'Learner';
+          const account: UserAccount = {
+            id: sbUser.id,
+            username: displayName,
+            email: sbUser.email || '',
+            displayName: displayName,
+            passwordHash: '',
+            createdAt: new Date(sbUser.created_at || Date.now()).getTime(),
+            lastLoginAt: Date.now(),
+            isGuest: false,
+          };
+          this.currentUser = account;
+          if (typeof window !== 'undefined' && window.localStorage) {
+            window.localStorage.setItem(SESSION_STORAGE_KEY, JSON.stringify(account));
+          }
+          this.notify();
+        } else {
+          // If Supabase signed out and the active user was a registered cloud user, clear session
+          if (this.currentUser && !this.currentUser.isGuest) {
+            this.currentUser = null;
+            if (typeof window !== 'undefined' && window.localStorage) {
+              window.localStorage.removeItem(SESSION_STORAGE_KEY);
+            }
+            this.notify();
+          }
+        }
+      });
+    }
   }
 
   private restoreSession(): void {
@@ -52,9 +97,16 @@ class AuthService {
     try {
       const raw = window.localStorage.getItem(SESSION_STORAGE_KEY);
       if (raw) {
-        this.currentUser = JSON.parse(raw);
+        const parsed: UserAccount = JSON.parse(raw);
+        // Invalidate legacy mock sessions (starting with usr_) if cloud service is configured
+        if (cloudService.isConfigured() && parsed.id?.startsWith('usr_')) {
+          this.currentUser = null;
+          window.localStorage.removeItem(SESSION_STORAGE_KEY);
+        } else {
+          this.currentUser = parsed;
+        }
       }
-    } catch (e) {
+    } catch {
       this.currentUser = null;
     }
   }
@@ -77,6 +129,10 @@ class AuthService {
 
   public isAuthenticated(): boolean {
     return this.currentUser !== null;
+  }
+
+  public isGuestUser(): boolean {
+    return !!this.currentUser?.isGuest;
   }
 
   private getUsers(): UserAccount[] {
@@ -107,9 +163,13 @@ class AuthService {
   }
 
   /**
-   * Register a new local user account
+   * Register a new user account (Cloud if configured, fallback to local WebCrypto)
    */
-  public async signUp(username: string, email: string, password: string): Promise<UserAccount> {
+  public async signUp(
+    username: string,
+    email: string,
+    password: string
+  ): Promise<SignUpResult> {
     const cleanUsername = username.trim();
     const cleanEmail = email.trim().toLowerCase();
 
@@ -119,10 +179,41 @@ class AuthService {
     if (!cleanEmail || !cleanEmail.includes('@')) {
       throw new Error('Please enter a valid email address.');
     }
-    if (!password || password.length < 4) {
-      throw new Error('Password must be at least 4 characters.');
+    if (!password || password.length < 6) {
+      throw new Error('Password must be at least 6 characters.');
     }
 
+    if (cloudService.isConfigured()) {
+      const res = await cloudService.signUpWithEmail(cleanEmail, password, cleanUsername);
+      if (!res.success) {
+        throw new Error(res.error || 'Failed to create account.');
+      }
+
+      if (res.requiresConfirmation) {
+        return {
+          requiresConfirmation: true,
+          message: `Confirmation email sent to ${cleanEmail}. Please verify your email before signing in.`,
+        };
+      }
+
+      if (res.user) {
+        const displayName = cleanUsername || res.user.email?.split('@')[0] || 'Learner';
+        const account: UserAccount = {
+          id: res.user.id,
+          username: displayName,
+          email: res.user.email || cleanEmail,
+          displayName: displayName,
+          passwordHash: '',
+          createdAt: Date.now(),
+          lastLoginAt: Date.now(),
+          isGuest: false,
+        };
+        this.setSession(account);
+        return { user: account };
+      }
+    }
+
+    // Fallback: Local WebCrypto registration
     const users = this.getUsers();
     if (users.some((u) => u.username.toLowerCase() === cleanUsername.toLowerCase())) {
       throw new Error('This username is already taken. Please choose another.');
@@ -140,27 +231,61 @@ class AuthService {
       passwordHash,
       createdAt: Date.now(),
       lastLoginAt: Date.now(),
+      isGuest: false,
     };
 
     users.push(newUser);
     this.saveUsers(users);
     this.setSession(newUser);
-    return newUser;
+    return { user: newUser };
   }
 
   /**
-   * Log into an existing account
+   * Log into an existing account (Cloud if configured, fallback to local WebCrypto)
    */
   public async login(identifier: string, password: string): Promise<UserAccount> {
     const clean = identifier.trim().toLowerCase();
-    const users = this.getUsers();
+    if (!clean) {
+      throw new Error('Please enter your email address.');
+    }
+    if (!password) {
+      throw new Error('Please enter your password.');
+    }
 
+    if (cloudService.isConfigured()) {
+      const res = await cloudService.signInWithEmail(clean, password);
+      if (!res.success || !res.user) {
+        throw new Error(res.error || 'Invalid credentials. Please verify your email and password.');
+      }
+
+      const user = res.user;
+      const displayName =
+        user.user_metadata?.displayName ||
+        user.user_metadata?.full_name ||
+        user.email?.split('@')[0] ||
+        'Learner';
+      const account: UserAccount = {
+        id: user.id,
+        username: displayName,
+        email: user.email || clean,
+        displayName: displayName,
+        passwordHash: '',
+        createdAt: new Date(user.created_at || Date.now()).getTime(),
+        lastLoginAt: Date.now(),
+        isGuest: false,
+      };
+      this.setSession(account);
+      return account;
+    }
+
+    // Fallback: Local WebCrypto authentication
+    const users = this.getUsers();
     const user = users.find(
       (u) => u.username.toLowerCase() === clean || u.email.toLowerCase() === clean
     );
 
     if (!user) {
-      throw new Error('Account not found. Please verify your username or sign up.');
+      throw new Error('Account not found. Please verify your email or sign up.');
     }
 
     const incomingHash = await hashPassword(password);
@@ -175,7 +300,7 @@ class AuthService {
   }
 
   /**
-   * Instant guest access for immediate evaluation
+   * Instant guest access for immediate evaluation (isolated locally, no cloud sync)
    */
   public async guestLogin(): Promise<UserAccount> {
     const guestUser: UserAccount = {
@@ -196,10 +321,14 @@ class AuthService {
    * Sign out active session
    */
   public logout(): void {
+    if (cloudService.isConfigured()) {
+      cloudService.signOut().catch((err) => {
+        console.warn('[AuthService] Supabase sign out notice:', err);
+      });
+    }
     this.setSession(null);
   }
 }
 
 export const authService = new AuthService();
 export default authService;
-

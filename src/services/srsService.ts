@@ -1,6 +1,6 @@
 /**
  * Spaced Repetition System (SRS) Engine
- * Anki-compatible SuperMemo-2 (SM-2) implementation with learning steps.
+ * SuperMemo-2 (SM-2) memory curve implementation with intraday learning steps.
  * 
  * Strict Zero External Dependencies: Pure TypeScript and native Date calculations.
  */
@@ -27,6 +27,8 @@ export interface SRSSettings {
   newCardsPerDay: number;    // Default: 15
   maxReviewsPerDay: number;  // Default: 100
   dayCutoffHour: number;     // Hour of day (0-23) when new day starts. Default: 4 (4:00 AM)
+  selectedPackIds?: string[]; // Array of selected pack IDs, or ['all'] for all packs
+  randomizeNewCards?: boolean; // Default: true - whether new cards are shuffled at random
 }
 
 export interface DailySRSProgress {
@@ -50,6 +52,8 @@ export const DEFAULT_SRS_SETTINGS: SRSSettings = {
   newCardsPerDay: 15,
   maxReviewsPerDay: 100,
   dayCutoffHour: 4, // 4:00 AM
+  selectedPackIds: ['all'],
+  randomizeNewCards: true,
 };
 
 export const DEFAULT_CARD_STATE = (wordId: string): SRSCardState => ({
@@ -190,11 +194,13 @@ export function calculateNextReview(
       case 'again':
         nextState = 'relearning';
         nextStep = 0;
+        nextIntervalDays = 0;
         intervalMs = STEP_10M;
         break;
       case 'hard':
         nextState = 'relearning';
         nextStep = 0;
+        nextIntervalDays = 0;
         intervalMs = 12 * 60 * 1000;
         break;
       case 'good':
@@ -211,7 +217,7 @@ export function calculateNextReview(
         break;
     }
   } else {
-    // Graduated Review Card (SM-2 with Anki ease adjustment)
+    // Graduated Review Card (SM-2 with spaced repetition ease adjustment)
     const currentInterval = Math.max(1, card.intervalDays || 1);
 
     switch (rating) {
@@ -221,7 +227,7 @@ export function calculateNextReview(
         nextLapses += 1;
         nextRepetitions = 0;
         nextEaseFactor = Math.max(1.3, nextEaseFactor - 0.2);
-        nextIntervalDays = 1;
+        nextIntervalDays = 0;
         intervalMs = STEP_10M;
         break;
 
@@ -273,7 +279,7 @@ export function calculateNextReview(
 }
 
 /**
- * Format interval into human-readable Anki badge string (e.g. "<1m", "10m", "1d", "4d", "1.5mo")
+ * Format interval into human-readable badge string (e.g. "<1m", "10m", "1d", "4d", "1.5mo")
  */
 export function formatIntervalPreview(ms: number, lang: SupportedLanguage = 'en'): string {
   const isZh = lang === 'zh-CN';
@@ -330,7 +336,15 @@ export function getRatingIntervalLabels(
 }
 
 /**
- * Partition available words into daily Anki study queues:
+ * Check if a review result schedules the card for tomorrow or later (>= 1 day / 86400000ms).
+ * Any rating resulting in intra-day minutes (< 1 day) requires the card to remain in the active study session queue.
+ */
+export function isScheduledForFutureDay(result: SRSReviewResult): boolean {
+  return result.intervalPreviewMs >= STEP_1D;
+}
+
+/**
+ * Partition available words into daily smart review queues:
  * 1. Due Reviews (due <= now)
  * 2. Learning Cards (intra-day)
  * 3. New Cards (up to remaining daily quota)
@@ -340,26 +354,62 @@ export interface DailyQueueBreakdown {
   learningCards: ItalianWord[];
   newCards: ItalianWord[];
   totalAvailable: number;
+  totalDuePool?: number;
+  totalLearningPool?: number;
+  totalUnseenPool?: number;
+}
+
+/**
+ * Resolves the target pool of words based on selected pack IDs.
+ * If 'all' is included or array is empty, all packs are included.
+ */
+export function getWordsForPacks(
+  selectedPackIds: string[] | undefined,
+  packs: { id: string; words: ItalianWord[] }[]
+): ItalianWord[] {
+  if (!selectedPackIds || selectedPackIds.length === 0 || selectedPackIds.includes('all')) {
+    return packs.flatMap((p) => p.words);
+  }
+  const selectedSet = new Set(selectedPackIds);
+  const matchingPacks = packs.filter((p) => selectedSet.has(p.id));
+  if (matchingPacks.length === 0) {
+    return packs.flatMap((p) => p.words);
+  }
+  return matchingPacks.flatMap((p) => p.words);
+}
+
+/**
+ * Deterministic pseudo-random number generator based on a string seed (e.g. study date + userId).
+ * Ensures that card shuffling is stable throughout a given calendar study day.
+ */
+export function shuffleArraySeeded<T>(array: T[], seedStr: string): T[] {
+  const result = [...array];
+  let hash = 0;
+  for (let i = 0; i < seedStr.length; i++) {
+    hash = (hash << 5) - hash + seedStr.charCodeAt(i);
+    hash |= 0;
+  }
+  const rng = () => {
+    hash = (hash + 0x6d2b79f5) | 0;
+    let t = Math.imul(hash ^ (hash >>> 15), 1 | hash);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+
+  for (let i = result.length - 1; i > 0; i--) {
+    const j = Math.floor(rng() * (i + 1));
+    [result[i], result[j]] = [result[j], result[i]];
+  }
+  return result;
 }
 
 export function buildDailyQueue(
   allWords: ItalianWord[],
   srsMap: Record<string, SRSCardState>,
   settings: SRSSettings,
-  dailyProgress: DailySRSProgress,
+  dailyProgress?: DailySRSProgress,
   now = Date.now()
 ): DailyQueueBreakdown {
-  const currentStudyDay = getStudyDate(now, settings.dayCutoffHour);
-
-  // Check if daily progress needs date rollover
-  const effectiveDaily =
-    dailyProgress && dailyProgress.date === currentStudyDay
-      ? dailyProgress
-      : { date: currentStudyDay, newCardsCompleted: 0, reviewsCompleted: 0 };
-
-  const remainingNewQuota = Math.max(0, settings.newCardsPerDay - effectiveDaily.newCardsCompleted);
-  const remainingReviewQuota = Math.max(0, settings.maxReviewsPerDay - effectiveDaily.reviewsCompleted);
-
   const dueReviews: ItalianWord[] = [];
   const learningCards: ItalianWord[] = [];
   const unseenWords: ItalianWord[] = [];
@@ -369,7 +419,10 @@ export function buildDailyQueue(
     if (!srs || srs.state === 'new') {
       unseenWords.push(word);
     } else if (srs.state === 'learning' || srs.state === 'relearning') {
-      learningCards.push(word);
+      // Intra-day card: only include if its step interval has elapsed (dueDate <= now)
+      if (srs.dueDate <= now) {
+        learningCards.push(word);
+      }
     } else if (srs.state === 'review') {
       if (srs.dueDate <= now) {
         dueReviews.push(word);
@@ -384,17 +437,145 @@ export function buildDailyQueue(
     return dueA - dueB;
   });
 
-  // Limit due reviews to remaining quota
-  const cappedDueReviews = dueReviews.slice(0, remainingReviewQuota);
+  // Sort learning cards by earliest due date
+  learningCards.sort((a, b) => {
+    const dueA = srsMap[a.id]?.dueDate || 0;
+    const dueB = srsMap[b.id]?.dueDate || 0;
+    return dueA - dueB;
+  });
 
-  // Limit new cards to remaining quota
-  const cappedNewCards = unseenWords.slice(0, remainingNewQuota);
+  // Calculate daily quota and remaining session capacity based on user's global daily goal
+  const dailyGoal = Math.max(1, settings.newCardsPerDay || 15);
+  const todayDate = getStudyDate(now, settings.dayCutoffHour);
+  const completedToday =
+    dailyProgress && dailyProgress.date === todayDate
+      ? dailyProgress.newCardsCompleted || 0
+      : 0;
+
+  const remainingQuota = Math.max(0, dailyGoal - completedToday);
+
+  // If daily goal is already met today and no overdue reviews or learning cards exist, session is caught up
+  if (remainingQuota === 0 && dueReviews.length === 0 && learningCards.length === 0) {
+    return {
+      dueReviews: [],
+      learningCards: [],
+      newCards: [],
+      totalAvailable: 0,
+      totalDuePool: dueReviews.length,
+      totalLearningPool: learningCards.length,
+      totalUnseenPool: unseenWords.length,
+    };
+  }
+
+  // Active session capacity strictly respects the user's daily goal
+  const sessionCapacity = dailyGoal;
+
+  // 1. Priority 1: Due mature reviews (capped by sessionCapacity and maxReviewsPerDay)
+  const maxReviews = settings.maxReviewsPerDay || 100;
+  const allowedReviews = Math.min(dueReviews.length, maxReviews, sessionCapacity);
+  const cappedDueReviews = dueReviews.slice(0, allowedReviews);
+  let availableSlots = sessionCapacity - cappedDueReviews.length;
+
+  // 2. Priority 2: In-progress learning cards (capped by remaining availableSlots)
+  const allowedLearning = Math.min(learningCards.length, availableSlots);
+  const cappedLearningCards = learningCards.slice(0, allowedLearning);
+  availableSlots -= cappedLearningCards.length;
+
+  // 3. Priority 3: Fresh unseen cards (fill remaining availableSlots up to remainingQuota)
+  // If randomizeNewCards is enabled (default true), shuffle unseen cards with today's date seed so words from multiple/all packs are mixed at random
+  const orderedUnseen =
+    settings.randomizeNewCards !== false
+      ? shuffleArraySeeded(unseenWords, todayDate)
+      : unseenWords;
+
+  const allowedNew = Math.min(orderedUnseen.length, availableSlots, remainingQuota);
+  const cappedNewCards = orderedUnseen.slice(0, allowedNew);
 
   return {
     dueReviews: cappedDueReviews,
-    learningCards,
+    learningCards: cappedLearningCards,
     newCards: cappedNewCards,
-    totalAvailable: cappedDueReviews.length + learningCards.length + cappedNewCards.length,
+    totalAvailable: cappedDueReviews.length + cappedLearningCards.length + cappedNewCards.length,
+    totalDuePool: dueReviews.length,
+    totalLearningPool: learningCards.length,
+    totalUnseenPool: unseenWords.length,
   };
 }
+
+/**
+ * Checks whether a word has ever been studied in the SRS system (both past and current session).
+ * A word is considered studied if it has progressed beyond 'new', has been reviewed, or has repetitions/legacy mastery.
+ */
+export function isWordStudied(
+  wordId: string,
+  progress: {
+    srs?: Record<string, SRSCardState>;
+    mastery?: Record<string, { status?: string; lastReviewedAt?: number; correctCount?: number; incorrectCount?: number }>;
+  } | null | undefined
+): boolean {
+  if (!progress) return false;
+  const srsCard = progress.srs?.[wordId];
+  if (srsCard) {
+    if (srsCard.lastReviewedAt > 0) return true;
+    if (srsCard.state !== 'new') return true;
+    if (srsCard.repetitions > 0) return true;
+  }
+  const masteryCard = progress.mastery?.[wordId];
+  if (masteryCard) {
+    if (masteryCard.lastReviewedAt && masteryCard.lastReviewedAt > 0) return true;
+    if (masteryCard.status === 'mastered' || masteryCard.status === 'learning') return true;
+    if ((masteryCard.correctCount || 0) > 0 || (masteryCard.incorrectCount || 0) > 0) return true;
+  }
+  return false;
+}
+
+/**
+ * Returns a Set of all word IDs that have been studied in the SRS system.
+ */
+export function getStudiedWordIds(
+  progress: {
+    srs?: Record<string, SRSCardState>;
+    mastery?: Record<string, { status?: string; lastReviewedAt?: number; correctCount?: number; incorrectCount?: number }>;
+  } | null | undefined
+): Set<string> {
+  const result = new Set<string>();
+  if (!progress) return result;
+  if (progress.srs) {
+    for (const [id, card] of Object.entries(progress.srs)) {
+      if (card.lastReviewedAt > 0 || card.state !== 'new' || card.repetitions > 0) {
+        result.add(id);
+      }
+    }
+  }
+  if (progress.mastery) {
+    for (const [id, m] of Object.entries(progress.mastery)) {
+      if (
+        (m.lastReviewedAt && m.lastReviewedAt > 0) ||
+        m.status === 'mastered' ||
+        m.status === 'learning' ||
+        (m.correctCount || 0) > 0 ||
+        (m.incorrectCount || 0) > 0
+      ) {
+        result.add(id);
+      }
+    }
+  }
+  return result;
+}
+
+/**
+ * Filters a list of Italian words down to only those that have been studied in SRS.
+ */
+export function getStudiedWords(
+  words: ItalianWord[],
+  progress: {
+    srs?: Record<string, SRSCardState>;
+    mastery?: Record<string, { status?: string; lastReviewedAt?: number; correctCount?: number; incorrectCount?: number }>;
+  } | null | undefined
+): ItalianWord[] {
+  const studiedIds = getStudiedWordIds(progress);
+  return words.filter((w) => studiedIds.has(w.id));
+}
+
+
 

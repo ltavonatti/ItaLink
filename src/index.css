@@ -4,29 +4,29 @@
 
 @layer base {
   :root {
-    /* Live Theme Tokens - Light Mode (Lacquer Red & Warm Rice Paper) */
-    --zen-primary: #981701;
-    --zen-surface: #f6f4ee;
-    --zen-surface-container: #ebe7dd;
-    --zen-surface-high: #e0dacd;
+    /* Live Theme Tokens - Light Mode (Mediterranean Azure & Crisp Alabaster) */
+    --zen-primary: #0066cc;
+    --zen-surface: #f8fafc;
+    --zen-surface-container: #f1f5f9;
+    --zen-surface-high: #e2e8f0;
     --zen-surface-lowest: #ffffff;
-    --zen-text: #161d1f;
-    --zen-text-muted: #5c574f;
-    --zen-border: #d4cdc0;
+    --zen-text: #0f172a;
+    --zen-text-muted: #64748b;
+    --zen-border: #e2e8f0;
   }
 
   .dark {
-    /* Live Theme Tokens - Dark Mode (Deep Charcoal & Golden Sun Amber) */
-    --zen-dark-bg: #0a0a0c;
-    --zen-dark-surface: #121316;
-    --zen-dark-surface-high: #1c1d22;
-    --zen-dark-surface-lowest: #000000;
-    --zen-dark-text: #f7f6f2;
-    --zen-dark-text-muted: #bab9b0;
-    --zen-dark-border: #282930;
-    --zen-dark-primary: #df9e12;
-    --zen-dark-on-primary: #0a0a0c;
-    --zen-dark-secondary: #ecb233;
+    /* Live Theme Tokens - Dark Mode (Riviera Midnight & Electric Azure) */
+    --zen-dark-bg: #090d16;
+    --zen-dark-surface: #0f172a;
+    --zen-dark-surface-high: #1e293b;
+    --zen-dark-surface-lowest: #050811;
+    --zen-dark-text: #f8fafc;
+    --zen-dark-text-muted: #94a3b8;
+    --zen-dark-border: #1e293b;
+    --zen-dark-primary: #38bdf8;
+    --zen-dark-on-primary: #090d16;
+    --zen-dark-secondary: #60a5fa;
   }
 
   html, body {
@@ -35,7 +35,7 @@
     min-height: 100vh;
     margin: 0;
     padding: 0;
-    font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+    font-family: 'Plus Jakarta Sans', 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
   }
 
   .dark html, .dark body {
@@ -44,27 +44,29 @@
   }
 }
 
-/* Zen Card Container */
+/* Modern Card Container */
 .zen-card {
   background: var(--zen-surface-lowest, #ffffff);
   border: 1px solid var(--zen-border);
-  box-shadow: 0px 4px 16px rgba(45, 52, 70, 0.04);
+  box-shadow: 0px 4px 20px -2px rgba(15, 23, 42, 0.05), 0px 2px 6px -1px rgba(15, 23, 42, 0.03);
+  border-radius: 1rem;
   transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .dark .zen-card {
-  background: var(--zen-dark-surface, #121316);
-  color: var(--zen-dark-text, #f7f6f2);
-  box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.5);
-  border-color: var(--zen-dark-border, #282930);
+  background: var(--zen-dark-surface, #0f172a);
+  color: var(--zen-dark-text, #f8fafc);
+  box-shadow: 0px 4px 24px -2px rgba(0, 0, 0, 0.5);
+  border-color: var(--zen-dark-border, #1e293b);
+  border-radius: 1rem;
 }
 
 .zen-card:hover {
-  box-shadow: 0px 8px 24px rgba(45, 52, 70, 0.08);
+  box-shadow: 0px 8px 28px -4px rgba(0, 102, 204, 0.12), 0px 4px 10px -2px rgba(15, 23, 42, 0.04);
 }
 
 .dark .zen-card:hover {
-  box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.65);
+  box-shadow: 0px 8px 28px -4px rgba(56, 189, 248, 0.15), 0px 4px 16px -2px rgba(0, 0, 0, 0.6);
 }
 
 /* Custom 3D Flip Card Animation */

@@ -1,0 +1,1050 @@
+{
+  "id": "food-drink",
+  "title": {
+    "en": "Food, Coffee & Trattoria",
+    "zh-CN": "美食、咖啡与餐厅"
+  },
+  "description": {
+    "en": "Authentic bar culture, ordering at trattorias, pasta, wine, and dining etiquette.",
+    "zh-CN": "地道意式咖啡吧文化、餐馆点餐、经典面食披萨、葡萄酒及结账必备。"
+  },
+  "icon": "Utensils",
+  "words": [
+    {
+      "id": "fd-01",
+      "word": "Un caffè",
+      "pinyinHint": "wùn kàf-fè",
+      "phoneticIPA": "/un kafˈfɛ/",
+      "translations": {
+        "en": "An espresso / A coffee",
+        "zh-CN": "一杯浓缩咖啡 (意式默认单份)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "In Italy, asking for 'un caffè' always gets you a single shot of espresso. Double 'ff' is stressed.",
+        "zh-CN": "在意大利只说'un caffè'默认就是一杯浓缩espresso。双写ff需加重。"
+      },
+      "exampleSentence": {
+        "it": "Buongiorno, un caffè al banco, per favore.",
+        "en": "Good morning, an espresso at the bar counter, please.",
+        "zh-CN": "早上好，请在吧台给我来一杯意式浓缩。"
+      },
+      "media": {
+        "image": "/media/images/bg-cafe.jpg",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-02",
+      "word": "Cappuccino",
+      "pinyinHint": "kàp-pù-qī-nuò",
+      "phoneticIPA": "/kapputˈtʃiːno/",
+      "translations": {
+        "en": "Cappuccino",
+        "zh-CN": "卡布奇诺"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Italians only drink cappuccino for breakfast, never after lunch or dinner. Double 'pp' and 'cc' are held.",
+        "zh-CN": "意大利人通常只在早餐喝卡布奇诺，餐后喝会被视为异类。'cc'读拼音q。"
+      },
+      "exampleSentence": {
+        "it": "Prendo un cappuccino e un cornetto alla crema.",
+        "en": "I'll take a cappuccino and a cream croissant.",
+        "zh-CN": "我要一杯卡布奇诺和一个奶油羊角包。"
+      },
+      "media": {
+        "image": "/media/images/tea2.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-03",
+      "word": "Cornetto",
+      "pinyinHint": "kuòr-nèt-tuò",
+      "phoneticIPA": "/korˈnetto/",
+      "translations": {
+        "en": "Croissant (Italian style)",
+        "zh-CN": "意式羊角可颂 (早餐常吃)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Double 'tt' requires a crisp momentary stop before releasing the 'o'.",
+        "zh-CN": "双写tt需要短暂停顿闭气再发出to音，t不送气。"
+      },
+      "exampleSentence": {
+        "it": "Un cornetto vuoto o con la marmellata?",
+        "en": "A plain croissant or with jam?",
+        "zh-CN": "要原味羊角包还是加果酱的？"
+      },
+      "media": {
+        "image": "/media/images/sweets-crepe-teppan.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-04",
+      "word": "Colazione",
+      "pinyinHint": "kuò-là-ziò-nèi",
+      "phoneticIPA": "/kolatˈtsjoːne/",
+      "translations": {
+        "en": "Breakfast",
+        "zh-CN": "早餐"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "'z' before 'io' is pronounced /tts/. 'Fare colazione' means to have breakfast.",
+        "zh-CN": "'zi'读作/ts/，意语常用搭配'fare colazione'表示吃早餐。"
+      },
+      "exampleSentence": {
+        "it": "Facciamo colazione al bar dell'angolo.",
+        "en": "Let's have breakfast at the corner bar.",
+        "zh-CN": "我们去街角的咖啡吧吃早餐吧。"
+      },
+      "media": {
+        "image": "/media/images/food-medamayaki-futago.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-05",
+      "word": "Pranzo",
+      "pinyinHint": "pu-ràn-zuò",
+      "phoneticIPA": "/ˈprandzo/",
+      "translations": {
+        "en": "Lunch",
+        "zh-CN": "午餐"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'z' is voiced /dz/. Lunch is the main traditional meal in Italy around 13:00.",
+        "zh-CN": "'z'发浊音/dz/，意大利正统午餐通常在下午一点左右。"
+      },
+      "exampleSentence": {
+        "it": "Cosa prepari oggi per pranzo?",
+        "en": "What are you making for lunch today?",
+        "zh-CN": "你今天午饭准备做什么？"
+      },
+      "media": {
+        "image": "/media/images/food-obentou-makunouchi.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-06",
+      "word": "Cena",
+      "pinyinHint": "qèi-nà",
+      "phoneticIPA": "/ˈtʃeːna/",
+      "translations": {
+        "en": "Dinner",
+        "zh-CN": "晚餐"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "'Ce' sounds like 'che' (/tʃe/). Dinner in Italy is typically eaten after 20:00.",
+        "zh-CN": "'ce'读音如拼音'qei'，意大利晚餐时间通常在晚上8点以后。"
+      },
+      "exampleSentence": {
+        "it": "A che ora è pronta la cena?",
+        "en": "What time will dinner be ready?",
+        "zh-CN": "晚饭几点能做好？"
+      },
+      "media": {
+        "image": "/media/images/syokuji-woman2.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-07",
+      "word": "Il menù",
+      "pinyinHint": "yīl mèi-nù",
+      "phoneticIPA": "/il meˈnu/",
+      "translations": {
+        "en": "The menu",
+        "zh-CN": "菜单"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Grave accent on 'ù' forces the stress onto the final syllable.",
+        "zh-CN": "末尾带有重音符号'ù'，重音必须落在最后一个音节。"
+      },
+      "exampleSentence": {
+        "it": "Possiamo avere il menù, per favore?",
+        "en": "Can we have the menu, please?",
+        "zh-CN": "能给我们看一下菜单吗，谢谢？"
+      },
+      "media": {
+        "image": "/media/images/book-open-yoko.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-08",
+      "word": "Antipasto",
+      "pinyinHint": "àn-tǐ-pà-sǐ-tuò",
+      "phoneticIPA": "/antiˈpasto/",
+      "translations": {
+        "en": "Appetizer / Starter",
+        "zh-CN": "前菜 / 开胃菜"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Literally 'before the meal' (pasto). T is crisp and unaspirated.",
+        "zh-CN": "字面意思为'餐前'，包括火腿拼盘、烤面包丁等。t不送气。"
+      },
+      "exampleSentence": {
+        "it": "Come antipasto prendiamo un tagliere di salumi.",
+        "en": "As an appetizer, we'll take a cold cuts platter.",
+        "zh-CN": "开胃前菜我们要一份意式腌肉冷盘。"
+      },
+      "media": {
+        "image": "/media/images/cooking-microwave-sara.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-09",
+      "word": "Primo",
+      "pinyinHint": "pu-rī-muò",
+      "phoneticIPA": "/ˈpriːmo/",
+      "translations": {
+        "en": "First course (pasta, risotto, soup)",
+        "zh-CN": "第一道正餐 (主食类：意面、烩饭等)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Light trill on 'pr'. In Italy, pasta is a first course, not a side dish.",
+        "zh-CN": "意大利餐中面条和烩饭是第一道主菜，不是配菜。pr带轻微颤音。"
+      },
+      "exampleSentence": {
+        "it": "Di primo vorrei gli spaghetti alla carbonara.",
+        "en": "For the first course, I would like the carbonara spaghetti.",
+        "zh-CN": "第一道菜我想要卡波纳拉培根蛋酱意面。"
+      },
+      "media": {
+        "image": "/media/images/food-ra-men-tanmen.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-10",
+      "word": "Secondo",
+      "pinyinHint": "sǎi-kuòn-duò",
+      "phoneticIPA": "/seˈkondo/",
+      "translations": {
+        "en": "Second course / Main course (meat, fish)",
+        "zh-CN": "第二道主菜 (荤菜类：肉排、海鲜等)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Stress on 'con'. Usually served with a side dish (contorno).",
+        "zh-CN": "重音在'con'上，一般为肉类或鱼类，不带主食。"
+      },
+      "exampleSentence": {
+        "it": "Per secondo prendo la bistecca ai ferri.",
+        "en": "For the main course, I'll take the grilled steak.",
+        "zh-CN": "第二道主菜我点一份烤牛排。"
+      },
+      "media": {
+        "image": "/media/images/food-niku-katamari-abura.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-11",
+      "word": "Contorno",
+      "pinyinHint": "kuòn-tuòr-nuò",
+      "phoneticIPA": "/konˈtorno/",
+      "translations": {
+        "en": "Side dish (vegetables, salad, potatoes)",
+        "zh-CN": "配菜 (蔬菜、烤土豆或沙拉)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Must be ordered separately from the 'secondo'.",
+        "zh-CN": "在意大利餐厅中配菜需单点，不会自动随主菜附送。"
+      },
+      "exampleSentence": {
+        "it": "Come contorno vorrei le patate al forno.",
+        "en": "As a side dish, I would like roast potatoes.",
+        "zh-CN": "配菜我想要烤土豆。"
+      },
+      "media": {
+        "image": "/media/images/vegetable-yasai-kirai.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-12",
+      "word": "Dolce",
+      "pinyinHint": "duòl-qèi",
+      "phoneticIPA": "/ˈdoltʃe/",
+      "translations": {
+        "en": "Dessert / Sweet",
+        "zh-CN": "甜点 / 甜食"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'ce' sounds like 'che' (/tʃe/). Dark 'l' before consonant.",
+        "zh-CN": "'ce'发拼音qei，结尾甜点必不可少。"
+      },
+      "exampleSentence": {
+        "it": "Desiderate un dolce della casa o della frutta?",
+        "en": "Would you like a homemade dessert or fruit?",
+        "zh-CN": "您想要一份本店特色甜点还是水果？"
+      },
+      "media": {
+        "image": "/media/images/sweets-baketsu-purin.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-13",
+      "word": "Il conto",
+      "pinyinHint": "yīl kuòn-tuò",
+      "phoneticIPA": "/il ˈkonto/",
+      "translations": {
+        "en": "The bill / check",
+        "zh-CN": "账单 / 买单"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Waiters will never bring the bill automatically until you ask for it.",
+        "zh-CN": "在意大利服务员绝不会主动催买单，顾客必须主动示意'il conto'。"
+      },
+      "exampleSentence": {
+        "it": "Scusi, ci porta il conto quando può?",
+        "en": "Excuse me, could you bring us the bill when you can?",
+        "zh-CN": "打扰一下，方便时能给我们拿一下账单吗？"
+      },
+      "media": {
+        "image": "/media/images/shopping-shiharai-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-14",
+      "word": "Il coperto",
+      "pinyinHint": "yīl kuò-pèr-tuò",
+      "phoneticIPA": "/il koˈpɛrto/",
+      "translations": {
+        "en": "Cover charge (table & bread fee)",
+        "zh-CN": "餐位费 / 面包台费 (意大利特色)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Standard fixed fee per person in Italian restaurants covering table setting and bread.",
+        "zh-CN": "意大利餐厅的固定人头费，涵盖餐具摆设和面包。"
+      },
+      "exampleSentence": {
+        "it": "Il coperto costa due euro a persona.",
+        "en": "The cover charge is two euros per person.",
+        "zh-CN": "餐位费是每人两欧元。"
+      },
+      "media": {
+        "image": "/media/images/osara-yamadumi.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-15",
+      "word": "Pizza",
+      "pinyinHint": "pīt-sà",
+      "phoneticIPA": "/ˈpittsa/",
+      "translations": {
+        "en": "Pizza",
+        "zh-CN": "披萨"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Double 'zz' is sharp /tts/. Never pronounced with a soft English /z/.",
+        "zh-CN": "双写zz发清脆的/ts/音，切勿发成英语的浊音z。"
+      },
+      "exampleSentence": {
+        "it": "Stasera andiamo a mangiare una pizza margherita.",
+        "en": "Tonight we're going to eat a Margherita pizza.",
+        "zh-CN": "今晚我们去吃玛格丽特披萨。"
+      },
+      "media": {
+        "image": "/media/images/sweets-crepe-teppan.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-16",
+      "word": "Pasta",
+      "pinyinHint": "pà-sǐ-tà",
+      "phoneticIPA": "/ˈpasta/",
+      "translations": {
+        "en": "Pasta",
+        "zh-CN": "意面 / 通心粉"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Pure 'a' vowels. P and T are unaspirated stops.",
+        "zh-CN": "元音a发音饱满，p和t均不送气。"
+      },
+      "exampleSentence": {
+        "it": "La pasta deve essere cotta al dente.",
+        "en": "Pasta must be cooked al dente (firm to the bite).",
+        "zh-CN": "意面一定要煮得'al dente'(弹牙有嚼劲)。"
+      },
+      "media": {
+        "image": "/media/images/food-ra-men-tanmen.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-17",
+      "word": "Risotto",
+      "pinyinHint": "rǐ-zuòt-tuò",
+      "phoneticIPA": "/riˈzɔtto/",
+      "translations": {
+        "en": "Risotto (Italian rice dish)",
+        "zh-CN": "意式烩饭"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'s' between vowels is voiced /z/. Double 'tt' is held.",
+        "zh-CN": "s在元音间发浊音z，双写tt停顿，典型的意北特色饭。"
+      },
+      "exampleSentence": {
+        "it": "Un risotto ai funghi porcini, squisito!",
+        "en": "A porcini mushroom risotto, delicious!",
+        "zh-CN": "一份牛肝菌烩饭，太美味了！"
+      },
+      "media": {
+        "image": "/media/images/food-tamagokakegohan.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-18",
+      "word": "Vino rosso",
+      "pinyinHint": "vī-nuò ruòs-suò",
+      "phoneticIPA": "/ˈviːno ˈrosso/",
+      "translations": {
+        "en": "Red wine",
+        "zh-CN": "红葡萄酒"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'V' requires teeth on bottom lip. Double 'ss' in 'rosso' is crisp.",
+        "zh-CN": "v咬唇发音，'rosso'中r轻颤，双写ss加重。"
+      },
+      "exampleSentence": {
+        "it": "Vorremmo un calice di vino rosso della casa.",
+        "en": "We would like a glass of house red wine.",
+        "zh-CN": "我们想要一杯本店自酿的红葡萄酒。"
+      },
+      "media": {
+        "image": "/media/images/drink-rum.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-19",
+      "word": "Vino bianco",
+      "pinyinHint": "vī-nuò bǐ-yàn-kuò",
+      "phoneticIPA": "/ˈviːno ˈbjaŋko/",
+      "translations": {
+        "en": "White wine",
+        "zh-CN": "白葡萄酒"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'Bianco' has a clear /bjaŋ/ diphthong and nasalized n before k.",
+        "zh-CN": "'bianco'中的ian为双元音，k发音干脆。"
+      },
+      "exampleSentence": {
+        "it": "Il pesce si abbina bene con il vino bianco.",
+        "en": "Fish pairs well with white wine.",
+        "zh-CN": "鱼类和白葡萄酒很相配。"
+      },
+      "media": {
+        "image": "/media/images/amount-water-glass3.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-20",
+      "word": "Birra",
+      "pinyinHint": "bīr-rà",
+      "phoneticIPA": "/ˈbirra/",
+      "translations": {
+        "en": "Beer",
+        "zh-CN": "啤酒"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Strong double 'rr' trill. Crucial practice word for Italian rolled R.",
+        "zh-CN": "双写rr必须有明显的舌尖大舌颤音，练习颤音的绝佳词汇。"
+      },
+      "exampleSentence": {
+        "it": "Una birra alla spina media, grazie.",
+        "en": "A medium draft beer, please.",
+        "zh-CN": "请给我来一杯中杯生啤酒。"
+      },
+      "media": {
+        "image": "/media/images/himan-beer-para-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-21",
+      "word": "Tè",
+      "pinyinHint": "tè",
+      "phoneticIPA": "/tɛ/",
+      "translations": {
+        "en": "Tea",
+        "zh-CN": "茶"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Grave accent on 'è'. Unaspirated 't', open 'e' sound.",
+        "zh-CN": "开口e，t不送气，与英文tea发音不同。"
+      },
+      "exampleSentence": {
+        "it": "Preferisci un tè al limone o alla pesca?",
+        "en": "Do you prefer lemon or peach iced tea?",
+        "zh-CN": "你想要柠檬茶还是桃子冰茶？"
+      },
+      "media": {
+        "image": "/media/images/tearai3-arau.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-22",
+      "word": "Gelato",
+      "pinyinHint": "jè-là-tuò",
+      "phoneticIPA": "/dʒeˈlaːto/",
+      "translations": {
+        "en": "Gelato / Ice cream",
+        "zh-CN": "意式冰淇淋"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'Ge' sounds like 'je' (/dʒe/). World-famous Italian treat.",
+        "zh-CN": "'ge'发拼音je音，重音在'la'，口感绵密浓郁。"
+      },
+      "exampleSentence": {
+        "it": "Prendiamo un gelato con due gusti: pistacchio e cioccolato.",
+        "en": "Let's get a two-scoop gelato: pistachio and chocolate.",
+        "zh-CN": "我们来一个双拼冰淇淋：开心果加巧克力味。"
+      },
+      "media": {
+        "image": "/media/images/koori-ice.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-23",
+      "word": "Tiramisù",
+      "pinyinHint": "tī-rà-mǐ-sù",
+      "phoneticIPA": "/tiramiˈsu/",
+      "translations": {
+        "en": "Tiramisu",
+        "zh-CN": "提拉米苏 (带我走)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Literally means 'pick me up' (cheer me up). Stress firmly on the final 'ù'.",
+        "zh-CN": "字面意思为'带我走'或'让我振作起来'。重音在末尾ù。"
+      },
+      "exampleSentence": {
+        "it": "Il tiramisù di questa trattoria è favoloso.",
+        "en": "The tiramisu in this trattoria is fabulous.",
+        "zh-CN": "这家餐馆的提拉米苏简直绝了。"
+      },
+      "media": {
+        "image": "/media/images/sweets-chocolate-cake-sachertorte.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-24",
+      "word": "Formaggio",
+      "pinyinHint": "fuòr-màd-jiò",
+      "phoneticIPA": "/forˈmaddʒo/",
+      "translations": {
+        "en": "Cheese",
+        "zh-CN": "奶酪 / 芝士"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Double 'gg' before 'io' sounds like strong /ddʒ/. Stress on 'ma'.",
+        "zh-CN": "双写gg发强硬的浊音/ddʒ/，如帕玛森干酪Parmigiano。"
+      },
+      "exampleSentence": {
+        "it": "Vuoi un po' di formaggio grattugiato sulla pasta?",
+        "en": "Do you want some grated cheese on your pasta?",
+        "zh-CN": "你想在面条上撒一点奶酪粉吗？"
+      },
+      "media": {
+        "image": "/media/images/bread-syokupan-5maigiri.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-25",
+      "word": "Prosciutto",
+      "pinyinHint": "pu-ruò-shùt-tuò",
+      "phoneticIPA": "/proʃˈʃutto/",
+      "translations": {
+        "en": "Ham / Cured ham (prosciutto crudo)",
+        "zh-CN": "火腿 (生火腿或熟火腿)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'sc' before 'i' makes a /ʃ/ ('sh') sound. Double 'tt' is held.",
+        "zh-CN": "'sci'发类似拼音sh的音，'prosciutto crudo'是著名帕尔马生火腿。"
+      },
+      "exampleSentence": {
+        "it": "Prendo un panino con prosciutto crudo e mozzarella.",
+        "en": "I'll have a sandwich with prosciutto crudo and mozzarella.",
+        "zh-CN": "我要一个加生火腿和马苏里拉奶酪的帕尼尼。"
+      },
+      "media": {
+        "image": "/media/images/food-niku-katamari-abura.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-26",
+      "word": "Olio d'oliva",
+      "pinyinHint": "ò-liò d-ò-lī-và",
+      "phoneticIPA": "/ˈɔːljo doˈliːva/",
+      "translations": {
+        "en": "Olive oil",
+        "zh-CN": "橄榄油 (特级初榨)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Apostrophe elides 'di oliva' into smooth 'd'oliva'.",
+        "zh-CN": "di与oliva省音缩写为d'oliva，地中海饮食灵魂。"
+      },
+      "exampleSentence": {
+        "it": "Condisci l'insalata con olio extravergine d'oliva.",
+        "en": "Dress the salad with extra-virgin olive oil.",
+        "zh-CN": "用特级初榨橄榄油拌一下沙拉。"
+      },
+      "media": {
+        "image": "/media/images/hato-olive.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-27",
+      "word": "Sale",
+      "pinyinHint": "sà-lèi",
+      "phoneticIPA": "/ˈsaːle/",
+      "translations": {
+        "en": "Salt",
+        "zh-CN": "盐"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Two syllables: sa-le. Clear open 'a' and closed 'e'.",
+        "zh-CN": "两个音节，不要念成单音节。sa-le。"
+      },
+      "exampleSentence": {
+        "it": "Manca un pizzico di sale nel sugo.",
+        "en": "The sauce is missing a pinch of salt.",
+        "zh-CN": "酱汁里少了一撮盐。"
+      },
+      "media": {
+        "image": "/media/images/cooking-hitotsumami.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-28",
+      "word": "Zucchero",
+      "pinyinHint": "dzùk-kèi-ruò",
+      "phoneticIPA": "/ˈdzukkero/",
+      "translations": {
+        "en": "Sugar",
+        "zh-CN": "糖"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'cch' sounds like hard double /kk/. Stress on first syllable 'zuc'.",
+        "zh-CN": "'cch'发双硬辅音kk，重音在第一个音节zuc上。"
+      },
+      "exampleSentence": {
+        "it": "Bevi il caffè con o senza zucchero?",
+        "en": "Do you drink coffee with or without sugar?",
+        "zh-CN": "你喝咖啡加糖还是不加糖？"
+      },
+      "media": {
+        "image": "/media/images/cooking-hitotsumami-2.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-29",
+      "word": "Forchetta",
+      "pinyinHint": "fuòr-kèt-tà",
+      "phoneticIPA": "/forˈketta/",
+      "translations": {
+        "en": "Fork",
+        "zh-CN": "叉子"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "'ch' is hard /k/. Double 'tt' is stressed.",
+        "zh-CN": "'che'发ke音，双写tt停顿，不送气。"
+      },
+      "exampleSentence": {
+        "it": "Mi è caduta la forchetta, me ne porta un'altra?",
+        "en": "I dropped my fork, could you bring me another?",
+        "zh-CN": "我的叉子掉了，能帮我换一把吗？"
+      },
+      "media": {
+        "image": "/media/images/cooking-mama.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-30",
+      "word": "Coltello",
+      "pinyinHint": "kuòl-tèl-luò",
+      "phoneticIPA": "/kolˈtɛllo/",
+      "translations": {
+        "en": "Knife",
+        "zh-CN": "餐刀 / 刀"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Double 'll' is held against the roof of the mouth.",
+        "zh-CN": "双写ll舌尖抵住上颚延长，t不送气。"
+      },
+      "exampleSentence": {
+        "it": "Questo coltello non taglia molto bene.",
+        "en": "This knife doesn't cut very well.",
+        "zh-CN": "这把餐刀切不太动。"
+      },
+      "media": {
+        "image": "/media/images/cooking-houchou.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-31",
+      "word": "Cucchiaio",
+      "pinyinHint": "kùk-kǐ-yà-iò",
+      "phoneticIPA": "/kukˈkjaːjo/",
+      "translations": {
+        "en": "Spoon",
+        "zh-CN": "勺子 / 汤匙"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Double 'cch' gives a crisp double /kk/ stop before the tripthong /jajo/.",
+        "zh-CN": "'cch'双辅音发硬音k，后续多个元音流畅滑过。"
+      },
+      "exampleSentence": {
+        "it": "Usa il cucchiaio per la minestra.",
+        "en": "Use the spoon for the soup.",
+        "zh-CN": "喝热汤用勺子。"
+      },
+      "media": {
+        "image": "/media/images/amount-gohan-ochawan2.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-32",
+      "word": "Bicchiere",
+      "pinyinHint": "bīk-kǐ-yè-rèi",
+      "phoneticIPA": "/bikˈkjɛːre/",
+      "translations": {
+        "en": "Drinking glass",
+        "zh-CN": "水杯 / 玻璃杯"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Double 'cch' is hard /kk/. Stress on 'e'.",
+        "zh-CN": "'cch'发硬辅音k，重音在'e'上。"
+      },
+      "exampleSentence": {
+        "it": "Posso avere un bicchiere d'acqua naturale?",
+        "en": "May I have a glass of still water?",
+        "zh-CN": "能给我一杯不带气的常温水吗？"
+      },
+      "media": {
+        "image": "/media/images/amount-water-glass2.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-33",
+      "word": "Bottiglia",
+      "pinyinHint": "buòt-tī-lià",
+      "phoneticIPA": "/botˈtiʎʎa/",
+      "translations": {
+        "en": "Bottle",
+        "zh-CN": "瓶子 / 一瓶 (水或酒)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "'gli' produces the palatal lateral sound /ʎ/ (similar to 'million'). Double 'tt'.",
+        "zh-CN": "'gli'发舌侧音/ʎ/，舌面紧贴硬腭，类似汉语拼音'li+y'。"
+      },
+      "exampleSentence": {
+        "it": "Prendiamo una bottiglia d'acqua frizzante.",
+        "en": "Let's get a bottle of sparkling water.",
+        "zh-CN": "我们来一瓶含气矿泉水。"
+      },
+      "media": {
+        "image": "/media/images/baby-jyunyu-honyubin.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-34",
+      "word": "Caldo",
+      "pinyinHint": "kàl-duò",
+      "phoneticIPA": "/ˈkaldo/",
+      "translations": {
+        "en": "Hot / Warm",
+        "zh-CN": "热的 / 烫的 / 温暖的"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "adjective",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Pure 'a'. Don't confuse with Spanish 'caldo' (broth); here it's an adjective for temperature.",
+        "zh-CN": "形容温度高。注意咖啡要喝热的用'caldo'。"
+      },
+      "exampleSentence": {
+        "it": "Attento, il piatto è molto caldo!",
+        "en": "Careful, the plate is very hot!",
+        "zh-CN": "小心，盘子非常烫！"
+      },
+      "media": {
+        "image": "/media/images/cooking-ih-heater.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-35",
+      "word": "Freddo",
+      "pinyinHint": "fu-rèd-duò",
+      "phoneticIPA": "/ˈfreddo/",
+      "translations": {
+        "en": "Cold",
+        "zh-CN": "冷的 / 凉的 / 冰的"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "adjective",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Double 'dd' gives weight to the second syllable.",
+        "zh-CN": "双写dd加重闭音，r带颤音。"
+      },
+      "exampleSentence": {
+        "it": "In estate mi piace bere il tè freddo.",
+        "en": "In summer I like to drink iced tea.",
+        "zh-CN": "夏天我喜欢喝冰茶。"
+      },
+      "media": {
+        "image": "/media/images/fuyu-samui.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-36",
+      "word": "Buono",
+      "pinyinHint": "buò-nuò",
+      "phoneticIPA": "/ˈbwɔːno/",
+      "translations": {
+        "en": "Good / Delicious / Tasty",
+        "zh-CN": "好吃的 / 美味的 / 好的"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "adjective",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Standard compliment for food. Say 'È buonissimo!' for 'It's delicious!'",
+        "zh-CN": "夸赞食物好吃的最常用词，'È buonissimo!'表示太好吃了！"
+      },
+      "exampleSentence": {
+        "it": "Questo risotto è veramente buono!",
+        "en": "This risotto is really good!",
+        "zh-CN": "这盘意式烩饭真好吃！"
+      },
+      "media": {
+        "image": "/media/images/oishii6-woman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-37",
+      "word": "Senza glutine",
+      "pinyinHint": "sèn-zà glù-tǐ-nèi",
+      "phoneticIPA": "/ˈsɛntsa ˈɡluːtine/",
+      "translations": {
+        "en": "Gluten-free",
+        "zh-CN": "无麸质 (意大利用餐常见标志)"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'Senza' has /ts/ for 'z'. Crucial dietary phrase widely accommodated in Italy.",
+        "zh-CN": "意大利对麸质过敏极为友好，几乎所有餐厅均提供无麸质选项。"
+      },
+      "exampleSentence": {
+        "it": "Avete della pasta o pizza senza glutine?",
+        "en": "Do you have gluten-free pasta or pizza?",
+        "zh-CN": "请问有无麸质的意面或披萨吗？"
+      },
+      "media": {
+        "image": "/media/images/bread-syokupan-5maigiri.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-38",
+      "word": "Vorrei ordinare...",
+      "pinyinHint": "vuòr-rǎi òr-dǐ-nà-rèi",
+      "phoneticIPA": "/vorˈrɛi ordiˈnaːre/",
+      "translations": {
+        "en": "I would like to order...",
+        "zh-CN": "我想点餐... / 我想点一个..."
+      },
+      "category": "food-drink",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Polite conditional form of 'volere'. Double 'rr' in 'vorrei'.",
+        "zh-CN": "点餐最礼貌地道的句式，比'voglio'温和客气很多。"
+      },
+      "exampleSentence": {
+        "it": "Vorrei ordinare una pizza quattro formaggi.",
+        "en": "I would like to order a four-cheese pizza.",
+        "zh-CN": "我想点一份四重奶酪披萨。"
+      },
+      "media": {
+        "image": "/media/images/cooking-jitsuen-hanbai.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-39",
+      "word": "Da portare via",
+      "pinyinHint": "dà puòr-tà-rèi vī-à",
+      "phoneticIPA": "/da porˈtaːre ˈviːa/",
+      "translations": {
+        "en": "To take away / To go",
+        "zh-CN": "打包带走 / 外带"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Standard phrase at pizzerias, bars, and fast food counters.",
+        "zh-CN": "打包带走必备短语，买咖啡、披萨外带时告知店家。"
+      },
+      "exampleSentence": {
+        "it": "Due tranci di pizza margherita da portare via, grazie.",
+        "en": "Two slices of Margherita pizza to go, thanks.",
+        "zh-CN": "两角玛格丽特披萨打包带走，谢谢。"
+      },
+      "media": {
+        "image": "/media/images/shopping-bag-rejibukuro.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "fd-40",
+      "word": "Posso pagare con carta?",
+      "pinyinHint": "puòs-suò pà-gà-rèi kuòn kàr-tà",
+      "phoneticIPA": "/ˈpɔsso paˈɡaːre koŋ ˈkarta/",
+      "translations": {
+        "en": "Can I pay by card?",
+        "zh-CN": "可以用银行卡支付吗？"
+      },
+      "category": "food-drink",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Italian businesses are legally required to accept cards (POS).",
+        "zh-CN": "意大利强制普及POS刷卡，买单时询问刷卡必备句子。"
+      },
+      "exampleSentence": {
+        "it": "Non ho contanti, posso pagare con carta?",
+        "en": "I don't have cash, can I pay by card?",
+        "zh-CN": "我没带现金，可以刷卡吗？"
+      },
+      "media": {
+        "image": "/media/images/shopping-shiharai-man.webp",
+        "audio": null
+      }
+    }
+  ]
+}

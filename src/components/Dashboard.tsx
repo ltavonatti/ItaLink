@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import {
   Layers,
-  CheckSquare,
   Gamepad2,
   Sparkles,
   ArrowRight,
@@ -15,13 +14,20 @@ import {
   Brain,
   Clock,
   Zap,
-  RotateCcw
+  RotateCcw,
+  PenLine,
+  Utensils
 } from 'lucide-react';
 import { useTranslation } from '../i18n';
 import { VOCABULARY_PACKS, getAllWords } from '../data/italianVocabulary';
 import { StudyMode } from './Navbar';
 import { storageService, UserStudyProgress } from '../services/storageService';
-import { buildDailyQueue, SRSSettings, DailyQueueBreakdown } from '../services/srsService';
+import {
+  buildDailyQueue,
+  SRSSettings,
+  DailyQueueBreakdown,
+  getWordsForPacks
+} from '../services/srsService';
 import { StudySettingsModal } from './SRS/StudySettingsModal';
 
 interface DashboardProps {
@@ -45,7 +51,6 @@ export const Dashboard: React.FC<DashboardProps> = ({
   // SRS Engine State
   const [progress, setProgress] = useState<UserStudyProgress | null>(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
-  const [srsScope, setSrsScope] = useState<string>('all');
 
   useEffect(() => {
     let isMounted = true;
@@ -59,11 +64,37 @@ export const Dashboard: React.FC<DashboardProps> = ({
     };
   }, [userId]);
 
+  const selectedPackIds = progress?.srsSettings?.selectedPackIds || ['all'];
+
   const srsWords = useMemo(() => {
-    if (srsScope === 'all') return allWords;
-    const pack = VOCABULARY_PACKS.find((p) => p.id === srsScope);
-    return pack ? pack.words : allWords;
-  }, [srsScope, allWords]);
+    return getWordsForPacks(progress?.srsSettings?.selectedPackIds, VOCABULARY_PACKS);
+  }, [progress?.srsSettings?.selectedPackIds]);
+
+  const handleTogglePackSource = async (packId: string) => {
+    if (!progress) return;
+    const currentPacks = progress.srsSettings.selectedPackIds || ['all'];
+    let nextPacks: string[];
+
+    if (packId === 'all') {
+      nextPacks = ['all'];
+    } else {
+      const isAll = currentPacks.includes('all');
+      if (isAll) {
+        nextPacks = [packId];
+      } else if (currentPacks.includes(packId)) {
+        const remaining = currentPacks.filter((id) => id !== packId);
+        nextPacks = remaining.length === 0 ? ['all'] : remaining;
+      } else {
+        const updated = [...currentPacks, packId];
+        nextPacks = updated.length === VOCABULARY_PACKS.length ? ['all'] : updated;
+      }
+    }
+
+    const updated = await storageService.updateSRSSettings(userId, {
+      selectedPackIds: nextPacks,
+    });
+    setProgress({ ...updated });
+  };
 
   const queueBreakdown = useMemo<DailyQueueBreakdown>(() => {
     if (!progress) {
@@ -87,14 +118,28 @@ export const Dashboard: React.FC<DashboardProps> = ({
     setProgress({ ...updated });
   };
 
+  const handleResetDailyQuota = async () => {
+    const updated = await storageService.resetDailySRSQuota(userId);
+    setProgress({ ...updated });
+  };
+
+  const handleResetLearningCards = async () => {
+    const updated = await storageService.resetLearningCards(userId);
+    setProgress({ ...updated });
+  };
+
   const getPackIcon = (packId: string) => {
     switch (packId) {
       case 'greetings-courtesy':
         return <Handshake className="w-5 h-5 text-amber-600 dark:text-amber-400" />;
+      case 'food-drink':
+        return <Utensils className="w-5 h-5 text-orange-600 dark:text-orange-400" />;
       case 'daily-survival':
         return <Compass className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />;
       case 'key-verbs':
         return <Flame className="w-5 h-5 text-rose-600 dark:text-rose-400" />;
+      case 'italian-slang':
+        return <Zap className="w-5 h-5 text-purple-600 dark:text-purple-400" />;
       default:
         return <BookOpen className="w-5 h-5 text-zen-primary dark:text-zen-dark-primary" />;
     }
@@ -162,7 +207,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
         </div>
       </section>
 
-      {/* 2. Today's Spaced Repetition (Anki SM-2) Hub */}
+      {/* 2. Today's Spaced Repetition (SRS) Hub */}
       <section className="relative overflow-hidden rounded-2xl sm:rounded-3xl bg-gradient-to-br from-indigo-500/10 via-zen-surface-lowest to-purple-500/10 dark:from-indigo-950/40 dark:via-zen-dark-surface dark:to-purple-950/20 p-5 sm:p-7 border border-indigo-500/30 dark:border-indigo-500/40 shadow-zen-md">
         <div className="relative z-10 space-y-5">
           {/* Header Row */}
@@ -180,32 +225,95 @@ export const Dashboard: React.FC<DashboardProps> = ({
               </p>
             </div>
 
-            {/* Scope Filter & Settings Action */}
-            <div className="flex items-center gap-2 self-start sm:self-center">
-              <div className="relative">
-                <select
-                  value={srsScope}
-                  onChange={(e) => setSrsScope(e.target.value)}
-                  className="text-xs font-bold py-1.5 pl-3 pr-7 rounded-xl bg-zen-surface-lowest dark:bg-zen-dark-surface border border-zen-border/70 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text cursor-pointer hover:border-indigo-400 focus:outline-none focus:ring-2 focus:ring-indigo-400/20"
-                >
-                  <option value="all">{t('common.allPacks')} ({allWords.length})</option>
-                  {VOCABULARY_PACKS.map((pack) => (
-                    <option key={pack.id} value={pack.id}>
-                      {pack.title[currentLang]} ({pack.words.length})
-                    </option>
-                  ))}
-                </select>
-              </div>
-
+            {/* Prominent Daily Goal Settings Button */}
+            <div className="flex flex-wrap items-center gap-2.5 self-start sm:self-center">
               <button
                 type="button"
                 onClick={() => setIsSettingsOpen(true)}
-                className="p-2 rounded-xl bg-zen-surface-lowest dark:bg-zen-dark-surface border border-zen-border/70 dark:border-zen-dark-border text-zen-text hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors shadow-sm cursor-pointer"
+                className="inline-flex items-center gap-2 px-3.5 py-2 rounded-xl bg-indigo-50 hover:bg-indigo-100 dark:bg-indigo-950/60 dark:hover:bg-indigo-900/60 border-2 border-indigo-300 dark:border-indigo-700 text-indigo-700 dark:text-indigo-300 transition-all shadow-sm cursor-pointer hover:scale-102 active:scale-98"
                 title={t('srs.settingsTitle')}
               >
-                <Sliders className="w-4 h-4" />
+                <Sliders className="w-4 h-4 text-indigo-600 dark:text-indigo-400 stroke-[2.5]" />
+                <span className="text-xs font-extrabold tracking-tight">
+                  🎯 {t('srs.dailyGoal')}: <span className="underline decoration-indigo-400 decoration-2 underline-offset-2">{progress?.srsSettings.newCardsPerDay || 15} {t('srs.wordsUnit')}</span> · {t('srs.editGoal')}
+                </span>
               </button>
             </div>
+          </div>
+
+          {/* Study Source Packs Filter (All Packs vs Selected Packs) */}
+          <div className="p-3.5 sm:p-4 rounded-2xl bg-zen-surface-lowest/80 dark:bg-zen-dark-surface/80 border border-indigo-500/20 space-y-2.5">
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <span className="text-xs font-bold text-zen-text dark:text-zen-dark-text flex items-center gap-1.5">
+                <Layers className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
+                <span>{t('srs.packFilterTitle')}</span>
+              </span>
+              <span className="text-[11px] font-mono text-zen-text-muted">
+                {selectedPackIds.includes('all')
+                  ? (currentLang === 'zh-CN' ? '全部卡包 · 随机混合' : 'All Packs · Random Mix')
+                  : selectedPackIds.length === 1
+                  ? (currentLang === 'zh-CN' ? '单卡包专注' : 'Single Pack Focus')
+                  : `${selectedPackIds.length} ${currentLang === 'zh-CN' ? '个卡包混合' : 'Packs Mixed'}`}
+              </span>
+            </div>
+
+            {/* Selection Chips */}
+            <div className="flex flex-wrap items-center gap-2">
+              {/* All Packs Chip */}
+              <button
+                type="button"
+                onClick={() => handleTogglePackSource('all')}
+                className={`py-1.5 px-3 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 cursor-pointer ${
+                  selectedPackIds.includes('all')
+                    ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
+                    : 'bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border-zen-border/40 text-zen-text-muted hover:text-zen-text hover:border-zen-border'
+                }`}
+              >
+                <span>🎲</span>
+                <span>{t('srs.allPacksRandom')}</span>
+                <span className="font-mono text-[10px] opacity-80">({allWords.length})</span>
+              </button>
+
+              {/* Individual Pack Chips */}
+              {VOCABULARY_PACKS.map((pack) => {
+                const isChecked = !selectedPackIds.includes('all') && selectedPackIds.includes(pack.id);
+                const packName = pack.title[currentLang as 'en' | 'zh-CN'] || pack.title.en;
+
+                return (
+                  <button
+                    key={pack.id}
+                    type="button"
+                    onClick={() => handleTogglePackSource(pack.id)}
+                    className={`py-1.5 px-3 rounded-xl text-xs font-bold border transition-all flex items-center gap-1.5 cursor-pointer ${
+                      isChecked
+                        ? 'bg-indigo-600 text-white border-indigo-600 shadow-sm'
+                        : 'bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border-zen-border/40 text-zen-text-muted hover:text-zen-text hover:border-zen-border'
+                    }`}
+                  >
+                    <span>{pack.icon || '📖'}</span>
+                    <span>{packName}</span>
+                    <span className="font-mono text-[10px] opacity-80">({pack.words.length})</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Dynamic Explanatory Hint */}
+            <p className="text-[11px] text-zen-text-muted flex items-center gap-1.5">
+              <span className="inline-block w-1.5 h-1.5 rounded-full bg-indigo-500" />
+              <span>
+                {selectedPackIds.includes('all')
+                  ? t('srs.mixAllPacksHint')
+                  : selectedPackIds.length === 1
+                  ? t('srs.singlePackHint', {
+                      pack:
+                        VOCABULARY_PACKS.find((p) => p.id === selectedPackIds[0])?.title[
+                          currentLang as 'en' | 'zh-CN'
+                        ] || selectedPackIds[0],
+                    })
+                  : t('srs.multiPackHint', { count: selectedPackIds.length })}
+              </span>
+            </p>
           </div>
 
           {/* Metric Badges Grid: Due / Learn / New */}
@@ -220,12 +328,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <span className="text-2xl sm:text-3xl font-black font-mono">
                   {queueBreakdown.dueReviews.length}
                 </span>
-                <span className="text-[10px] sm:text-xs opacity-75">
-                  / {progress?.srsSettings.maxReviewsPerDay || 100}
-                </span>
               </div>
               <span className="text-[10px] text-zen-text-muted mt-1 hidden sm:block">
-                {currentLang === 'zh-CN' ? '按记忆曲线已到期卡片' : 'Memory interval overdue'}
+                {currentLang === 'zh-CN' ? '到期复习卡片' : 'Due reviews'}
               </span>
             </div>
 
@@ -239,9 +344,15 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <span className="text-2xl sm:text-3xl font-black font-mono">
                   {queueBreakdown.learningCards.length}
                 </span>
+                {queueBreakdown.totalLearningPool !== undefined &&
+                  queueBreakdown.totalLearningPool > queueBreakdown.learningCards.length && (
+                    <span className="text-xs font-mono font-medium opacity-60" title={`Backlog: ${queueBreakdown.totalLearningPool} words in learning pool`}>
+                      /{queueBreakdown.totalLearningPool}
+                    </span>
+                  )}
               </div>
               <span className="text-[10px] text-zen-text-muted mt-1 hidden sm:block">
-                {currentLang === 'zh-CN' ? '1分/10分日内巩固阶段' : '1m/10m intraday steps'}
+                {currentLang === 'zh-CN' ? '巩固中卡片' : 'Learning steps'}
               </span>
             </div>
 
@@ -255,12 +366,9 @@ export const Dashboard: React.FC<DashboardProps> = ({
                 <span className="text-2xl sm:text-3xl font-black font-mono">
                   {queueBreakdown.newCards.length}
                 </span>
-                <span className="text-[10px] sm:text-xs opacity-75">
-                  / {progress?.srsSettings.newCardsPerDay || 15}
-                </span>
               </div>
               <span className="text-[10px] text-zen-text-muted mt-1 hidden sm:block">
-                {currentLang === 'zh-CN' ? '今日新词学习配额' : 'Today intake quota'}
+                {currentLang === 'zh-CN' ? '今日新学单词' : 'New intake words'}
               </span>
             </div>
           </div>
@@ -277,7 +385,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
 
               <button
                 type="button"
-                onClick={() => onStartSRSSession(srsScope)}
+                onClick={() => onStartSRSSession('daily')}
                 className="w-full sm:w-auto px-6 py-3 rounded-2xl bg-gradient-to-r from-indigo-600 via-zen-primary to-purple-600 hover:opacity-95 text-white font-bold text-sm shadow-zen-md flex items-center justify-center gap-2 cursor-pointer transition-all active:scale-95"
               >
                 <span>{t('srs.startDaily')} ({queueBreakdown.totalAvailable})</span>
@@ -325,7 +433,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
           </span>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-3 sm:gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-6">
           {VOCABULARY_PACKS.map((pack) => {
             const isSelected = selectedPackId === pack.id;
             return (
@@ -345,6 +453,11 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       {getPackIcon(pack.id)}
                     </div>
                     <div className="flex items-center gap-2">
+                      {pack.id === 'italian-slang' && (
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30">
+                          {t('packs.slangBadge') || '18+ Slang'}
+                        </span>
+                      )}
                       <span className="text-xs font-mono font-bold px-2 py-0.5 rounded-full bg-zen-surface-container dark:bg-zen-dark-surface-high text-zen-text-muted dark:text-zen-dark-text-muted">
                         {t('packs.wordsCount', { count: pack.words.length })}
                       </span>
@@ -381,6 +494,34 @@ export const Dashboard: React.FC<DashboardProps> = ({
                       </span>
                     ))}
                   </div>
+                </div>
+
+                {/* Pack Daily SRS Inclusion Status */}
+                <div className="mt-3 pt-3 border-t border-zen-border/30 dark:border-zen-dark-border/40 flex items-center justify-between text-xs">
+                  <span className="text-[11px] text-zen-text-muted">
+                    {t('srs.studySource')}:
+                  </span>
+                  <button
+                    type="button"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleTogglePackSource(pack.id);
+                    }}
+                    className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-lg text-[11px] font-bold border transition-all cursor-pointer ${
+                      selectedPackIds.includes('all') || selectedPackIds.includes(pack.id)
+                        ? 'bg-indigo-50 dark:bg-indigo-950/60 text-indigo-600 dark:text-indigo-400 border-indigo-200 dark:border-indigo-800'
+                        : 'bg-zen-surface-container/40 dark:bg-zen-dark-surface-high/40 text-zen-text-muted border-zen-border/40 hover:text-zen-text'
+                    }`}
+                  >
+                    <span>{selectedPackIds.includes('all') || selectedPackIds.includes(pack.id) ? '✓' : '+'}</span>
+                    <span>
+                      {selectedPackIds.includes('all')
+                        ? (currentLang === 'zh-CN' ? '全部卡包已包含' : 'In All Packs Mix')
+                        : selectedPackIds.includes(pack.id)
+                        ? (currentLang === 'zh-CN' ? '已选入每日学习' : 'Included in Daily')
+                        : (currentLang === 'zh-CN' ? '选入每日学习' : 'Include in Daily')}
+                    </span>
+                  </button>
                 </div>
               </div>
             );
@@ -431,37 +572,7 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </div>
           </div>
 
-          {/* Mode 2: Testing Suite */}
-          <div
-            onClick={() => onSelectMode('quiz')}
-            className="group cursor-pointer rounded-2xl bg-zen-surface-lowest dark:bg-zen-dark-surface p-4 sm:p-6 border border-zen-border/60 dark:border-zen-dark-border hover:border-zen-primary dark:hover:border-zen-dark-primary shadow-zen-sm hover:shadow-zen-md transition-all duration-200 flex flex-col justify-between"
-          >
-            <div>
-              <div className="flex items-center justify-between mb-3 sm:mb-4">
-                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center">
-                  <CheckSquare className="w-5 h-5 sm:w-6 sm:h-6" />
-                </div>
-                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400">
-                  {t('dashboard.modes.quiz.nativeTitle')}
-                </span>
-              </div>
-
-              <h3 className="text-lg sm:text-xl font-headline font-bold text-zen-text dark:text-zen-dark-text group-hover:text-zen-primary dark:group-hover:text-zen-dark-primary transition-colors">
-                {t('dashboard.modes.quiz.title')}
-              </h3>
-
-              <p className="text-xs sm:text-sm text-zen-text-muted dark:text-zen-dark-text-muted mt-1.5 sm:mt-2 leading-relaxed">
-                {t('dashboard.modes.quiz.desc')}
-              </p>
-            </div>
-
-            <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-zen-border/40 dark:border-zen-dark-border flex items-center justify-between text-zen-primary dark:text-zen-dark-primary font-bold text-xs sm:text-sm">
-              <span>{t('dashboard.modes.quiz.action')}</span>
-              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-            </div>
-          </div>
-
-          {/* Mode 3: Falling Words Arcade */}
+          {/* Mode 2: Falling Words Arcade */}
           <div
             onClick={() => onSelectMode('fallingWords')}
             className="group cursor-pointer rounded-2xl bg-zen-surface-lowest dark:bg-zen-dark-surface p-4 sm:p-6 border border-zen-border/60 dark:border-zen-dark-border hover:border-zen-primary dark:hover:border-zen-dark-primary shadow-zen-sm hover:shadow-zen-md transition-all duration-200 flex flex-col justify-between"
@@ -491,6 +602,39 @@ export const Dashboard: React.FC<DashboardProps> = ({
             </div>
           </div>
 
+          {/* Mode 3: Word Forge (Coming Soon) */}
+          <div
+            onClick={() => onSelectMode('wordFill')}
+            className="group cursor-pointer rounded-2xl bg-zen-surface-lowest dark:bg-zen-dark-surface p-4 sm:p-6 border border-zen-border/60 dark:border-zen-dark-border hover:border-purple-500 dark:hover:border-purple-400 shadow-zen-sm hover:shadow-zen-md transition-all duration-200 flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center justify-between mb-3 sm:mb-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl bg-purple-500/10 dark:bg-purple-500/20 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                  <PenLine className="w-5 h-5 sm:w-6 sm:h-6" />
+                </div>
+                <span className="text-[11px] sm:text-xs font-mono font-bold uppercase px-2 py-0.5 rounded-full bg-purple-500/10 text-purple-600 dark:text-purple-400">
+                  {t('dashboard.modes.wordFill.nativeTitle')}
+                </span>
+              </div>
+
+              <h3 className="text-lg sm:text-xl font-headline font-bold text-zen-text dark:text-zen-dark-text group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                {t('dashboard.modes.wordFill.title')}
+              </h3>
+
+              <p className="text-xs sm:text-sm text-zen-text-muted dark:text-zen-dark-text-muted mt-1.5 sm:mt-2 leading-relaxed">
+                {t('dashboard.modes.wordFill.desc')}
+              </p>
+            </div>
+
+            <div className="mt-4 sm:mt-6 pt-3 sm:pt-4 border-t border-zen-border/40 dark:border-zen-dark-border flex items-center justify-between text-purple-600 dark:text-purple-400 font-bold text-xs sm:text-sm">
+              <span className="inline-flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-500 animate-ping" />
+                <span>{t('dashboard.modes.wordFill.action')}</span>
+              </span>
+              <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+
         </div>
       </section>
 
@@ -516,6 +660,8 @@ export const Dashboard: React.FC<DashboardProps> = ({
           onClose={() => setIsSettingsOpen(false)}
           settings={progress.srsSettings}
           onSave={handleSaveSettings}
+          onResetDailyQuota={handleResetDailyQuota}
+          onResetLearningCards={handleResetLearningCards}
         />
       )}
 

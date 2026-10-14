@@ -1,12 +1,12 @@
 {
   "id": "daily-survival",
   "title": {
-    "en": "Daily Survival",
-    "zh-CN": "日常生活与生存应急"
+    "en": "Daily Survival & City Life",
+    "zh-CN": "日常生存与城市生活"
   },
   "description": {
-    "en": "Vital survival vocabulary for navigation, dining, transactions, and seeking help.",
-    "zh-CN": "涵盖问路、点餐、支付、求助等意大利旅行或生活必备生存词汇。"
+    "en": "Navigating cities, public transit, hotels, directions, shopping, and emergencies.",
+    "zh-CN": "城市问路出行、公交地铁、酒店入住、购物结账及应急求救实用指南。"
   },
   "icon": "Compass",
   "words": [
@@ -31,8 +31,10 @@
         "zh-CN": "是的，我准备好了。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/mark-maru.webp",
+        "audio": "/media/audio/it_ds-01_si.mp3",
+        "exampleAudio": "/media/audio/it_ds-01_si_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -56,8 +58,10 @@
         "zh-CN": "不用了，谢谢，这样就好。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/animal-quiz-inu-batsu.webp",
+        "audio": "/media/audio/it_ds-02_no.mp3",
+        "exampleAudio": "/media/audio/it_ds-02_no_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -81,8 +85,10 @@
         "zh-CN": "火车站建在哪里？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/boy-question.webp",
+        "audio": "/media/audio/it_ds-03_dove.mp3",
+        "exampleAudio": "/media/audio/it_ds-03_dove_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -108,8 +114,10 @@
         "zh-CN": "请问洗手间在哪里？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/toilet-gaman-boy.webp",
+        "audio": "/media/audio/it_ds-04_il_bagno.mp3",
+        "exampleAudio": "/media/audio/it_ds-04_il_bagno_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -133,8 +141,10 @@
         "zh-CN": "这件毛衣多少钱？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/money-10.webp",
+        "audio": "/media/audio/it_ds-05_quanto_costa.mp3",
+        "exampleAudio": "/media/audio/it_ds-05_quanto_costa_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -158,8 +168,10 @@
         "zh-CN": "我们可以买单吗，谢谢？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/business-ojigi-man.webp",
+        "audio": "/media/audio/it_ds-06_il_conto_per_favore.mp3",
+        "exampleAudio": "/media/audio/it_ds-06_il_conto_per_favore_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -183,8 +195,10 @@
         "zh-CN": "救命！我的护照丢了！"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/gake-tasukeru.webp",
+        "audio": "/media/audio/it_ds-07_aiuto.mp3",
+        "exampleAudio": "/media/audio/it_ds-07_aiuto_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -208,8 +222,10 @@
         "zh-CN": "不好意思，我意大利语听不太懂。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/study-wakaranai-boy.webp",
+        "audio": "/media/audio/it_ds-08_non_capisco.mp3",
+        "exampleAudio": "/media/audio/it_ds-08_non_capisco_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -233,8 +249,10 @@
         "zh-CN": "先生打扰一下，请问您会说英语吗？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/english-speaking.webp",
+        "audio": "/media/audio/it_ds-09_parla_inglese.mp3",
+        "exampleAudio": "/media/audio/it_ds-09_parla_inglese_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -260,8 +278,10 @@
         "zh-CN": "请来一瓶不带气的水，谢谢。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/amount-water-glass2.webp",
+        "audio": "/media/audio/it_ds-10_acqua.mp3",
+        "exampleAudio": "/media/audio/it_ds-10_acqua_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -287,8 +307,10 @@
         "zh-CN": "新鲜面包在桌上。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/pan-bread-set.webp",
+        "audio": "/media/audio/it_ds-11_pane.mp3",
+        "exampleAudio": "/media/audio/it_ds-11_pane_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -314,7 +336,731 @@
         "zh-CN": "我们去吧台喝杯咖啡吗？"
       },
       "media": {
-        "image": null,
+        "image": "/media/images/bg-cafe.jpg",
+        "audio": "/media/audio/it_ds-12_caffe.mp3",
+        "exampleAudio": "/media/audio/it_ds-12_caffe_example.mp3",
+        "voiceSpeaker": "Diego"
+      }
+    },
+    {
+      "id": "ds-13",
+      "word": "Dove siamo?",
+      "pinyinHint": "duò-vèi sǐ-yà-muò",
+      "phoneticIPA": "/ˈdove ˈsjaːmo/",
+      "translations": {
+        "en": "Where are we?",
+        "zh-CN": "我们在哪里？"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'Dove' has voiced /v/. Essential orientation question when navigating.",
+        "zh-CN": "迷路时确认位置的关键问句，'siamo'重音在sia。"
+      },
+      "exampleSentence": {
+        "it": "Scusa, puoi dirmi dove siamo su questa mappa?",
+        "en": "Excuse me, can you tell me where we are on this map?",
+        "zh-CN": "打扰一下，能在地图上指一下我们在哪吗？"
+      },
+      "media": {
+        "image": "/media/images/car-gps.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-14",
+      "word": "A destra",
+      "pinyinHint": "à dèi-sǐ-tǐ-rà",
+      "phoneticIPA": "/a ˈdɛstra/",
+      "translations": {
+        "en": "To the right / On the right",
+        "zh-CN": "向右 / 在右边"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'s' before 't' is voiceless. T is unaspirated stop.",
+        "zh-CN": "指示方向高频词，t不送气，r轻颤。"
+      },
+      "exampleSentence": {
+        "it": "Gira a destra dopo il semaforo.",
+        "en": "Turn right after the traffic light.",
+        "zh-CN": "过了红绿灯后右转。"
+      },
+      "media": {
+        "image": "/media/images/yajirushi-kururi-right.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-15",
+      "word": "A sinistra",
+      "pinyinHint": "à sǐ-nī-sǐ-tǐ-rà",
+      "phoneticIPA": "/a siˈnistra/",
+      "translations": {
+        "en": "To the left / On the left",
+        "zh-CN": "向左 / 在左边"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Stress on 'ni'. Pure 'i' vowels.",
+        "zh-CN": "重音在'nis'上，i元音清晰。"
+      },
+      "exampleSentence": {
+        "it": "La farmacia si trova subito a sinistra.",
+        "en": "The pharmacy is immediately on the left.",
+        "zh-CN": "药房就在左手边。"
+      },
+      "media": {
+        "image": "/media/images/yajirushi12-left-right.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-16",
+      "word": "Sempre dritto",
+      "pinyinHint": "sèm-pu-rèi du-rīt-tuò",
+      "phoneticIPA": "/ˈsɛmpre ˈdritto/",
+      "translations": {
+        "en": "Straight ahead / Keep going straight",
+        "zh-CN": "一直往前走 / 直行"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Double 'tt' in 'dritto' is held. Most common walking direction in Italy.",
+        "zh-CN": "'dritto'双写tt停顿闭气，问路时最常听到的指示。"
+      },
+      "exampleSentence": {
+        "it": "Vai sempre dritto per duecento metri.",
+        "en": "Go straight ahead for two hundred meters.",
+        "zh-CN": "一直直走两百米就到了。"
+      },
+      "media": {
+        "image": "/media/images/yajirushi-fast.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-17",
+      "word": "La stazione",
+      "pinyinHint": "là sǐ-tà-ziò-nèi",
+      "phoneticIPA": "/la statˈtsjoːne/",
+      "translations": {
+        "en": "The train station",
+        "zh-CN": "火车站"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "'z' before 'io' is /tts/. 'Stazione Centrale' is Central Station.",
+        "zh-CN": "'zi'发/ts/，各大城市主枢纽通常叫Stazione Centrale。"
+      },
+      "exampleSentence": {
+        "it": "Dov'è la stazione ferroviaria più vicina?",
+        "en": "Where is the nearest railway station?",
+        "zh-CN": "最近的火车站怎么走？"
+      },
+      "media": {
+        "image": "/media/images/shopping-mall-ekinaka.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-18",
+      "word": "Il treno",
+      "pinyinHint": "yīl tu-rè-nuò",
+      "phoneticIPA": "/il ˈtrɛːno/",
+      "translations": {
+        "en": "The train",
+        "zh-CN": "火车 / 列车"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'tr' requires a light alveolar flap/trill. Stress on 'tre'.",
+        "zh-CN": "'tr'舌尖轻弹，重音在'tre'。"
+      },
+      "exampleSentence": {
+        "it": "Il treno per Firenze parte dal binario 4.",
+        "en": "The train to Florence departs from platform 4.",
+        "zh-CN": "开往佛罗伦萨的列车在4站台发车。"
+      },
+      "media": {
+        "image": "/media/images/train-4retsu-jousya.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-19",
+      "word": "La metro",
+      "pinyinHint": "là mè-tu-ruò",
+      "phoneticIPA": "/la ˈmɛːtro/",
+      "translations": {
+        "en": "The subway / metro",
+        "zh-CN": "地铁 (地下铁)"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Short for 'metropolitana', feminine despite ending in 'o'.",
+        "zh-CN": "是metropolitana的缩写，虽然以o结尾但属于阴性名词。"
+      },
+      "exampleSentence": {
+        "it": "Prendiamo la metro linea rossa fino al Duomo.",
+        "en": "Let's take the red metro line to the Duomo.",
+        "zh-CN": "我们坐地铁红线去大教堂广场。"
+      },
+      "media": {
+        "image": "/media/images/train-homedoor-smartphone-otosu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-20",
+      "word": "L'autobus",
+      "pinyinHint": "l-àu-tuò-bùs",
+      "phoneticIPA": "/ˈautobus/",
+      "translations": {
+        "en": "The bus",
+        "zh-CN": "公交车 / 巴士"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Stress on the first syllable 'au'. Ends in consonant.",
+        "zh-CN": "重音在第一音节'au'上，以辅音s结尾的外来借词。"
+      },
+      "exampleSentence": {
+        "it": "Quale autobus va verso il centro?",
+        "en": "Which bus goes towards the city center?",
+        "zh-CN": "哪一路公交车去市中心？"
+      },
+      "media": {
+        "image": "/media/images/car-side.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-21",
+      "word": "Il biglietto",
+      "pinyinHint": "yīl bī-lièt-tuò",
+      "phoneticIPA": "/il biʎˈʎetto/",
+      "translations": {
+        "en": "The ticket",
+        "zh-CN": "车票 / 门票"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'gli' sounds like /ʎ/ (million). Double 'tt' is held. Must validate on buses!",
+        "zh-CN": "'gli'发舌侧音/ʎ/，意国乘车必须记得在打票机上打票(convalidare)。"
+      },
+      "exampleSentence": {
+        "it": "Due biglietti per la metropolitana, per favore.",
+        "en": "Two subway tickets, please.",
+        "zh-CN": "请给我两张地铁票。"
+      },
+      "media": {
+        "image": "/media/images/tosyokan-syokuin-barcode.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-22",
+      "word": "L'aeroporto",
+      "pinyinHint": "l-à-è-ruò-puòr-tuò",
+      "phoneticIPA": "/laeroˈpɔrto/",
+      "translations": {
+        "en": "The airport",
+        "zh-CN": "机场"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Four distinct vowels: a-e-ro-por-to. Smooth elision with 'L''.",
+        "zh-CN": "a-e双元音清晰分明，重音在por上。"
+      },
+      "exampleSentence": {
+        "it": "Quanto ci vuole per arrivare all'aeroporto?",
+        "en": "How long does it take to get to the airport?",
+        "zh-CN": "去机场需要多长时间？"
+      },
+      "media": {
+        "image": "/media/images/kuukou.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-23",
+      "word": "Il taxi",
+      "pinyinHint": "yīl tàk-sī",
+      "phoneticIPA": "/il ˈtaksi/",
+      "translations": {
+        "en": "The taxi",
+        "zh-CN": "出租车 / 的士"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "In Italy, taxis cannot be hailed on the street; you must call or go to a taxi stand.",
+        "zh-CN": "在意大利无法在路边随手招的士，必须去指定出租车站排队或电话预约。"
+      },
+      "exampleSentence": {
+        "it": "C'è una fermata dei taxi qui vicino?",
+        "en": "Is there a taxi stand nearby?",
+        "zh-CN": "这附近有出租车站吗？"
+      },
+      "media": {
+        "image": "/media/images/car-taxi-free.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-24",
+      "word": "La farmacia",
+      "pinyinHint": "là fār-mà-qī-à",
+      "phoneticIPA": "/la farmaˈtʃiːa/",
+      "translations": {
+        "en": "The pharmacy",
+        "zh-CN": "药房 / 药店 (绿十字标志)"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "'ci' is /tʃi/. Stress on 'ci' (farma-CI-a). Marked by green flashing crosses.",
+        "zh-CN": "'ci'发拼音q，重音在'ci'上，意大利街头绿色十字发光招牌。"
+      },
+      "exampleSentence": {
+        "it": "Ho mal di testa, cerco una farmacia aperta.",
+        "en": "I have a headache, I'm looking for an open pharmacy.",
+        "zh-CN": "我头痛，在找一家开门的药店。"
+      },
+      "media": {
+        "image": "/media/images/medical-medicine.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-25",
+      "word": "L'ospedale",
+      "pinyinHint": "l-ò-sǐ-pèi-dà-lèi",
+      "phoneticIPA": "/lospeˈdaːle/",
+      "translations": {
+        "en": "The hospital",
+        "zh-CN": "医院"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'H' in Italian is always silent; here spelled directly with 'o'.",
+        "zh-CN": "注意意语中'ospedale'没有开头的h，重音在'da'上。"
+      },
+      "exampleSentence": {
+        "it": "Dobbiamo andare subito al pronto soccorso dell'ospedale.",
+        "en": "We must go immediately to the hospital emergency room.",
+        "zh-CN": "我们必须马上赶去医院急诊室。"
+      },
+      "media": {
+        "image": "/media/images/dai-byouin2.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-26",
+      "word": "La polizia",
+      "pinyinHint": "là può-lī-tsī-à",
+      "phoneticIPA": "/la politˈtsiːa/",
+      "translations": {
+        "en": "The police",
+        "zh-CN": "警察 / 警局 (112 / 113)"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Double /tts/ sound for 'z'. Stress on 'zi'.",
+        "zh-CN": "'zi'发强/ts/音，重音在zi。紧急求助拨打112或113。"
+      },
+      "exampleSentence": {
+        "it": "Chiamate la polizia, mi hanno rubato lo zaino!",
+        "en": "Call the police, they stole my backpack!",
+        "zh-CN": "快报警，有人偷了我的双肩包！"
+      },
+      "media": {
+        "image": "/media/images/police-man1-young.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-27",
+      "word": "Il supermercato",
+      "pinyinHint": "yīl sù-pèr-mèr-kà-tuò",
+      "phoneticIPA": "/il supermerˈkaːto/",
+      "translations": {
+        "en": "The supermarket",
+        "zh-CN": "超市"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Compound word: super + mercato. Stress on 'ka'.",
+        "zh-CN": "买日常用品和水果的好去处，重音在'ca'。"
+      },
+      "exampleSentence": {
+        "it": "Vado al supermercato a fare la spesa.",
+        "en": "I'm going to the supermarket to buy groceries.",
+        "zh-CN": "我去趟超市买菜买生活用品。"
+      },
+      "media": {
+        "image": "/media/images/shopping-supermarket-woman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-28",
+      "word": "L'hotel",
+      "pinyinHint": "l-ò-tèl",
+      "phoneticIPA": "/loˈtɛl/",
+      "translations": {
+        "en": "The hotel",
+        "zh-CN": "酒店 / 宾馆"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "The initial 'h' is completely silent in Italian: pronounced /oˈtɛl/.",
+        "zh-CN": "意语中字母h永远不发音，直接读'o-tel'，重音在tel。"
+      },
+      "exampleSentence": {
+        "it": "Il nostro hotel è vicino al Colosseo.",
+        "en": "Our hotel is close to the Colosseum.",
+        "zh-CN": "我们的酒店离罗马斗兽场很近。"
+      },
+      "media": {
+        "image": "/media/images/hotel-morning-call.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-29",
+      "word": "La camera",
+      "pinyinHint": "là kà-mèi-rà",
+      "phoneticIPA": "/la ˈkaːmera/",
+      "translations": {
+        "en": "The hotel room / bedroom",
+        "zh-CN": "房间 / 客房"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Stress on first syllable 'ca'. Not to be confused with English 'camera' (camera is 'fotocamera').",
+        "zh-CN": "重音在第一音节ca，指房间；照相机意语叫fotocamera。"
+      },
+      "exampleSentence": {
+        "it": "Ho una prenotazione per una camera matrimoniale.",
+        "en": "I have a reservation for a double room.",
+        "zh-CN": "我预订了一间大床双人房。"
+      },
+      "media": {
+        "image": "/media/images/room-kodomobeya.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-30",
+      "word": "La chiave",
+      "pinyinHint": "là kǐ-yà-vèi",
+      "phoneticIPA": "/la ˈkjaːve/",
+      "translations": {
+        "en": "The key",
+        "zh-CN": "钥匙 / 房卡"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "'ch' sounds like hard /k/. 'v' requires lower lip contact.",
+        "zh-CN": "'ch'发硬音k，'ve'中v需咬下唇。"
+      },
+      "exampleSentence": {
+        "it": "Ecco la chiave della camera 204.",
+        "en": "Here is the key to room 204.",
+        "zh-CN": "这是204号房间的钥匙。"
+      },
+      "media": {
+        "image": "/media/images/kagi-ie.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-31",
+      "word": "Il Wi-Fi",
+      "pinyinHint": "yīl wī-fài",
+      "phoneticIPA": "/il ˈwaifai/",
+      "translations": {
+        "en": "The Wi-Fi",
+        "zh-CN": "无线网络 (Wi-Fi)"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Pronounced like standard English /waifai/.",
+        "zh-CN": "在意大利餐厅、咖啡吧询问最多的生存词汇。"
+      },
+      "exampleSentence": {
+        "it": "C'è il Wi-Fi gratuito per i clienti?",
+        "en": "Is there free Wi-Fi for customers?",
+        "zh-CN": "请问有给顾客用的免费Wi-Fi吗？"
+      },
+      "media": {
+        "image": "/media/images/internet-heiwa.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-32",
+      "word": "La password",
+      "pinyinHint": "là pàs-suòrd",
+      "phoneticIPA": "/la ˈpasvord/",
+      "translations": {
+        "en": "The password",
+        "zh-CN": "密码"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Italians often pronounce the 'w' as /v/ (/ˈpasvord/).",
+        "zh-CN": "意大利人经常习惯将w发成v的音。"
+      },
+      "exampleSentence": {
+        "it": "Qual è la password del Wi-Fi?",
+        "en": "What is the Wi-Fi password?",
+        "zh-CN": "Wi-Fi密码是多少？"
+      },
+      "media": {
+        "image": "/media/images/computer-onetime-password.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-33",
+      "word": "Aperto",
+      "pinyinHint": "à-pèr-tuò",
+      "phoneticIPA": "/aˈpɛrto/",
+      "translations": {
+        "en": "Open (business, shop, museum)",
+        "zh-CN": "营业中 / 开放 / 开着的"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "adjective",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Open 'e' sound. Sign placed on shopfront doors.",
+        "zh-CN": "商店门前常见招牌，表示营业中。"
+      },
+      "exampleSentence": {
+        "it": "Il museo è aperto tutti i giorni fino alle 19.",
+        "en": "The museum is open every day until 7 PM.",
+        "zh-CN": "博物馆每天开放至晚上7点。"
+      },
+      "media": {
+        "image": "/media/images/door-half-open.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-34",
+      "word": "Chiuso",
+      "pinyinHint": "kǐ-yù-zuò",
+      "phoneticIPA": "/ˈkjuːzo/",
+      "translations": {
+        "en": "Closed (shop, service)",
+        "zh-CN": "打烊 / 关闭 / 不营业"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "adjective",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "'ch' is hard /k/. 's' between vowels is voiced /z/.",
+        "zh-CN": "'ch'发k音，s发浊音z，商店打烊标志。"
+      },
+      "exampleSentence": {
+        "it": "Il lunedì il ristorante è chiuso per riposo settimanale.",
+        "en": "On Mondays the restaurant is closed for weekly rest.",
+        "zh-CN": "餐厅周一公休打烊。"
+      },
+      "media": {
+        "image": "/media/images/text-oshirase-eigyousyuuryou.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-35",
+      "word": "Entrata",
+      "pinyinHint": "èn-tu-rà-tà",
+      "phoneticIPA": "/enˈtraːta/",
+      "translations": {
+        "en": "Entrance / Entry",
+        "zh-CN": "入口"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Stress on 'tra'. T is unaspirated stop.",
+        "zh-CN": "公共场所标牌必备，重音在tra，t不送气。"
+      },
+      "exampleSentence": {
+        "it": "L'entrata principale si trova su via Roma.",
+        "en": "The main entrance is located on Via Roma.",
+        "zh-CN": "主入口位于罗马街上。"
+      },
+      "media": {
+        "image": "/media/images/text-entrance.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-36",
+      "word": "Uscita",
+      "pinyinHint": "ù-shī-tà",
+      "phoneticIPA": "/uʃˈʃiːta/",
+      "translations": {
+        "en": "Exit / Way out",
+        "zh-CN": "出口"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "'sc' before 'i' is pronounced /ʃ/ (like 'sh'). 'Uscita di sicurezza' = Emergency Exit.",
+        "zh-CN": "'sci'发拼音sh音，紧急出口为'Uscita di emergenza'。"
+      },
+      "exampleSentence": {
+        "it": "Segui i cartelli verdi verso l'uscita.",
+        "en": "Follow the green signs toward the exit.",
+        "zh-CN": "跟着绿色指示牌走向出口。"
+      },
+      "media": {
+        "image": "/media/images/door-out-businesswoman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-37",
+      "word": "La cassa",
+      "pinyinHint": "là kàs-sà",
+      "phoneticIPA": "/la ˈkassa/",
+      "translations": {
+        "en": "Cashier / Checkout / Cash desk",
+        "zh-CN": "收银台 / 结账处"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Double 'ss' is held longer. In Italian bars, pay at the cassa first before ordering!",
+        "zh-CN": "双写ss加重。意大利咖啡吧传统习惯：先去收银台买单拿小票，再去吧台点单。"
+      },
+      "exampleSentence": {
+        "it": "Si paga prima alla cassa con lo scontrino.",
+        "en": "You pay first at the cash desk with the receipt.",
+        "zh-CN": "请先去收银台结账拿小票。"
+      },
+      "media": {
+        "image": "/media/images/shopping-reji-gyouretsu-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-38",
+      "word": "Lo scontrino",
+      "pinyinHint": "luò sǐ-kuòn-tu-rī-nuò",
+      "phoneticIPA": "/lo skonˈtriːno/",
+      "translations": {
+        "en": "The fiscal receipt",
+        "zh-CN": "购物小票 / 收据"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Article 'lo' is used before s+consonant ('sc'). Keep receipts by law!",
+        "zh-CN": "因为以sc开头故使用定冠词'lo'。在意大利法律要求顾客走出店门须保留小票。"
+      },
+      "exampleSentence": {
+        "it": "Ecco lo scontrino fiscale, arrivederci!",
+        "en": "Here is the fiscal receipt, goodbye!",
+        "zh-CN": "这是您的机打小票，慢走！"
+      },
+      "media": {
+        "image": "/media/images/document-paper-mekure.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-39",
+      "word": "Ho perso...",
+      "pinyinHint": "ò pèr-suò",
+      "phoneticIPA": "/o ˈpɛrso/",
+      "translations": {
+        "en": "I lost... / I have lost...",
+        "zh-CN": "我丢了... / 我遗失了..."
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'H' is silent. Open 'e' in perso.",
+        "zh-CN": "h不发音，直接读'o perso'，丢失贵重物品求助必备。"
+      },
+      "exampleSentence": {
+        "it": "Ho perso il mio passaporto sul treno!",
+        "en": "I lost my passport on the train!",
+        "zh-CN": "我把护照落在火车上了！"
+      },
+      "media": {
+        "image": "/media/images/otoshimono-saifu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "ds-40",
+      "word": "Chiami un'ambulanza!",
+      "pinyinHint": "kǐ-yà-mǐ ùn àm-bù-làn-zà",
+      "phoneticIPA": "/ˈkjaːmi un ambuˈlantsa/",
+      "translations": {
+        "en": "Call an ambulance! (urgent emergency)",
+        "zh-CN": "快叫救护车！ (紧急求救)"
+      },
+      "category": "daily-survival",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Formal imperative 'chiami'. Dial 118 for medical emergencies in Italy.",
+        "zh-CN": "命令式祈使句，意大利急救医疗呼叫电话为118或通用112。"
+      },
+      "exampleSentence": {
+        "it": "Presto, c'è un ferito, chiami un'ambulanza!",
+        "en": "Quick, someone is hurt, call an ambulance!",
+        "zh-CN": "快点，有人受伤了，快叫救护车！"
+      },
+      "media": {
+        "image": "/media/images/train-sos-button.webp",
         "audio": null
       }
     }

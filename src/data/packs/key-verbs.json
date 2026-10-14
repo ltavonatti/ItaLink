@@ -1,12 +1,12 @@
 {
   "id": "key-verbs",
   "title": {
-    "en": "Key Verbs",
-    "zh-CN": "核心高频动词"
+    "en": "Core Verbs & Everyday Actions",
+    "zh-CN": "核心动词与日常行动"
   },
   "description": {
-    "en": "The most essential high-frequency Italian verbs in infinitive form.",
-    "zh-CN": "构建意语句型最关键的高频原型动词。"
+    "en": "High-frequency irregular and regular verbs powering everyday Italian conversation.",
+    "zh-CN": "支撑日常意大利语交流的最核心高频动词（规则与不规则）。"
   },
   "icon": "Flame",
   "words": [
@@ -31,8 +31,10 @@
         "zh-CN": "我想要幸福。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/character-ochoushimono.webp",
+        "audio": "/media/audio/it_kv-01_essere.mp3",
+        "exampleAudio": "/media/audio/it_kv-01_essere_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -56,8 +58,10 @@
         "zh-CN": "你今天有空吗？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/dorobou-money-kasoutsuuka-coin.webp",
+        "audio": "/media/audio/it_kv-02_avere.mp3",
+        "exampleAudio": "/media/audio/it_kv-02_avere_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -81,8 +85,10 @@
         "zh-CN": "我们必须去罗马。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/walking2-man.webp",
+        "audio": "/media/audio/it_kv-03_andare.mp3",
+        "exampleAudio": "/media/audio/it_kv-03_andare_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -106,8 +112,10 @@
         "zh-CN": "你今晚想做什么？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/cooking-ih-heater.webp",
+        "audio": "/media/audio/it_kv-04_fare.mp3",
+        "exampleAudio": "/media/audio/it_kv-04_fare_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -131,8 +139,10 @@
         "zh-CN": "我想要一杯葡萄酒，谢谢。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/nagareboshi-oinori-negaigoto.webp",
+        "audio": "/media/audio/it_kv-05_volere.mp3",
+        "exampleAudio": "/media/audio/it_kv-05_volere_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -156,8 +166,10 @@
         "zh-CN": "我可以用信用卡付款吗？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/figure-goodjob.webp",
+        "audio": "/media/audio/it_kv-06_potere.mp3",
+        "exampleAudio": "/media/audio/it_kv-06_potere_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -181,8 +193,10 @@
         "zh-CN": "我明天必须早点出发。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/toilet-gaman-boy.webp",
+        "audio": "/media/audio/it_kv-07_dovere.mp3",
+        "exampleAudio": "/media/audio/it_kv-07_dovere_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -206,8 +220,10 @@
         "zh-CN": "我们去吃披萨吧！"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/onigiri-taberu-man.webp",
+        "audio": "/media/audio/it_kv-08_mangiare.mp3",
+        "exampleAudio": "/media/audio/it_kv-08_mangiare_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -231,8 +247,10 @@
         "zh-CN": "你想喝什么？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/ofuro-drink-milk-man.webp",
+        "audio": "/media/audio/it_kv-09_bere.mp3",
+        "exampleAudio": "/media/audio/it_kv-09_bere_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -256,8 +274,10 @@
         "zh-CN": "我想和经理谈谈。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/fusen-hanasu-boy.webp",
+        "audio": "/media/audio/it_kv-10_parlare.mp3",
+        "exampleAudio": "/media/audio/it_kv-10_parlare_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -281,8 +301,10 @@
         "zh-CN": "现在我明白这条语法规则了。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/animal-quiz-neko-maru.webp",
+        "audio": "/media/audio/it_kv-11_capire.mp3",
+        "exampleAudio": "/media/audio/it_kv-11_capire_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -306,7 +328,709 @@
         "zh-CN": "明晚见！"
       },
       "media": {
-        "image": null,
+        "image": "/media/images/window-miru-man.webp",
+        "audio": "/media/audio/it_kv-12_vedere.mp3",
+        "exampleAudio": "/media/audio/it_kv-12_vedere_example.mp3",
+        "voiceSpeaker": "Diego"
+      }
+    },
+    {
+      "id": "kv-13",
+      "word": "Sapere",
+      "pinyinHint": "sà-pèi-rèi",
+      "phoneticIPA": "/saˈpeːre/",
+      "translations": {
+        "en": "To know (a fact) / To know how to",
+        "zh-CN": "知道 (事实/信息) / 会 (做某事)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Refers to factual knowledge ('Non lo so') or acquired skills ('So nuotare').",
+        "zh-CN": "指了解客观事实或掌握某种技能。口头禅'Non lo so'(我不知道)。"
+      },
+      "exampleSentence": {
+        "it": "Sai a che ora apre il negozio?",
+        "en": "Do you know what time the store opens?",
+        "zh-CN": "你知道这家店几点开门吗？"
+      },
+      "media": {
+        "image": "/media/images/hirameki-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-14",
+      "word": "Conoscere",
+      "pinyinHint": "kuò-nuò-shèi-rèi",
+      "phoneticIPA": "/koˈnoʃʃere/",
+      "translations": {
+        "en": "To know (a person, city, place)",
+        "zh-CN": "认识 (人) / 熟悉 (城市、地方)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "'sc' before 'e' is /ʃ/ (like 'sh'). Distinct from 'sapere'.",
+        "zh-CN": "'sce'发sh音，与sapere区分：conoscere专用于人或地理环境。"
+      },
+      "exampleSentence": {
+        "it": "Conosci bene questa città?",
+        "en": "Do you know this city well?",
+        "zh-CN": "你对这座城市很熟悉吗？"
+      },
+      "media": {
+        "image": "/media/images/syoukai-business-man-2.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-15",
+      "word": "Venire",
+      "pinyinHint": "vèi-nī-rèi",
+      "phoneticIPA": "/veˈniːre/",
+      "translations": {
+        "en": "To come",
+        "zh-CN": "来 / 过来"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "'v' is voiced labiodental. Present: vengo, vieni, viene.",
+        "zh-CN": "不规则动词，现在时变位：vengo, vieni, viene。v咬唇。"
+      },
+      "exampleSentence": {
+        "it": "Vieni con noi a prendere un caffè?",
+        "en": "Are you coming with us to grab a coffee?",
+        "zh-CN": "你和我们一起去喝杯咖啡吗？"
+      },
+      "media": {
+        "image": "/media/images/ue-mezasu-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-16",
+      "word": "Uscire",
+      "pinyinHint": "ù-shī-rèi",
+      "phoneticIPA": "/uʃˈʃiːre/",
+      "translations": {
+        "en": "To go out / To exit",
+        "zh-CN": "出去 / 出门 / 离场"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "'sc' before 'i' makes a /ʃ/ ('sh') sound. Present: esco, esci, esce.",
+        "zh-CN": "'sci'发拼音sh音，现在时变位词根变为esco, esci, esce。"
+      },
+      "exampleSentence": {
+        "it": "Stasera usciamo con gli amici per un aperitivo.",
+        "en": "Tonight we're going out with friends for an aperitivo.",
+        "zh-CN": "今晚我们和朋友们一起出去喝餐前酒。"
+      },
+      "media": {
+        "image": "/media/images/door-out-obaasan.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-17",
+      "word": "Comprare",
+      "pinyinHint": "kuòm-pu-rà-rèi",
+      "phoneticIPA": "/komˈpraːre/",
+      "translations": {
+        "en": "To buy / To purchase",
+        "zh-CN": "购买 / 买"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Regular -are verb. 'pr' requires light trill. Stress on 'pra'.",
+        "zh-CN": "规则第一变位动词，购物必备，重音在pra。"
+      },
+      "exampleSentence": {
+        "it": "Voglio comprare dei souvenir per la mia famiglia.",
+        "en": "I want to buy some souvenirs for my family.",
+        "zh-CN": "我想给我的家人买一些纪念品。"
+      },
+      "media": {
+        "image": "/media/images/shopping-shufu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-18",
+      "word": "Pagare",
+      "pinyinHint": "pà-gà-rèi",
+      "phoneticIPA": "/paˈɡaːre/",
+      "translations": {
+        "en": "To pay",
+        "zh-CN": "支付 / 付款 / 买单"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "P is unaspirated. 'G' before 'a' is hard /ɡ/.",
+        "zh-CN": "p不送气，ga为浊辅音g，买单必备核心动词。"
+      },
+      "exampleSentence": {
+        "it": "Posso pagare con la carta di credito?",
+        "en": "Can I pay with credit card?",
+        "zh-CN": "我可以用信用卡付款吗？"
+      },
+      "media": {
+        "image": "/media/images/shopping-shiharai-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-19",
+      "word": "Prendere",
+      "pinyinHint": "pu-rèn-dèi-rèi",
+      "phoneticIPA": "/ˈprɛndere/",
+      "translations": {
+        "en": "To take / To catch (transit) / To order (food/drink)",
+        "zh-CN": "拿取 / 乘坐(交通) / 点(吃喝)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Extremely versatile verb: 'prendo un caffè' = I'll have a coffee.",
+        "zh-CN": "万能动词：点餐'prendo...'，搭车'prendo il treno'。重音在pren。"
+      },
+      "exampleSentence": {
+        "it": "Prendo il treno delle otto per andare a lavoro.",
+        "en": "I take the 8:00 train to go to work.",
+        "zh-CN": "我乘早晨八点的火车去上班。"
+      },
+      "media": {
+        "image": "/media/images/nimotsu-takai-toru-woman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-20",
+      "word": "Dare",
+      "pinyinHint": "dà-rèi",
+      "phoneticIPA": "/ˈdaːre/",
+      "translations": {
+        "en": "To give",
+        "zh-CN": "给 / 给予"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Short two-syllable verb. Present: do, dai, dà.",
+        "zh-CN": "双音节极简动词，现在时变位：do, dai, dà。"
+      },
+      "exampleSentence": {
+        "it": "Mi puoi dare una mano, per favore?",
+        "en": "Can you give me a hand, please?",
+        "zh-CN": "你能帮我一把吗，拜托了？"
+      },
+      "media": {
+        "image": "/media/images/nimotsu-ukewatashi.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-21",
+      "word": "Stare",
+      "pinyinHint": "sǐ-tà-rèi",
+      "phoneticIPA": "/ˈstaːre/",
+      "translations": {
+        "en": "To stay / To remain / To feel (health)",
+        "zh-CN": "停留 / 处于 / 身体感觉 (状况)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "'s' before 't' is voiceless. Used in 'Come stai?' (How are you?).",
+        "zh-CN": "表示停留或身体状态，如'Sto a casa'(我呆在家里)。"
+      },
+      "exampleSentence": {
+        "it": "Oggi preferisco stare a casa a riposare.",
+        "en": "Today I prefer to stay home and rest.",
+        "zh-CN": "今天我更想呆在家里休息。"
+      },
+      "media": {
+        "image": "/media/images/teinen-slowlife.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-22",
+      "word": "Dormire",
+      "pinyinHint": "duòr-mī-rèi",
+      "phoneticIPA": "/dorˈmiːre/",
+      "translations": {
+        "en": "To sleep",
+        "zh-CN": "睡觉"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Regular -ire verb. Stress on 'mi'. Pure 'i' vowel.",
+        "zh-CN": "规则第三变位动词，重音在mi，i元音纯正。"
+      },
+      "exampleSentence": {
+        "it": "Sono molto stanco, ho bisogno di dormire otto ore.",
+        "en": "I am very tired, I need to sleep eight hours.",
+        "zh-CN": "我太累了，需要睡足八个小时。"
+      },
+      "media": {
+        "image": "/media/images/neru-sleep-woman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-23",
+      "word": "Lavorare",
+      "pinyinHint": "là-vuò-rà-rèi",
+      "phoneticIPA": "/lavoˈraːre/",
+      "translations": {
+        "en": "To work",
+        "zh-CN": "工作 / 上班"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "'v' is voiced labiodental. Stress on 'ra'.",
+        "zh-CN": "v咬唇发音，重音在倒数第二音节ra。"
+      },
+      "exampleSentence": {
+        "it": "Lavoro in un'azienda informatica dal lunedì al venerdì.",
+        "en": "I work at an IT company from Monday to Friday.",
+        "zh-CN": "我周一到周五在一家IT公司上班。"
+      },
+      "media": {
+        "image": "/media/images/shigoto-tekipaki.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-24",
+      "word": "Studiare",
+      "pinyinHint": "sǐ-tù-dià-rèi",
+      "phoneticIPA": "/stuˈdjaːre/",
+      "translations": {
+        "en": "To study / To learn",
+        "zh-CN": "学习 / 钻研"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "'ia' forms a diphthong /dja/. T is unaspirated stop.",
+        "zh-CN": "'dia'为双元音滑音，t不送气。"
+      },
+      "exampleSentence": {
+        "it": "Studio la lingua italiana tutti i giorni con ItaLink.",
+        "en": "I study the Italian language every day with ItaLink.",
+        "zh-CN": "我每天都用ItaLink学意大利语。"
+      },
+      "media": {
+        "image": "/media/images/study-gogaku-man7.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-25",
+      "word": "Chiedere",
+      "pinyinHint": "kǐ-yè-dèi-rèi",
+      "phoneticIPA": "/ˈkjɛːdere/",
+      "translations": {
+        "en": "To ask / To request",
+        "zh-CN": "询问 / 请求 / 提问"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "'ch' is hard /k/. Stress on the first syllable 'chie'.",
+        "zh-CN": "'ch'发硬辅音k，重音在第一个音节chie。"
+      },
+      "exampleSentence": {
+        "it": "Posso chiedere un'informazione stradale?",
+        "en": "May I ask for street directions?",
+        "zh-CN": "我可以打听一下路吗？"
+      },
+      "media": {
+        "image": "/media/images/boy-question.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-26",
+      "word": "Rispondere",
+      "pinyinHint": "rǐ-sǐ-puòn-dèi-rèi",
+      "phoneticIPA": "/riˈspondere/",
+      "translations": {
+        "en": "To answer / To reply",
+        "zh-CN": "回答 / 接听 (电话)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Light trill on R. Stress on 'spon'.",
+        "zh-CN": "重音在spon，常用于回答问题或接听电话。"
+      },
+      "exampleSentence": {
+        "it": "Non posso rispondere al telefono adesso, sono in riunione.",
+        "en": "I can't answer the phone right now, I'm in a meeting.",
+        "zh-CN": "我现在没法接电话，在开会。"
+      },
+      "media": {
+        "image": "/media/images/phone-kurodenwa-call.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-27",
+      "word": "Cercare",
+      "pinyinHint": "qèr-kà-rèi",
+      "phoneticIPA": "/tʃerˈkaːre/",
+      "translations": {
+        "en": "To look for / To search",
+        "zh-CN": "寻找 / 找"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "First 'c' before 'e' is soft /tʃ/ ('che'); second 'c' before 'a' is hard /k/.",
+        "zh-CN": "绝佳发音对照词：前一个c遇e发清软音q，后一个c遇a发硬音k。"
+      },
+      "exampleSentence": {
+        "it": "Cerco la stazione della metropolitana più vicina.",
+        "en": "I'm looking for the nearest subway station.",
+        "zh-CN": "我在找最近的地铁站。"
+      },
+      "media": {
+        "image": "/media/images/pose-sagasu-kyorokyoro-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-28",
+      "word": "Trovare",
+      "pinyinHint": "tu-ruò-và-rèi",
+      "phoneticIPA": "/troˈvaːre/",
+      "translations": {
+        "en": "To find",
+        "zh-CN": "找到 / 发现"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "'tr' has light flap. 'v' requires lower lip contact. Stress on 'va'.",
+        "zh-CN": "寻找(cercare)之后找到(trovare)，v咬下唇。"
+      },
+      "exampleSentence": {
+        "it": "Finalmente ho trovato le mie chiavi di casa!",
+        "en": "Finally I found my house keys!",
+        "zh-CN": "我终于找到家里钥匙了！"
+      },
+      "media": {
+        "image": "/media/images/hakken-kyouryu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-29",
+      "word": "Aspettare",
+      "pinyinHint": "à-sǐ-pèt-tà-rèi",
+      "phoneticIPA": "/aspetˈtaːre/",
+      "translations": {
+        "en": "To wait / To await",
+        "zh-CN": "等待 / 等"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Double 'tt' is held. Common command: 'Aspetta!' (Wait!).",
+        "zh-CN": "双写tt停顿，口语常用祈使句'Aspetta!'(等等！)。"
+      },
+      "exampleSentence": {
+        "it": "Aspettami qui un momento, arrivo subito.",
+        "en": "Wait for me here a moment, I'll be right there.",
+        "zh-CN": "在这等我一下，我马上就来。"
+      },
+      "media": {
+        "image": "/media/images/pose-iraira-matsu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-30",
+      "word": "Partire",
+      "pinyinHint": "pàr-tī-rèi",
+      "phoneticIPA": "/parˈtiːre/",
+      "translations": {
+        "en": "To depart / To leave / To set off",
+        "zh-CN": "出发 / 离开 / 动身"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "P and T are unaspirated stops. Stress on 'ti'.",
+        "zh-CN": "旅行必备词，p和t均不送气，重音在ti。"
+      },
+      "exampleSentence": {
+        "it": "A che ora parte il prossimo treno per Venezia?",
+        "en": "What time does the next train to Venice depart?",
+        "zh-CN": "下一班去威尼斯的火车几点出发？"
+      },
+      "media": {
+        "image": "/media/images/travel-isogu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-31",
+      "word": "Arrivare",
+      "pinyinHint": "àr-rǐ-và-rèi",
+      "phoneticIPA": "/arriˈvaːre/",
+      "translations": {
+        "en": "To arrive / To reach",
+        "zh-CN": "到达 / 抵达"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Double 'rr' requires a pronounced trill.",
+        "zh-CN": "双写rr必须有明显的舌尖大舌颤音，重音在va。"
+      },
+      "exampleSentence": {
+        "it": "Siamo arrivati a Roma in perfetto orario.",
+        "en": "We arrived in Rome perfectly on time.",
+        "zh-CN": "我们准点抵达了罗马。"
+      },
+      "media": {
+        "image": "/media/images/travel-happy-young4.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-32",
+      "word": "Entrare",
+      "pinyinHint": "èn-tu-rà-rèi",
+      "phoneticIPA": "/enˈtraːre/",
+      "translations": {
+        "en": "To enter / To come in",
+        "zh-CN": "进入 / 进来"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Stress on 'tra'. Unaspirated 't'.",
+        "zh-CN": "日常礼貌邀请'Avanti, entra!'(请进！)。"
+      },
+      "exampleSentence": {
+        "it": "Posso entrare o è occupato?",
+        "en": "May I enter or is it occupied?",
+        "zh-CN": "我可以进来吗，还是里面有人？"
+      },
+      "media": {
+        "image": "/media/images/door-in-businessman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-33",
+      "word": "Sentire",
+      "pinyinHint": "sèn-tī-rèi",
+      "phoneticIPA": "/senˈtiːre/",
+      "translations": {
+        "en": "To hear / To feel / To smell",
+        "zh-CN": "听见 / 感觉 / 闻到"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Covers perception: 'Ti senti bene?' (Do you feel well?).",
+        "zh-CN": "感官动词，表示听见或身心感受：'Non ti sento'(我听不清你说话)。"
+      },
+      "exampleSentence": {
+        "it": "Senti anche tu questo delizioso profumo di caffè?",
+        "en": "Do you also smell this delicious coffee aroma?",
+        "zh-CN": "你也闻到这诱人的咖啡香气了吗？"
+      },
+      "media": {
+        "image": "/media/images/kiku-woman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-34",
+      "word": "Ascoltare",
+      "pinyinHint": "à-sǐ-kuòl-tà-rèi",
+      "phoneticIPA": "/askolˈtaːre/",
+      "translations": {
+        "en": "To listen to (deliberately)",
+        "zh-CN": "倾听 / 听 (有意识地听)"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Distinct from 'sentire' (passive hearing); 'ascoltare' is intentional listening.",
+        "zh-CN": "与sentire(被动听见)不同，ascoltare强调专心倾听。"
+      },
+      "exampleSentence": {
+        "it": "Mi piace ascoltare la musica lirica italiana.",
+        "en": "I like listening to Italian opera music.",
+        "zh-CN": "我喜欢听意大利歌剧。"
+      },
+      "media": {
+        "image": "/media/images/smart-speaker-tv-talk.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-35",
+      "word": "Scrivere",
+      "pinyinHint": "sǐ-ku-rī-vèi-rèi",
+      "phoneticIPA": "/ˈskriːvere/",
+      "translations": {
+        "en": "To write",
+        "zh-CN": "写 / 书写"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Stress on first syllable 'scri'. 'v' is voiced labiodental.",
+        "zh-CN": "重音在第一音节scri，v咬唇。"
+      },
+      "exampleSentence": {
+        "it": "Puoi scrivermi il tuo indirizzo email qui?",
+        "en": "Can you write your email address for me here?",
+        "zh-CN": "你能把你的电子邮箱地址写在这儿吗？"
+      },
+      "media": {
+        "image": "/media/images/syomei-onegai.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-36",
+      "word": "Leggere",
+      "pinyinHint": "lèd-jè-rèi",
+      "phoneticIPA": "/ˈlɛddʒere/",
+      "translations": {
+        "en": "To read",
+        "zh-CN": "阅读 / 读"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Double 'gg' before 'e' is strong /ddʒ/. Stress on first syllable.",
+        "zh-CN": "双写gg在e前发强音/ddʒ/，重音在第一个音节leg。"
+      },
+      "exampleSentence": {
+        "it": "Sto leggendo un libro fantastico sulla storia di Roma.",
+        "en": "I'm reading a fantastic book about the history of Rome.",
+        "zh-CN": "我正在读一本关于罗马历史的绝妙书籍。"
+      },
+      "media": {
+        "image": "/media/images/tegami-yomu-man-binsen.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-37",
+      "word": "Vivere",
+      "pinyinHint": "vī-vèi-rèi",
+      "phoneticIPA": "/ˈviːvere/",
+      "translations": {
+        "en": "To live",
+        "zh-CN": "生活 / 居住"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Two 'v' sounds, both voiced labiodental. Stress on first syllable.",
+        "zh-CN": "包含两个v，均需上齿咬下唇发音，重音在vi。"
+      },
+      "exampleSentence": {
+        "it": "Da quanti anni vivi in Italia?",
+        "en": "How many years have you been living in Italy?",
+        "zh-CN": "你在意大利生活几年了？"
+      },
+      "media": {
+        "image": "/media/images/hinanjo-seikatsu-family-smile.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-38",
+      "word": "Aiutare",
+      "pinyinHint": "à-yù-tà-rèi",
+      "phoneticIPA": "/ajuˈtaːre/",
+      "translations": {
+        "en": "To help / To assist",
+        "zh-CN": "帮助 / 援助"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Smooth glide /ju/. T is unaspirated stop. Noun is 'aiuto'.",
+        "zh-CN": "'iu'平滑过渡，动词形式为aiutare，名词为aiuto。"
+      },
+      "exampleSentence": {
+        "it": "Ti posso aiutare a portare quella valigia pesante?",
+        "en": "Can I help you carry that heavy suitcase?",
+        "zh-CN": "我能帮你提那个沉重的手提箱吗？"
+      },
+      "media": {
+        "image": "/media/images/train-yuzuru-ninpu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-39",
+      "word": "Ricordare",
+      "pinyinHint": "rǐ-kuòr-dà-rèi",
+      "phoneticIPA": "/rikorˈdaːre/",
+      "translations": {
+        "en": "To remember / To recall",
+        "zh-CN": "记得 / 想起 / 牢记"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Light trill on both R's. Stress on 'da'.",
+        "zh-CN": "记忆相关核心词，重音在da。"
+      },
+      "exampleSentence": {
+        "it": "Non ricordo dove ho parcheggiato la macchina.",
+        "en": "I don't remember where I parked the car.",
+        "zh-CN": "我想不起来把车停哪儿了。"
+      },
+      "media": {
+        "image": "/media/images/photo-omoide.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "kv-40",
+      "word": "Dimenticare",
+      "pinyinHint": "dī-mèn-tǐ-kà-rèi",
+      "phoneticIPA": "/dimentiˈkaːre/",
+      "translations": {
+        "en": "To forget",
+        "zh-CN": "忘记 / 遗忘"
+      },
+      "category": "key-verbs",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "T and C are unaspirated stops. Stress on 'ca'.",
+        "zh-CN": "反义词为ricordare，'Non dimenticare!'表示别忘了！"
+      },
+      "exampleSentence": {
+        "it": "Non dimenticare di convalidare il biglietto prima di salire!",
+        "en": "Don't forget to validate the ticket before boarding!",
+        "zh-CN": "上车前别忘了在打票机上打票！"
+      },
+      "media": {
+        "image": "/media/images/megane-sagasu-odeko-man.webp",
         "audio": null
       }
     }

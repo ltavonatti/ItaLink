@@ -26,9 +26,12 @@ import {
   DEFAULT_CARD_STATE,
   DEFAULT_SRS_SETTINGS,
   getRatingIntervalLabels,
+  calculateNextReview,
+  isScheduledForFutureDay,
   buildDailyQueue,
   DailyQueueBreakdown,
-  SRSSettings
+  SRSSettings,
+  getWordsForPacks
 } from '../../services/srsService';
 import { StudySettingsModal } from '../SRS/StudySettingsModal';
 import { useTranslation } from '../../i18n';
@@ -69,10 +72,9 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
   const [isPackDropdownOpen, setIsPackDropdownOpen] = useState<boolean>(false);
   const [isPinyinVisible, setIsPinyinVisible] = useState<boolean>(true);
   const [isShuffled, setIsShuffled] = useState<boolean>(false);
-  const [shuffleSeed, setShuffleSeed] = useState<number>(0);
   const [isReviewMistakesOnly, setIsReviewMistakesOnly] = useState<boolean>(false);
   const [autoPlayAudio, setAutoPlayAudio] = useState<boolean>(true);
-  const [activeBackTab, setActiveBackTab] = useState<'tip' | 'example'>('tip');
+  const [activeBackTab, setActiveBackTab] = useState<'tip' | 'example'>('example');
   const [imageLoadError, setImageLoadError] = useState<boolean>(false);
   const [isImageModalOpen, setIsImageModalOpen] = useState<boolean>(false);
   const [isSettingsModalOpen, setIsSettingsModalOpen] = useState<boolean>(false);
@@ -92,6 +94,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
   const snapTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const animationStateRef = useRef<AnimationState>(animationState);
   animationStateRef.current = animationState;
+  const initialUniqueIdsRef = useRef<Set<string>>(new Set());
 
   // Cleanup pending animation timeouts on unmount
   useEffect(() => {
@@ -116,29 +119,6 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
     };
   }, [isPackDropdownOpen]);
 
-  // Sync category when props change from App/Dashboard
-  useEffect(() => {
-    if (isSRSMode) {
-      setSelectedCategory('daily');
-    } else if (initialPackId && initialPackId !== 'all') {
-      setSelectedCategory(initialPackId);
-    }
-  }, [isSRSMode, initialPackId]);
-
-  // Load user progress asynchronously
-  useEffect(() => {
-    let isMounted = true;
-    storageService.getProgress(userId).then((res) => {
-      if (isMounted) {
-        setUserProgress(res);
-        setIsLoading(false);
-      }
-    });
-    return () => {
-      isMounted = false;
-    };
-  }, [userId]);
-
   const allWords = useMemo(() => getAllWords(), []);
 
   // Calculate daily SRS queue breakdown (Due reviews, Learning cards, New cards)
@@ -146,82 +126,162 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
     if (!userProgress) {
       return { dueReviews: [], learningCards: [], newCards: [], totalAvailable: 0 };
     }
+    const targetWords = getWordsForPacks(
+      userProgress.srsSettings?.selectedPackIds,
+      VOCABULARY_PACKS
+    );
     return buildDailyQueue(
-      allWords,
+      targetWords,
       userProgress.srs || {},
       userProgress.srsSettings || DEFAULT_SRS_SETTINGS,
       userProgress.srsDaily
     );
-  }, [allWords, userProgress]);
+  }, [userProgress]);
 
-  // Base cards available for the chosen category filter
-  const baseCategoryCards = useMemo(() => {
-    if (selectedCategory === 'daily') {
-      return [
-        ...queueBreakdown.dueReviews,
-        ...queueBreakdown.learningCards,
-        ...queueBreakdown.newCards,
-      ];
-    }
-    if (selectedCategory === 'all') {
-      return allWords;
-    }
-    const pack = VOCABULARY_PACKS.find((p) => p.id === selectedCategory);
-    return pack ? pack.words : allWords;
-  }, [selectedCategory, queueBreakdown, allWords]);
+  // Keep a ref to userProgress for non-reactive reads inside callbacks
+  const userProgressRef = useRef<UserStudyProgress | null>(userProgress);
+  userProgressRef.current = userProgress;
 
-  // Build deck queue whenever category, shuffle, or mistake filters change
-  useEffect(() => {
-    if (!userProgress) return;
+  // Pure helper to build study cards for a given category & settings
+  const buildQueue = useCallback(
+    (
+      catId: string,
+      progress: UserStudyProgress | null,
+      mistakesOnly: boolean,
+      shuffled: boolean
+    ): ItalianWord[] => {
+      if (catId === 'daily') {
+        if (!progress) return [];
+        const targetWords = getWordsForPacks(
+          progress.srsSettings?.selectedPackIds,
+          VOCABULARY_PACKS
+        );
+        const breakdown = buildDailyQueue(
+          targetWords,
+          progress.srs || {},
+          progress.srsSettings || DEFAULT_SRS_SETTINGS,
+          progress.srsDaily
+        );
+        return [
+          ...breakdown.dueReviews,
+          ...breakdown.learningCards,
+          ...breakdown.newCards,
+        ];
+      }
 
-    if (selectedCategory === 'daily') {
-      const dailyList = [
-        ...queueBreakdown.dueReviews,
-        ...queueBreakdown.learningCards,
-        ...queueBreakdown.newCards,
-      ];
-      setSessionQueue(dailyList);
-      setCurrentIndex(0);
-      setIsFlipped(false);
-      setIsDeckCompleted(dailyList.length === 0);
-    } else {
-      let list = [...baseCategoryCards];
+      let list =
+        catId === 'all'
+          ? [...allWords]
+          : [...(VOCABULARY_PACKS.find((p) => p.id === catId)?.words || allWords)];
 
-      if (isReviewMistakesOnly) {
+      if (mistakesOnly) {
         const filtered = list.filter((w) => needPracticeIds.has(w.id));
         if (filtered.length > 0) list = filtered;
       }
 
-      if (isShuffled) {
-        for (let i = list.length - 1; i > 0; i--) {
+      if (shuffled) {
+        const shuffledList = [...list];
+        for (let i = shuffledList.length - 1; i > 0; i--) {
           const j = Math.floor(Math.random() * (i + 1));
-          [list[i], list[j]] = [list[j], list[i]];
+          [shuffledList[i], shuffledList[j]] = [shuffledList[j], shuffledList[i]];
         }
+        return shuffledList;
       }
 
-      setSessionQueue(list);
+      return list;
+    },
+    [allWords, needPracticeIds]
+  );
+
+  // Category change handler
+  const handleCategoryChange = useCallback(
+    (catId: string) => {
+      if (exitTimeoutRef.current) clearTimeout(exitTimeoutRef.current);
+      if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
+      setSelectedCategory(catId);
+      setIsReviewMistakesOnly(false);
+      setIsPackDropdownOpen(false);
       setCurrentIndex(0);
       setIsFlipped(false);
-      setIsDeckCompleted(list.length === 0);
+      setActiveBackTab('example');
+      setImageLoadError(false);
+      setIsImageModalOpen(false);
+      animationStateRef.current = 'idle';
+      setAnimationState('idle');
+      setDragOffset({ x: 0, y: 0 });
+
+      const queue = buildQueue(catId, userProgressRef.current, false, isShuffled);
+      initialUniqueIdsRef.current = new Set(queue.map((w) => w.id));
+      setSessionQueue(queue);
+      setIsDeckCompleted(queue.length === 0);
+    },
+    [buildQueue, isShuffled]
+  );
+
+  // Sync category when props change from App/Dashboard
+  const prevTargetCatRef = useRef<string>(isSRSMode ? 'daily' : (initialPackId || 'daily'));
+  useEffect(() => {
+    const targetCat = isSRSMode ? 'daily' : (initialPackId || 'daily');
+    if (targetCat !== prevTargetCatRef.current) {
+      prevTargetCatRef.current = targetCat;
+      handleCategoryChange(targetCat);
     }
-  }, [
-    selectedCategory,
-    userProgress?.srsDaily?.date,
-    isShuffled,
-    shuffleSeed,
-    isReviewMistakesOnly,
-    queueBreakdown
-  ]);
+  }, [isSRSMode, initialPackId, handleCategoryChange]);
+
+  // Load user progress asynchronously and initialize active session queue once on mount
+  useEffect(() => {
+    let isMounted = true;
+    storageService.getProgress(userId).then((res) => {
+      if (isMounted) {
+        setUserProgress(res);
+        setIsLoading(false);
+        const initCat = isSRSMode ? 'daily' : (initialPackId || 'daily');
+        const queue = buildQueue(initCat, res, isReviewMistakesOnly, isShuffled);
+        initialUniqueIdsRef.current = new Set(queue.map((w) => w.id));
+        setSessionQueue(queue);
+        setCurrentIndex(0);
+        setIsFlipped(false);
+        setIsDeckCompleted(queue.length === 0);
+      }
+    });
+    return () => {
+      isMounted = false;
+    };
+  }, [userId]); // Only runs on mount / userId change
 
   // Current and underneath cards
   const currentCard: ItalianWord | undefined = sessionQueue[currentIndex];
   const nextCard: ItalianWord | undefined = sessionQueue[currentIndex + 1];
 
-  // Auto-play audio on card transition or flip if enabled
+  // Preload audio assets for current and upcoming cards for 0ms instantaneous playback
   useEffect(() => {
+    if (currentCard?.media?.audio) {
+      audioService.preloadAudio(currentCard.media.audio);
+    }
+    if (currentCard?.media?.exampleAudio) {
+      audioService.preloadAudio(currentCard.media.exampleAudio);
+    }
+    if (nextCard?.media?.audio) {
+      audioService.preloadAudio(nextCard.media.audio);
+    }
+    if (nextCard?.media?.exampleAudio) {
+      audioService.preloadAudio(nextCard.media.exampleAudio);
+    }
+  }, [currentCard?.id, nextCard?.id]);
+
+  // Auto-play pronunciation audio strictly when card is flipped to the back (never on initial front appearance)
+  useEffect(() => {
+    if (!isFlipped) return;
     if (currentCard && autoPlayAudio && !isDeckCompleted && !isLoading) {
-      const timer = setTimeout(() => {
-        audioService.playNormal(currentCard.word);
+      const timer = setTimeout(async () => {
+        if (currentCard.media?.audio) {
+          const played = await audioService.playAudioFile(currentCard.media.audio);
+          if (!played) {
+            audioService.playNormal(currentCard.word);
+          }
+        } else {
+          audioService.playNormal(currentCard.word);
+        }
       }, 150);
       return () => clearTimeout(timer);
     }
@@ -239,13 +299,47 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
     setIsFlipped((prev) => !prev);
   }, []);
 
-  // SuperMemo-2 / Anki SRS Review rating trigger
+  // SRS Current Card State & Live Rating Interval Labels
+  const currentCardSRS = useMemo<SRSCardState>(() => {
+    if (!currentCard || !userProgress) return DEFAULT_CARD_STATE(currentCard?.id || '');
+    return userProgress.srs[currentCard.id] || DEFAULT_CARD_STATE(currentCard.id);
+  }, [currentCard, userProgress]);
+
+  const ratingLabels = useMemo(() => {
+    return getRatingIntervalLabels(currentCardSRS, currentLang);
+  }, [currentCardSRS, currentLang]);
+
+  // Unique cards graduation calculation for Spaced Repetition sessions
+  const targetUniqueCount = useMemo(() => {
+    return initialUniqueIdsRef.current.size || sessionQueue.length || 1;
+  }, [sessionQueue.length]);
+
+  const completedUniqueCount = useMemo(() => {
+    if (!userProgress || initialUniqueIdsRef.current.size === 0) return 0;
+    let count = 0;
+    const now = Date.now();
+    initialUniqueIdsRef.current.forEach((id) => {
+      const cardSRS = userProgress.srs?.[id];
+      if (cardSRS && (cardSRS.state === 'review' || cardSRS.intervalDays >= 1 || (cardSRS.dueDate - now) >= 86400000)) {
+        count++;
+      }
+    });
+    return count;
+  }, [userProgress]);
+
+  // Spaced Repetition (SRS) Review rating trigger
   const triggerSRSRating = useCallback(
     (rating: SRSRating) => {
       if (!currentCard || animationStateRef.current !== 'idle') return;
 
-      const isPositive = rating === 'good' || rating === 'easy';
-      if (isPositive) {
+      // 1. Calculate next review result according to the spaced repetition engine
+      const reviewResult = calculateNextReview(currentCardSRS, rating);
+      const sendsToFutureDay = isScheduledForFutureDay(reviewResult);
+
+      // 2. Audio feedback & mastery tracking:
+      // A card is only marked "mastered" if it has graduated to tomorrow or a future day (>= 1d).
+      // If it has not graduated (intra-day minutes), it is kept in practice and re-queued.
+      if (sendsToFutureDay) {
         audioService.playMasteredSound();
         setMasteredIds((prev) => new Set(prev).add(currentCard.id));
         setNeedPracticeIds((prev) => {
@@ -260,28 +354,51 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
         audioService.playFlipSound();
       }
 
+      // 3. Card exit animation (good/easy exits right, again/hard exits left)
+      const isPositive = rating === 'good' || rating === 'easy';
       const nextState: AnimationState = isPositive ? 'exiting-right' : 'exiting-left';
       animationStateRef.current = nextState;
       setAnimationState(nextState);
 
+      // 4. Optimistically update this card's SRS state in userProgress so that
+      // when this card reappears later in the session, its learning step and interval
+      // preview badges are immediately accurate and in sync without latency.
+      const updatedCardSRS: SRSCardState = {
+        ...(currentCardSRS || DEFAULT_CARD_STATE(currentCard.id)),
+        state: reviewResult.nextState,
+        step: reviewResult.nextStep,
+        dueDate: reviewResult.nextDueDate,
+        intervalDays: reviewResult.nextIntervalDays,
+        easeFactor: reviewResult.nextEaseFactor,
+        repetitions: reviewResult.nextRepetitions,
+        lapses: reviewResult.nextLapses,
+        lastReviewedAt: Date.now(),
+      };
+
+      setUserProgress((prev) => {
+        if (!prev) return prev;
+        return {
+          ...prev,
+          srs: {
+            ...prev.srs,
+            [currentCard.id]: updatedCardSRS,
+          },
+        };
+      });
+
+      // 5. If the card was not sent to the following day (interval < 1 day, e.g. <1m, 6m, 10m),
+      // re-queue it so the user encounters it again before the session finishes.
+      const nextQueue = sendsToFutureDay ? sessionQueue : [...sessionQueue, currentCard];
+      if (!sendsToFutureDay) {
+        setSessionQueue(nextQueue);
+      }
+
       if (exitTimeoutRef.current) clearTimeout(exitTimeoutRef.current);
-      exitTimeoutRef.current = setTimeout(async () => {
-        // Persist review to SRS storage
-        const updated = await storageService.recordSRSReview(userId, currentCard.id, rating);
-        setUserProgress({ ...updated });
-        if (onProgressUpdated) onProgressUpdated(updated);
-
-        let nextQueue = sessionQueue;
-        // In daily or pack mode, if card is marked 'again', queue it again for intra-session re-review
-        if (rating === 'again') {
-          nextQueue = [...sessionQueue, currentCard];
-          setSessionQueue(nextQueue);
-        }
-
+      exitTimeoutRef.current = setTimeout(() => {
         const nextIndex = currentIndex + 1;
         if (nextIndex < nextQueue.length) {
           setIsFlipped(false);
-          setActiveBackTab('tip');
+          setActiveBackTab('example');
           setCurrentIndex(nextIndex);
         } else {
           setIsDeckCompleted(true);
@@ -290,9 +407,15 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
         animationStateRef.current = 'idle';
         setAnimationState('idle');
         setDragOffset({ x: 0, y: 0 });
+
+        // Persist review to SRS storage asynchronously in background
+        storageService.recordSRSReview(userId, currentCard.id, rating).then((updated) => {
+          setUserProgress({ ...updated });
+          if (onProgressUpdated) onProgressUpdated(updated);
+        });
       }, 180);
     },
-    [currentCard, currentIndex, sessionQueue, userId, onProgressUpdated]
+    [currentCard, currentCardSRS, currentIndex, sessionQueue, userId, onProgressUpdated]
   );
 
   // High-speed flyout gesture trigger (Swipe Right = Good, Swipe Left = Again)
@@ -303,16 +426,6 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
     [triggerSRSRating]
   );
 
-  // SRS Current Card State & Live Rating Interval Labels
-  const currentCardSRS = useMemo<SRSCardState>(() => {
-    if (!currentCard || !userProgress) return DEFAULT_CARD_STATE(currentCard?.id || '');
-    return userProgress.srs[currentCard.id] || DEFAULT_CARD_STATE(currentCard.id);
-  }, [currentCard, userProgress]);
-
-  const ratingLabels = useMemo(() => {
-    return getRatingIntervalLabels(currentCardSRS, currentLang);
-  }, [currentCardSRS, currentLang]);
-
   // Reset Session Helper
   const resetSession = useCallback(() => {
     if (exitTimeoutRef.current) clearTimeout(exitTimeoutRef.current);
@@ -322,58 +435,94 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
     setIsDeckCompleted(false);
     setMasteredIds(new Set());
     setNeedPracticeIds(new Set());
-    setActiveBackTab('tip');
+    setActiveBackTab('example');
     setImageLoadError(false);
     setIsImageModalOpen(false);
     animationStateRef.current = 'idle';
     setAnimationState('idle');
     setDragOffset({ x: 0, y: 0 });
 
-    if (selectedCategory === 'daily') {
-      const dailyList = [
-        ...queueBreakdown.dueReviews,
-        ...queueBreakdown.learningCards,
-        ...queueBreakdown.newCards,
-      ];
-      setSessionQueue(dailyList);
-      setIsDeckCompleted(dailyList.length === 0);
-    } else {
-      let list = [...baseCategoryCards];
-      if (isShuffled) {
-        for (let i = list.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [list[i], list[j]] = [list[j], list[i]];
-        }
-      }
-      setSessionQueue(list);
-      setIsDeckCompleted(list.length === 0);
-    }
-  }, [selectedCategory, queueBreakdown, baseCategoryCards, isShuffled]);
+    const queue = buildQueue(selectedCategory, userProgressRef.current, isReviewMistakesOnly, isShuffled);
+    initialUniqueIdsRef.current = new Set(queue.map((w) => w.id));
+    setSessionQueue(queue);
+    setIsDeckCompleted(queue.length === 0);
+  }, [buildQueue, selectedCategory, isReviewMistakesOnly, isShuffled]);
 
-  const handleCategoryChange = (catId: string) => {
-    setSelectedCategory(catId);
-    setIsReviewMistakesOnly(false);
-    setIsPackDropdownOpen(false);
-    resetSession();
-  };
-
-  const handleShuffleToggle = () => {
+  const handleShuffleToggle = useCallback(() => {
     if (exitTimeoutRef.current) clearTimeout(exitTimeoutRef.current);
     if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
-    setIsShuffled((prev) => !prev);
-    setShuffleSeed((prev) => prev + 1);
+    const nextShuffled = !isShuffled;
+    setIsShuffled(nextShuffled);
     setCurrentIndex(0);
     setIsFlipped(false);
     animationStateRef.current = 'idle';
     setAnimationState('idle');
     setDragOffset({ x: 0, y: 0 });
-  };
+
+    const queue = buildQueue(selectedCategory, userProgressRef.current, isReviewMistakesOnly, nextShuffled);
+    initialUniqueIdsRef.current = new Set(queue.map((w) => w.id));
+    setSessionQueue(queue);
+    setIsDeckCompleted(queue.length === 0);
+  }, [buildQueue, selectedCategory, isReviewMistakesOnly, isShuffled]);
+
+  const handleReviewMistakes = useCallback(() => {
+    if (exitTimeoutRef.current) clearTimeout(exitTimeoutRef.current);
+    if (snapTimeoutRef.current) clearTimeout(snapTimeoutRef.current);
+    setIsReviewMistakesOnly(true);
+    setCurrentIndex(0);
+    setIsFlipped(false);
+    setActiveBackTab('example');
+    animationStateRef.current = 'idle';
+    setAnimationState('idle');
+    setDragOffset({ x: 0, y: 0 });
+
+    const queue = buildQueue(selectedCategory, userProgressRef.current, true, isShuffled);
+    initialUniqueIdsRef.current = new Set(queue.map((w) => w.id));
+    setSessionQueue(queue);
+    setIsDeckCompleted(queue.length === 0);
+  }, [buildQueue, selectedCategory, isShuffled]);
 
   const handleSaveSettings = async (newSettings: SRSSettings) => {
     const updated = await storageService.updateSRSSettings(userId, newSettings);
     setUserProgress({ ...updated });
     if (onProgressUpdated) onProgressUpdated(updated);
+    if (selectedCategory === 'daily') {
+      const queue = buildQueue('daily', updated, isReviewMistakesOnly, isShuffled);
+      initialUniqueIdsRef.current = new Set(queue.map((w) => w.id));
+      setSessionQueue(queue);
+      setCurrentIndex(0);
+      setIsFlipped(false);
+      setIsDeckCompleted(queue.length === 0);
+    }
   };
+
+  const handleResetDailyQuota = useCallback(async () => {
+    const updated = await storageService.resetDailySRSQuota(userId);
+    setUserProgress({ ...updated });
+    if (onProgressUpdated) onProgressUpdated(updated);
+    if (selectedCategory === 'daily') {
+      const queue = buildQueue('daily', updated, isReviewMistakesOnly, isShuffled);
+      initialUniqueIdsRef.current = new Set(queue.map((w) => w.id));
+      setSessionQueue(queue);
+      setCurrentIndex(0);
+      setIsFlipped(false);
+      setIsDeckCompleted(queue.length === 0);
+    }
+  }, [userId, onProgressUpdated, selectedCategory, buildQueue, isReviewMistakesOnly, isShuffled]);
+
+  const handleResetLearningCards = useCallback(async () => {
+    const updated = await storageService.resetLearningCards(userId);
+    setUserProgress({ ...updated });
+    if (onProgressUpdated) onProgressUpdated(updated);
+    if (selectedCategory === 'daily') {
+      const queue = buildQueue('daily', updated, isReviewMistakesOnly, isShuffled);
+      initialUniqueIdsRef.current = new Set(queue.map((w) => w.id));
+      setSessionQueue(queue);
+      setCurrentIndex(0);
+      setIsFlipped(false);
+      setIsDeckCompleted(queue.length === 0);
+    }
+  }, [userId, onProgressUpdated, selectedCategory, buildQueue, isReviewMistakesOnly, isShuffled]);
 
   // Keyboard Shortcuts (Space=Flip, 1=Again, 2=Hard, 3=Good, 4=Easy, W=Fast Audio, S=Slow Audio)
   useEffect(() => {
@@ -387,12 +536,12 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
       // Audio hotkeys work on both front and back
       if (e.code === 'ArrowUp' || e.code === 'KeyW') {
         e.preventDefault();
-        if (currentCard) audioService.playNormal(currentCard.word);
+        handlePlayNormal();
         return;
       }
       if (e.code === 'ArrowDown' || e.code === 'KeyS') {
         e.preventDefault();
-        if (currentCard) audioService.playSlow(currentCard.word);
+        handlePlaySlow();
         return;
       }
 
@@ -601,7 +750,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
 
     if (animationState === 'exiting-right') {
       return {
-        transform: `translate3d(650px, ${dragOffset.y}px, 0) rotate(20deg) rotateY(${flipAngle}deg)`,
+        transform: `translate3d(950px, ${dragOffset.y}px, 0) rotate(20deg) rotateY(${flipAngle}deg)`,
         opacity: 0,
         transition: 'transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 180ms ease-out',
         pointerEvents: 'none',
@@ -610,7 +759,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
 
     if (animationState === 'exiting-left') {
       return {
-        transform: `translate3d(-650px, ${dragOffset.y}px, 0) rotate(-20deg) rotateY(${flipAngle}deg)`,
+        transform: `translate3d(-950px, ${dragOffset.y}px, 0) rotate(-20deg) rotateY(${flipAngle}deg)`,
         opacity: 0,
         transition: 'transform 180ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity 180ms ease-out',
         pointerEvents: 'none',
@@ -635,8 +784,8 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
   }, [animationState, dragOffset, isFlipped]);
 
   // Audio trigger handlers
-  const handlePlayNormal = async (e: React.MouseEvent) => {
-    e.stopPropagation();
+  const handlePlayNormal = async (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
     if (!currentCard) return;
     if (currentCard.media?.audio) {
       const played = await audioService.playAudioFile(currentCard.media.audio);
@@ -648,9 +797,30 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
     }
   };
 
-  const handlePlaySlow = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    if (currentCard) audioService.playSlow(currentCard.word);
+  const handlePlaySlow = async (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (!currentCard) return;
+    if (currentCard.media?.audio) {
+      const played = await audioService.playAudioFile(currentCard.media.audio, 0.75);
+      if (!played) {
+        audioService.playSlow(currentCard.word);
+      }
+    } else {
+      audioService.playSlow(currentCard.word);
+    }
+  };
+
+  const handlePlaySentence = async (e?: React.MouseEvent) => {
+    if (e) e.stopPropagation();
+    if (!currentCard?.exampleSentence) return;
+    if (currentCard.media?.exampleAudio) {
+      const played = await audioService.playAudioFile(currentCard.media.exampleAudio);
+      if (!played) {
+        audioService.playNormal(currentCard.exampleSentence.it);
+      }
+    } else {
+      audioService.playNormal(currentCard.exampleSentence.it);
+    }
   };
 
   // Unified Pack & Session Dropdown Options
@@ -658,7 +828,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
     return [
       {
         id: 'daily',
-        title: currentLang === 'zh-CN' ? '⚡ 今日智能复习 (Anki)' : "⚡ Today's Daily Queue",
+        title: currentLang === 'zh-CN' ? '⚡ 今日智能复习' : "⚡ Today's Daily Queue",
         count: queueBreakdown.totalAvailable,
         isDaily: true,
       },
@@ -776,6 +946,8 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
               onClose={() => setIsSettingsModalOpen(false)}
               settings={userProgress.srsSettings}
               onSave={handleSaveSettings}
+              onResetDailyQuota={handleResetDailyQuota}
+              onResetLearningCards={handleResetLearningCards}
             />
           )}
         </div>
@@ -783,10 +955,11 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
     }
 
     // Standard pack completion screen
-    const totalDone = sessionQueue.length;
+    const totalReviews = sessionQueue.length;
+    const uniqueCardsCount = new Set(sessionQueue.map((w) => w.id)).size;
     const masteredCount = masteredIds.size;
-    const needPracticeCount = needPracticeIds.size;
-    const percent = totalDone > 0 ? Math.round((masteredCount / totalDone) * 100) : 100;
+    const needPracticeCount = Math.max(0, uniqueCardsCount - masteredCount);
+    const percent = uniqueCardsCount > 0 ? Math.round((masteredCount / uniqueCardsCount) * 100) : 100;
 
     return (
       <div className="max-w-2xl mx-auto py-6 sm:py-12 px-4 text-center space-y-6 sm:space-y-8 animate-in fade-in duration-300">
@@ -800,8 +973,8 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
           </h2>
           <p className="text-xs sm:text-sm text-zen-text-muted">
             {currentLang === 'zh-CN'
-              ? `本次学习 ${totalDone} 张词卡，已巩固 ${masteredCount} 张。`
-              : `You reviewed ${totalDone} cards and reinforced ${masteredCount}.`}
+              ? `本次学习 ${uniqueCardsCount} 张词卡（共进行 ${totalReviews} 次练习），已巩固 ${masteredCount} 张。`
+              : `You studied ${uniqueCardsCount} cards (${totalReviews} total reviews) and reinforced ${masteredCount}.`}
           </p>
         </div>
 
@@ -826,10 +999,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
           {needPracticeCount > 0 && (
             <button
               type="button"
-              onClick={() => {
-                setIsReviewMistakesOnly(true);
-                resetSession();
-              }}
+              onClick={handleReviewMistakes}
               className="w-full sm:w-auto px-5 py-3 rounded-xl font-bold text-xs sm:text-sm bg-rose-600 hover:bg-rose-700 text-white transition-all shadow-zen-sm flex items-center justify-center gap-2 cursor-pointer"
             >
               <Repeat className="w-4 h-4" />
@@ -886,6 +1056,14 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
             </button>
             <button
               type="button"
+              onClick={() => setIsSettingsModalOpen(true)}
+              className="w-full sm:w-auto px-4 py-2.5 bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/60 text-zen-text rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 cursor-pointer"
+            >
+              <Sliders className="w-4 h-4" />
+              <span>{t('srs.settingsTitle')}</span>
+            </button>
+            <button
+              type="button"
               onClick={onBackToDashboard}
               className="w-full sm:w-auto px-5 py-2.5 bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/60 text-zen-text rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 cursor-pointer"
             >
@@ -893,6 +1071,18 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
               <span>{t('common.back')}</span>
             </button>
           </div>
+
+          {/* Settings Modal */}
+          {userProgress && (
+            <StudySettingsModal
+              isOpen={isSettingsModalOpen}
+              onClose={() => setIsSettingsModalOpen(false)}
+              settings={userProgress.srsSettings}
+              onSave={handleSaveSettings}
+              onResetDailyQuota={handleResetDailyQuota}
+              onResetLearningCards={handleResetLearningCards}
+            />
+          )}
         </div>
       );
     }
@@ -919,7 +1109,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
   // ==========================================
 
   return (
-    <div className="max-w-2xl mx-auto flex flex-col justify-between min-h-[calc(100vh-8.5rem)] sm:min-h-0 sm:space-y-4">
+    <div className="max-w-2xl lg:max-w-4xl mx-auto flex flex-col justify-between min-h-[calc(100vh-8.5rem)] sm:min-h-0 sm:space-y-4">
       
       {/* Top Bar: Back + Pack Dropdown Selector + Progress + Toggles */}
       <div className="flex items-center justify-between gap-2 p-2 sm:p-2.5 rounded-2xl bg-zen-surface-lowest/95 dark:bg-zen-dark-surface/95 border border-zen-border/50 dark:border-zen-dark-border shadow-zen-sm">
@@ -973,7 +1163,12 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
                   >
                     <span className="truncate flex items-center gap-1.5">
                       {opt.id === 'daily' && <Brain className="w-3.5 h-3.5 text-indigo-500" />}
-                      {opt.title}
+                      <span className="truncate">{opt.title}</span>
+                      {opt.id === 'italian-slang' && (
+                        <span className="text-[9px] font-bold px-1.5 py-0.2 rounded bg-purple-500/15 text-purple-600 dark:text-purple-400 border border-purple-500/30 shrink-0">
+                          18+
+                        </span>
+                      )}
                     </span>
                     <span className="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-zen-surface-container dark:bg-zen-dark-surface-high text-zen-text-muted">
                       {opt.count}
@@ -987,17 +1182,45 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
 
         {/* Center / Right: Progress Counter & Mini Progress Bar */}
         <div className="flex items-center gap-2 sm:gap-3">
-          <div className="flex items-center gap-1.5">
-            <span className="font-mono text-xs font-bold text-zen-text dark:text-zen-dark-text">
-              {currentIndex + 1}
-              <span className="text-zen-text-muted font-normal">/{sessionQueue.length}</span>
-            </span>
-            <div className="w-12 sm:w-20 h-1.5 rounded-full bg-zen-border/40 dark:bg-zen-dark-border overflow-hidden">
+          <div className="flex items-center gap-2">
+            {selectedCategory === 'daily' ? (
               <div
-                className="h-full bg-zen-primary dark:bg-zen-dark-primary transition-all duration-300"
-                style={{ width: `${((currentIndex + 1) / (sessionQueue.length || 1)) * 100}%` }}
-              />
-            </div>
+                className="flex items-center gap-2 cursor-help"
+                title={t('srs.queueTooltip')}
+              >
+                <div className="flex flex-col items-end sm:items-start leading-tight">
+                  <div className="flex items-center gap-1 font-mono text-xs font-bold text-zen-text dark:text-zen-dark-text">
+                    <span className="text-emerald-600 dark:text-emerald-400 font-extrabold">{completedUniqueCount}</span>
+                    <span className="text-zen-text-muted font-normal">/{targetUniqueCount}</span>
+                    <span className="text-[10px] font-sans font-medium text-zen-text-muted hidden sm:inline">
+                      {currentLang === 'zh-CN' ? '词达标' : 'graduated'}
+                    </span>
+                  </div>
+                  <span className="text-[10px] font-mono text-zen-text-muted">
+                    {currentIndex + 1}/{sessionQueue.length} {currentLang === 'zh-CN' ? '练习' : 'reviews'}
+                  </span>
+                </div>
+                <div className="w-12 sm:w-20 h-2 rounded-full bg-zen-border/40 dark:bg-zen-dark-border overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-emerald-500 to-zen-primary transition-all duration-300"
+                    style={{ width: `${Math.min(100, (completedUniqueCount / (targetUniqueCount || 1)) * 100)}%` }}
+                  />
+                </div>
+              </div>
+            ) : (
+              <div className="flex items-center gap-1.5">
+                <span className="font-mono text-xs font-bold text-zen-text dark:text-zen-dark-text">
+                  {currentIndex + 1}
+                  <span className="text-zen-text-muted font-normal">/{sessionQueue.length}</span>
+                </span>
+                <div className="w-12 sm:w-20 h-1.5 rounded-full bg-zen-border/40 dark:bg-zen-dark-border overflow-hidden">
+                  <div
+                    className="h-full bg-zen-primary dark:bg-zen-dark-primary transition-all duration-300"
+                    style={{ width: `${((currentIndex + 1) / (sessionQueue.length || 1)) * 100}%` }}
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Quick Action Toggles */}
@@ -1045,6 +1268,22 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
             >
               <Volume2 className="w-3.5 h-3.5" />
             </button>
+
+            {/* Daily Study Goals / SRS Settings */}
+            <button
+              type="button"
+              onClick={() => setIsSettingsModalOpen(true)}
+              className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-xl border border-indigo-300/80 dark:border-indigo-700/80 bg-indigo-50/80 dark:bg-indigo-950/40 text-indigo-700 dark:text-indigo-300 hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition-all cursor-pointer shadow-xs"
+              title={t('srs.settingsTitle')}
+            >
+              <Sliders className="w-3.5 h-3.5 stroke-[2.5]" />
+              <span className="text-xs font-bold hidden sm:inline">
+                {t('srs.dailyGoal')}: {userProgress?.srsSettings.newCardsPerDay || 15} {t('srs.wordsUnit')}
+              </span>
+              <span className="text-xs font-bold sm:hidden">
+                {userProgress?.srsSettings.newCardsPerDay || 15}w
+              </span>
+            </button>
           </div>
         </div>
 
@@ -1052,7 +1291,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
 
       {/* Zero-Scroll Card Viewport Architecture with Realistic Stack Depth */}
       <div className="w-full flex items-center justify-center my-auto py-2 sm:py-3 relative overflow-x-clip">
-        <div className="perspective-1000 w-full max-w-lg h-[58vh] sm:h-[62vh] min-h-[480px] sm:min-h-[530px] max-h-[620px] relative">
+        <div className="perspective-1000 w-full max-w-lg md:max-w-2xl lg:max-w-3xl h-[58vh] sm:h-[62vh] md:h-[66vh] min-h-[480px] sm:min-h-[530px] md:min-h-[560px] max-h-[620px] md:max-h-[680px] relative">
           
           {/* UNDERNEATH CARD (Next card elevating smoothly into place) */}
           {nextCard ? (
@@ -1198,9 +1437,11 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
 
               {/* Top row: Part of Speech & Audio Triggers */}
               <div className="flex items-center justify-between">
-                <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/40 text-zen-text-muted">
-                  {currentCard.partOfSpeech || 'word'}
-                </span>
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] sm:text-xs font-mono font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/40 text-zen-text-muted">
+                    {currentCard.partOfSpeech || 'word'}
+                  </span>
+                </div>
 
                 <div className="flex items-center gap-1.5" onPointerDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
                   <button
@@ -1306,28 +1547,48 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
                 <span>{t('srs.again')}</span>
               </div>
               
-              {/* Top row: Word Echo + Audio + Pinyin */}
+              {/* Top row: Word Echo + Audio + Written Pronunciation */}
               <div className="flex items-center justify-between pb-2 border-b border-zen-border/30 dark:border-zen-dark-border/50 flex-shrink-0">
                 <div className="flex items-center gap-2">
-                  <span className="text-lg sm:text-xl font-headline font-bold text-zen-text dark:text-zen-dark-text">
+                  <span className="text-lg sm:text-xl font-headline font-bold text-zen-text dark:text-zen-dark-text tracking-tight">
                     {currentCard.word}
                   </span>
-                  <button
-                    type="button"
-                    onPointerDown={(e) => e.stopPropagation()}
-                    onClick={handlePlayNormal}
-                    className="p-1 rounded-lg text-zen-primary hover:bg-zen-primary/10 transition-colors cursor-pointer"
-                  >
-                    <Volume2 className="w-3.5 h-3.5" />
-                  </button>
+                  <div className="flex items-center gap-1" onPointerDown={(e) => e.stopPropagation()} onClick={(e) => e.stopPropagation()}>
+                    <button
+                      type="button"
+                      onPointerDown={(e) => e.stopPropagation()}
+                      onClick={handlePlayNormal}
+                      title={currentLang === 'zh-CN' ? '标准语速 (1.0x)' : 'Standard speed (1.0x)'}
+                      className="p-1 rounded-lg text-zen-primary hover:bg-zen-primary/10 transition-colors cursor-pointer"
+                    >
+                      <Volume2 className="w-3.5 h-3.5" />
+                    </button>
+                    <button
+                      type="button"
+                      onPointerDown={(e) => e.stopPropagation()}
+                      onClick={handlePlaySlow}
+                      title={currentLang === 'zh-CN' ? '清晰慢速 (0.75x)' : 'Slow phonetics (0.75x)'}
+                      className="p-1 rounded-lg text-amber-600 dark:text-amber-400 hover:bg-amber-500/10 transition-colors cursor-pointer"
+                    >
+                      <Volume1 className="w-3.5 h-3.5" />
+                    </button>
+                  </div>
                 </div>
 
-                {isPinyinVisible && (
-                  <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-800 dark:text-amber-200">
-                    <span className="text-[9px] font-bold uppercase tracking-wider">拼音:</span>
-                    <span className="font-mono font-bold text-xs tracking-wide">[{currentCard.pinyinHint}]</span>
-                  </div>
-                )}
+                {/* Right: Written pronunciation (IPA & Pinyin) */}
+                <div className="flex items-center gap-2">
+                  {currentCard.phoneticIPA && (
+                    <span className="font-mono text-xs sm:text-sm text-zen-text-muted">
+                      {currentCard.phoneticIPA}
+                    </span>
+                  )}
+                  {isPinyinVisible && currentCard.pinyinHint && (
+                    <div className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-amber-500/15 border border-amber-500/30 text-amber-800 dark:text-amber-200">
+                      <span className="text-[9px] font-bold uppercase tracking-wider">拼音:</span>
+                      <span className="font-mono font-bold text-xs tracking-wide">[{currentCard.pinyinHint}]</span>
+                    </div>
+                  )}
+                </div>
               </div>
 
               {/* Middle: Card Body with Centered Translation, Fixed Image & Tabs */}
@@ -1356,7 +1617,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
                         e.stopPropagation();
                         setIsImageModalOpen(true);
                       }}
-                      className="w-36 h-36 sm:w-44 sm:h-44 mx-auto rounded-2xl overflow-hidden border border-zen-border/50 dark:border-zen-dark-border/70 shadow-sm flex-shrink-0 bg-zen-surface-container/30 flex items-center justify-center p-1.5 relative cursor-pointer group hover:scale-[1.02] active:scale-95 transition-all"
+                      className="w-36 h-36 sm:w-44 sm:h-44 mx-auto rounded-2xl overflow-hidden shadow-sm flex-shrink-0 bg-zen-surface-container/30 flex items-center justify-center p-1.5 relative cursor-pointer group hover:scale-[1.02] active:scale-95 transition-all"
                       title={currentLang === 'zh-CN' ? '点击查看大图' : 'Click to enlarge'}
                     >
                       <img
@@ -1372,27 +1633,11 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
                     </div>
                   )}
 
-                  {/* 3. Segmented Detail Tabs & Content (Phonetic Tip & Example) */}
+                  {/* 3. Segmented Detail Tabs & Content (Example & Phonetic Tip) */}
                   {(hasTip || hasExample) && (
-                    <div className="space-y-1.5 sm:space-y-2 max-w-sm sm:max-w-md mx-auto w-full">
+                    <div className="space-y-1.5 sm:space-y-2 max-w-sm sm:max-w-md md:max-w-xl mx-auto w-full">
                       {hasTip && hasExample ? (
                         <div className="flex items-center gap-1 p-0.5 rounded-xl bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/40 text-[11px] font-bold" onPointerDown={(e) => e.stopPropagation()}>
-                          <button
-                            type="button"
-                            onPointerDown={(e) => e.stopPropagation()}
-                            onClick={(e) => {
-                              e.stopPropagation();
-                              setActiveBackTab('tip');
-                            }}
-                            className={`flex-1 py-1 px-2 rounded-lg text-center transition-all flex items-center justify-center gap-1 cursor-pointer ${
-                              activeBackTab === 'tip'
-                                ? 'bg-amber-500/20 text-amber-700 dark:text-amber-300 shadow-sm'
-                                : 'text-zen-text-muted hover:text-zen-text'
-                            }`}
-                          >
-                            <Sparkles className="w-3 h-3 text-amber-500" />
-                            <span>{currentLang === 'zh-CN' ? '发音秘诀' : 'Phonetic Tip'}</span>
-                          </button>
                           <button
                             type="button"
                             onPointerDown={(e) => e.stopPropagation()}
@@ -1409,10 +1654,53 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
                             <BookOpen className="w-3 h-3 text-blue-500" />
                             <span>{currentLang === 'zh-CN' ? '实用例句' : 'Example'}</span>
                           </button>
+                          <button
+                            type="button"
+                            onPointerDown={(e) => e.stopPropagation()}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveBackTab('tip');
+                            }}
+                            className={`flex-1 py-1 px-2 rounded-lg text-center transition-all flex items-center justify-center gap-1 cursor-pointer ${
+                              activeBackTab === 'tip'
+                                ? 'bg-amber-500/20 text-amber-700 dark:text-amber-300 shadow-sm'
+                                : 'text-zen-text-muted hover:text-zen-text'
+                            }`}
+                          >
+                            <Sparkles className="w-3 h-3 text-amber-500" />
+                            <span>{currentLang === 'zh-CN' ? '发音秘诀' : 'Phonetic Tip'}</span>
+                          </button>
                         </div>
                       ) : null}
 
-                      {/* Segment Content */}
+                      {/* Segment Content: Example first */}
+                      {((activeBackTab === 'example' && hasExample) || (!hasTip && hasExample)) && currentCard.exampleSentence && (
+                        <div
+                          onPointerDown={(e) => e.stopPropagation()}
+                          onClick={(e) => e.stopPropagation()}
+                          className="p-2 sm:p-2.5 rounded-xl bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/20 text-xs flex items-center justify-between gap-2.5 text-left"
+                        >
+                          <div className="space-y-0.5 min-w-0 flex-1">
+                            <p className="font-headline font-bold text-zen-text dark:text-zen-dark-text text-xs sm:text-sm line-clamp-2">
+                              "{currentCard.exampleSentence.it}"
+                            </p>
+                            <p className="text-zen-text-muted text-[11px] line-clamp-1">
+                              {currentCard.exampleSentence[currentLang]}
+                            </p>
+                          </div>
+                          <button
+                            type="button"
+                            onPointerDown={(e) => e.stopPropagation()}
+                            onClick={handlePlaySentence}
+                            className="p-1.5 sm:p-2 rounded-lg bg-blue-500/15 hover:bg-blue-500/25 text-blue-600 dark:text-blue-400 border border-blue-500/20 transition-all flex-shrink-0 active:scale-95 cursor-pointer shadow-sm"
+                            title={currentLang === 'zh-CN' ? '播放例句 (自然人声)' : 'Play example sentence (Neural Voice)'}
+                          >
+                            <Volume2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                          </button>
+                        </div>
+                      )}
+
+                      {/* Segment Content: Phonetic Tip second */}
                       {((activeBackTab === 'tip' && hasTip) || (!hasExample && hasTip)) && currentCard.pronunciationNotes && (
                         <div
                           onPointerDown={(e) => e.stopPropagation()}
@@ -1427,21 +1715,6 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
                           )}
                           <p className="line-clamp-3 text-center sm:text-left">
                             {currentCard.pronunciationNotes[currentLang]}
-                          </p>
-                        </div>
-                      )}
-
-                      {((activeBackTab === 'example' && hasExample) || (!hasTip && hasExample)) && currentCard.exampleSentence && (
-                        <div
-                          onPointerDown={(e) => e.stopPropagation()}
-                          onClick={(e) => e.stopPropagation()}
-                          className="p-2 sm:p-2.5 rounded-xl bg-blue-500/5 dark:bg-blue-500/10 border border-blue-500/20 text-xs space-y-0.5 text-center sm:text-left"
-                        >
-                          <p className="font-headline font-bold text-zen-text dark:text-zen-dark-text text-xs sm:text-sm line-clamp-2">
-                            "{currentCard.exampleSentence.it}"
-                          </p>
-                          <p className="text-zen-text-muted text-[11px] line-clamp-1">
-                            {currentCard.exampleSentence[currentLang]}
                           </p>
                         </div>
                       )}
@@ -1460,9 +1733,9 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
         </div>
       </div>
 
-      {/* 5. Sticky Bottom Action Bar with 4 Anki SM-2 Rating Buttons */}
+      {/* 5. Sticky Bottom Action Bar with 4 SRS Rating Buttons */}
       <div className="sticky bottom-0 left-0 right-0 z-30 pt-2 pb-3 sm:py-2 bg-zen-surface/90 dark:bg-zen-dark-bg/90 sm:bg-transparent sm:dark:bg-transparent backdrop-blur-md sm:backdrop-blur-none border-t border-zen-border/40 sm:border-0">
-        <div className="max-w-lg mx-auto px-1 sm:px-0">
+        <div className="w-full max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto px-1 sm:px-0">
           {!isFlipped ? (
             /* When card is unflipped: full-width "Show Answer / Flip (Space)" button */
             <button
@@ -1476,7 +1749,7 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
               <span>{currentLang === 'zh-CN' ? '查看答案 / 翻转 (空格)' : 'Show Answer / Flip (Space)'}</span>
             </button>
           ) : (
-            /* When card is flipped: 4 Anki Rating Buttons with live interval previews */
+            /* When card is flipped: 4 SRS Rating Buttons with live interval previews */
             <div className="grid grid-cols-4 gap-1.5 sm:gap-2">
               {/* 1. Again */}
               <button
@@ -1601,6 +1874,8 @@ export const FlashcardView: React.FC<FlashcardViewProps> = ({
           onClose={() => setIsSettingsModalOpen(false)}
           settings={userProgress.srsSettings}
           onSave={handleSaveSettings}
+          onResetDailyQuota={handleResetDailyQuota}
+          onResetLearningCards={handleResetLearningCards}
         />
       )}
 

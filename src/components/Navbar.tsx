@@ -2,31 +2,30 @@ import React, { useState, useEffect } from 'react';
 import {
   Globe,
   Layers,
-  CheckSquare,
   Gamepad2,
   LayoutDashboard,
   Menu,
   X,
-  RefreshCw,
   LogOut,
   Sun,
   Moon,
   Volume2,
-  VolumeX
+  VolumeX,
+  Settings,
+  PenLine
 } from 'lucide-react';
 import { useTranslation } from '../i18n';
 import { UserAccount } from '../services/authService';
 import { themeService, ThemeMode } from '../services/themeService';
 import { audioService } from '../services/audioService';
 
-export type StudyMode = 'dashboard' | 'flashcards' | 'quiz' | 'fallingWords';
+export type StudyMode = 'dashboard' | 'flashcards' | 'fallingWords' | 'wordFill' | 'quiz' | 'settings';
 
 interface NavbarProps {
   activeMode: StudyMode;
   onSelectMode: (mode: StudyMode) => void;
   selectedPackTitle?: string;
   currentUser?: UserAccount | null;
-  onOpenSync?: () => void;
   onLogout?: () => void;
 }
 
@@ -35,7 +34,6 @@ export const Navbar: React.FC<NavbarProps> = ({
   onSelectMode,
   selectedPackTitle,
   currentUser,
-  onOpenSync,
   onLogout,
 }) => {
   const { t, currentLang, toggleLanguage } = useTranslation();
@@ -72,14 +70,14 @@ export const Navbar: React.FC<NavbarProps> = ({
       icon: <Layers className="w-4 h-4" />,
     },
     {
-      mode: 'quiz',
-      label: t('nav.quiz'),
-      icon: <CheckSquare className="w-4 h-4" />,
-    },
-    {
       mode: 'fallingWords',
       label: t('nav.fallingWords'),
       icon: <Gamepad2 className="w-4 h-4" />,
+    },
+    {
+      mode: 'wordFill',
+      label: t('nav.wordFill'),
+      icon: <PenLine className="w-4 h-4" />,
     },
   ];
 
@@ -98,23 +96,20 @@ export const Navbar: React.FC<NavbarProps> = ({
             className="flex items-center gap-2.5 sm:gap-3.5 cursor-pointer shrink-0"
             onClick={() => handleModeChange('dashboard')}
           >
-            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-zen-primary to-zen-primary-dark dark:from-zen-dark-primary dark:to-zen-dark-secondary flex items-center justify-center text-white dark:text-zen-dark-on-primary shadow-sm">
-              <span className="font-serif font-black text-base sm:text-xl tracking-tight">IT</span>
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-zen-primary to-sky-600 dark:from-zen-dark-primary dark:to-blue-600 flex items-center justify-center text-white dark:text-zen-dark-on-primary shadow-sm shadow-zen-primary/20">
+              <span className="font-sans font-black text-base sm:text-lg tracking-tight">IT</span>
             </div>
             <div>
               <div className="flex items-center gap-1.5 sm:gap-2">
-                <span className="font-headline font-bold text-base sm:text-xl text-zen-text dark:text-zen-dark-text tracking-tight">
-                  <span className="sm:hidden">Zen IT</span>
-                  <span className="hidden sm:inline">
-                    {currentLang === 'zh-CN' ? 'Zen Italian · 禅意意语' : 'Zen Italian'}
-                  </span>
+                <span className="font-headline font-extrabold text-base sm:text-xl text-zen-text dark:text-zen-dark-text tracking-tight">
+                  ItaLink
                 </span>
-                <span className="text-[9px] sm:text-[10px] font-mono font-bold uppercase px-1.5 py-0.2 rounded bg-zen-primary/10 dark:bg-zen-dark-primary/20 text-zen-primary dark:text-zen-dark-primary">
-                  {currentLang === 'zh-CN' ? '拼音注音' : 'Pinyin'}
+                <span className="text-[9px] sm:text-[10px] font-sans font-bold uppercase tracking-wider px-2 py-0.5 rounded-full bg-zen-primary/10 dark:bg-zen-dark-primary/20 text-zen-primary dark:text-zen-dark-primary border border-zen-primary/20">
+                  {currentLang === 'zh-CN' ? '意大利语' : 'Italiano'}
                 </span>
               </div>
               <p className="text-[11px] text-zen-text-muted dark:text-zen-dark-text-muted hidden md:block">
-                {selectedPackTitle ? `${t('common.activePack')}: ${selectedPackTitle}` : t('app.subtitle')}
+                {selectedPackTitle ? `${t('common.activePack')}: ${selectedPackTitle}` : (currentLang === 'zh-CN' ? '现代智能意语词汇闪卡' : 'Italian Vocabulary & Spaced Repetition')}
               </p>
             </div>
           </div>
@@ -122,7 +117,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {/* Desktop Navigation Links */}
           <nav className="hidden lg:flex items-center gap-1.5 bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 p-1 rounded-2xl border border-zen-border/40 dark:border-zen-dark-border">
             {navItems.map((item) => {
-              const isActive = activeMode === item.mode;
+              const isActive = activeMode === item.mode || (item.mode === 'wordFill' && activeMode === 'quiz');
               return (
                 <button
                   key={item.mode}
@@ -143,6 +138,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* Actions & Controls */}
           <div className="flex items-center gap-1.5 sm:gap-2">
+            
+            {/* Desktop Settings Quick Access */}
+            <button
+              type="button"
+              onClick={() => handleModeChange('settings')}
+              className={`p-2 rounded-xl text-xs font-bold border transition-all shadow-sm cursor-pointer ${
+                activeMode === 'settings'
+                  ? 'bg-zen-primary text-white border-zen-primary shadow-sm'
+                  : 'bg-zen-surface-container dark:bg-zen-dark-surface-high border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text hover:border-zen-primary dark:hover:border-zen-dark-primary'
+              }`}
+              title={t('nav.settings')}
+              aria-label={t('nav.settings')}
+            >
+              <Settings className="w-4 h-4" />
+            </button>
             
             {/* Desktop-only SFX Sound Toggle */}
             <button
@@ -182,40 +192,48 @@ export const Navbar: React.FC<NavbarProps> = ({
               <span className="font-mono">{currentLang === 'zh-CN' ? '中' : 'EN'}</span>
             </button>
 
-            {/* Desktop-only Sync & Backup Trigger */}
-            {onOpenSync && (
-              <button
-                type="button"
-                onClick={onOpenSync}
-                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text hover:border-zen-primary dark:hover:border-zen-dark-primary transition-all shadow-sm cursor-pointer"
-                title={currentLang === 'zh-CN' ? '跨设备数据备份与同步' : 'Sync & Backup'}
-                aria-label="Open Sync Modal"
-              >
-                <RefreshCw className="w-3.5 h-3.5 text-zen-primary dark:text-zen-dark-primary" />
-                <span>{currentLang === 'zh-CN' ? '备份同步' : 'Sync'}</span>
-              </button>
-            )}
-
             {/* Desktop-only User Profile & Logout */}
             {currentUser && (
               <div className="hidden sm:flex items-center gap-1.5 pl-2 border-l border-zen-border/40 dark:border-zen-dark-border">
-                <div
-                  className="flex items-center gap-1.5 px-2 py-1 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 text-xs text-zen-text dark:text-zen-dark-text"
-                  title={currentUser.email}
-                >
-                  <div className="w-6 h-6 rounded-full bg-zen-primary/10 dark:bg-zen-dark-primary/20 text-zen-primary dark:text-zen-dark-primary flex items-center justify-center font-bold text-[10px]">
-                    {currentUser.displayName ? currentUser.displayName.charAt(0).toUpperCase() : 'U'}
+                {currentUser.isGuest ? (
+                  <div
+                    className="flex items-center gap-1.5 px-2.5 py-1 rounded-xl bg-amber-500/10 dark:bg-amber-500/20 text-amber-700 dark:text-amber-400 border border-amber-500/30 text-xs font-semibold cursor-help"
+                    title={
+                      currentLang === 'zh-CN'
+                        ? '访客模式：学习进度仅保留在当前设备，未保存至云端。'
+                        : 'Guest Mode: Data is saved locally and not synced to cloud.'
+                    }
+                  >
+                    <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse" />
+                    <span>{currentLang === 'zh-CN' ? '访客 (未保存云端)' : 'Guest (No Cloud)'}</span>
                   </div>
-                  <span className="font-medium max-w-[90px] truncate">
-                    {currentUser.displayName || currentUser.username}
-                  </span>
-                </div>
+                ) : (
+                  <div
+                    className="flex items-center gap-1.5 px-2 py-1 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 text-xs text-zen-text dark:text-zen-dark-text"
+                    title={currentUser.email}
+                  >
+                    <div className="w-6 h-6 rounded-full bg-zen-primary/10 dark:bg-zen-dark-primary/20 text-zen-primary dark:text-zen-dark-primary flex items-center justify-center font-bold text-[10px]">
+                      {currentUser.displayName ? currentUser.displayName.charAt(0).toUpperCase() : 'U'}
+                    </div>
+                    <span className="font-medium max-w-[90px] truncate">
+                      {currentUser.displayName || currentUser.username}
+                    </span>
+                  </div>
+                )}
                 {onLogout && (
                   <button
                     type="button"
                     onClick={onLogout}
                     className="p-1.5 rounded-xl text-zen-text-muted hover:text-red-500 hover:bg-red-500/10 transition-colors cursor-pointer"
-                    title={currentLang === 'zh-CN' ? '退出登录' : 'Log out'}
+                    title={
+                      currentUser.isGuest
+                        ? currentLang === 'zh-CN'
+                          ? '退出访客模式'
+                          : 'Exit Guest Mode'
+                        : currentLang === 'zh-CN'
+                        ? '退出登录'
+                        : 'Log out'
+                    }
                     aria-label="Log out"
                   >
                     <LogOut className="w-4 h-4" />
@@ -254,8 +272,8 @@ export const Navbar: React.FC<NavbarProps> = ({
                         {currentUser.displayName || currentUser.username}
                       </span>
                       {currentUser.isGuest && (
-                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.2 rounded bg-amber-500/10 text-amber-700 dark:text-amber-300">
-                          Guest
+                        <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-amber-500/15 text-amber-700 dark:text-amber-400 border border-amber-500/30">
+                          {currentLang === 'zh-CN' ? '访客 · 未存云端' : 'Guest · No Cloud'}
                         </span>
                       )}
                     </div>
@@ -288,7 +306,7 @@ export const Navbar: React.FC<NavbarProps> = ({
                 {currentLang === 'zh-CN' ? '学习导航' : 'Study Modules'}
               </span>
               {navItems.map((item) => {
-                const isActive = activeMode === item.mode;
+                const isActive = activeMode === item.mode || (item.mode === 'wordFill' && activeMode === 'quiz');
                 return (
                   <button
                     key={item.mode}
@@ -307,36 +325,35 @@ export const Navbar: React.FC<NavbarProps> = ({
               })}
             </div>
 
-            {/* Mobile Actions: Sync & SFX */}
+            {/* Mobile Actions: Settings & SFX */}
             <div className="pt-2 border-t border-zen-border/30 dark:border-zen-dark-border/60 grid grid-cols-2 gap-2">
-              {onOpenSync && (
-                <button
-                  type="button"
-                  onClick={() => {
-                    onOpenSync();
-                    setMobileMenuOpen(false);
-                  }}
-                  className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-semibold bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/40 text-zen-text dark:text-zen-dark-text"
-                >
-                  <RefreshCw className="w-3.5 h-3.5 text-zen-primary dark:text-zen-dark-primary" />
-                  <span>{currentLang === 'zh-CN' ? '备份同步' : 'Sync Backup'}</span>
-                </button>
-              )}
+              <button
+                type="button"
+                onClick={() => handleModeChange('settings')}
+                className={`flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl text-xs font-semibold border transition-all ${
+                  activeMode === 'settings'
+                    ? 'bg-zen-primary text-white border-zen-primary font-bold'
+                    : 'bg-zen-surface-container dark:bg-zen-dark-surface-high border-zen-border/40 text-zen-text dark:text-zen-dark-text'
+                }`}
+              >
+                <Settings className="w-3.5 h-3.5" />
+                <span>{t('nav.settings')}</span>
+              </button>
 
               <button
                 type="button"
                 onClick={handleToggleSfx}
-                className="flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl text-xs font-semibold bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/40 text-zen-text dark:text-zen-dark-text"
+                className="flex items-center justify-center gap-1.5 py-2.5 px-2 rounded-xl text-xs font-semibold bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/40 text-zen-text dark:text-zen-dark-text"
               >
                 {sfxEnabled ? (
                   <>
                     <Volume2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-                    <span>{currentLang === 'zh-CN' ? '音效: 开启' : 'SFX: ON'}</span>
+                    <span>{currentLang === 'zh-CN' ? '音效' : 'SFX'}</span>
                   </>
                 ) : (
                   <>
                     <VolumeX className="w-3.5 h-3.5 text-zen-text-muted" />
-                    <span>{currentLang === 'zh-CN' ? '音效: 关闭' : 'SFX: OFF'}</span>
+                    <span>{currentLang === 'zh-CN' ? '静音' : 'Mute'}</span>
                   </>
                 )}
               </button>

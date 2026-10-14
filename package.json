@@ -7,14 +7,17 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "import-media": "node scripts/importMedia.mjs"
+    "import-media": "node scripts/importMedia.mjs",
+    "generate-audio": "python3 scripts/generateAudio.py"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.117.3",
     "canvas-confetti": "^1.9.4",
     "clsx": "^2.1.1",
     "framer-motion": "^11.18.2",
     "i18next": "^23.16.8",
     "lucide-react": "^0.475.0",
+    "msedge-tts": "^2.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "tailwind-merge": "^2.6.0"
@@ -31,4 +34,3 @@
     "vite": "^6.1.0"
   }
 }
-

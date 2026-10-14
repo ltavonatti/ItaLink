@@ -5,8 +5,10 @@
  */
 
 import greetingsCourtesyPack from './packs/greetings-courtesy.json';
+import foodDrinkPack from './packs/food-drink.json';
 import dailySurvivalPack from './packs/daily-survival.json';
 import keyVerbsPack from './packs/key-verbs.json';
+import italianSlangPack from './packs/italian-slang.json';
 
 export interface BilingualText {
   en: string;
@@ -22,6 +24,8 @@ export interface ExampleSentence {
 export interface WordMedia {
   image?: string | null;
   audio?: string | null;
+  exampleAudio?: string | null;
+  voiceSpeaker?: 'Elsa' | 'Diego' | string;
   attribution?: string | null;
 }
 
@@ -50,8 +54,10 @@ export interface VocabularyPack {
 
 export const VOCABULARY_PACKS: VocabularyPack[] = [
   greetingsCourtesyPack as VocabularyPack,
+  foodDrinkPack as VocabularyPack,
   dailySurvivalPack as VocabularyPack,
   keyVerbsPack as VocabularyPack,
+  italianSlangPack as VocabularyPack,
 ];
 
 /**

@@ -1,0 +1,1018 @@
+{
+  "id": "italian-slang",
+  "title": {
+    "en": "Street Italian & Slang (18+)",
+    "zh-CN": "地道街头俚语与俗语 (18+)"
+  },
+  "description": {
+    "en": "Everyday colloquial fillers, colorful banter, expressive gestures, and common expletives.",
+    "zh-CN": "意式日常口头禅、接地气的俚语感叹、生动彩色粗口及哥们儿间的玩笑吐槽。"
+  },
+  "icon": "Zap",
+  "words": [
+    {
+      "id": "is-01",
+      "word": "Boh!",
+      "pinyinHint": "buò!",
+      "phoneticIPA": "/bɔ/",
+      "translations": {
+        "en": "I don't know! / Beats me! / No clue!",
+        "zh-CN": "不知道！ / 谁知道呢！ / 毫无头绪！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "The quintessential Italian filler word. Shrug your shoulders and puff your lower lip.",
+        "zh-CN": "全意大利最万能的口头语气词，通常伴随耸肩、摊手和下唇微噘。"
+      },
+      "exampleSentence": {
+        "it": "A che ora arriva il treno? — Boh, sarà in ritardo come al solito.",
+        "en": "What time does the train arrive? — Beats me, it'll probably be late as usual.",
+        "zh-CN": "火车几点到？——谁知道呢，估计照例晚点。"
+      },
+      "media": {
+        "image": "/media/images/study-wakaranai-boy.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-02",
+      "word": "Dai!",
+      "pinyinHint": "dài!",
+      "phoneticIPA": "/dai/",
+      "translations": {
+        "en": "Come on! / Hurry up! / Stop joking!",
+        "zh-CN": "快点！ / 得了吧！ / 别闹了！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Multi-purpose exclamation: encouragement ('Dai, puoi farcela!'), disbelief ('Ma dai, sul serio?!'), or urging.",
+        "zh-CN": "超级多功能词：可表示催促快点、鼓励加油、或表示难以置信'得了吧！'。"
+      },
+      "exampleSentence": {
+        "it": "Dai, sbrigati che perdiamo l'autobus!",
+        "en": "Come on, hurry up or we'll miss the bus!",
+        "zh-CN": "快点，赶紧的，不然要赶不上公交了！"
+      },
+      "media": {
+        "image": "/media/images/yaruki-moeru-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-03",
+      "word": "Cavolo!",
+      "pinyinHint": "kà-vuò-luò!",
+      "phoneticIPA": "/ˈkaːvolo/",
+      "translations": {
+        "en": "Damn! / Heck! / Crap! (mild expletive)",
+        "zh-CN": "可恶！ / 糟糕！ / 天哪！ (温和脏话)"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Literally means 'cabbage'. Family-friendly substitute for 'cazzo'.",
+        "zh-CN": "字面意思是'卷心菜'，作为温和避讳词代替粗鲁的cazzo，公共场合也可用。"
+      },
+      "exampleSentence": {
+        "it": "Cavolo, ho dimenticato il portafoglio a casa!",
+        "en": "Damn, I forgot my wallet at home!",
+        "zh-CN": "糟糕，我把钱包忘在家里了！"
+      },
+      "media": {
+        "image": "/media/images/face-angry-woman5.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-04",
+      "word": "Che figata!",
+      "pinyinHint": "kè fī-gà-tà!",
+      "phoneticIPA": "/ke fiˈɡaːta/",
+      "translations": {
+        "en": "How cool! / What an awesome thing!",
+        "zh-CN": "太帅了！ / 太酷了！ / 太绝了！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Youth slang meaning very cool, stylish, or impressive.",
+        "zh-CN": "意国年轻人极高频流行语，形容非常酷炫、爽快、令人赞叹的事物。"
+      },
+      "exampleSentence": {
+        "it": "Hai preso i biglietti per il concerto? Che figata!",
+        "en": "You got the concert tickets? How cool!",
+        "zh-CN": "你买到演唱会门票了？太酷了吧！"
+      },
+      "media": {
+        "image": "/media/images/figure-goodjob.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-05",
+      "word": "Che palle!",
+      "pinyinHint": "kè pàl-lèi!",
+      "phoneticIPA": "/ke ˈpalle/",
+      "translations": {
+        "en": "What a pain! / What a drag! / How boring!",
+        "zh-CN": "真烦人！ / 烦死了！ / 真是个大麻烦！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Literally 'what balls'. Widely used to express intense annoyance or boredom.",
+        "zh-CN": "字面意思'什么球啊'，日常宣泄极其厌烦、心烦气躁情绪的最常用俚语。"
+      },
+      "exampleSentence": {
+        "it": "Piove ancora e non possiamo uscire, che palle!",
+        "en": "It's raining again and we can't go out, what a pain!",
+        "zh-CN": "又下雨了没法出门，烦死了！"
+      },
+      "media": {
+        "image": "/media/images/tsukare-girl.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-06",
+      "word": "Cazzo!",
+      "pinyinHint": "kàt-suò!",
+      "phoneticIPA": "/ˈkattso/",
+      "translations": {
+        "en": "Fuck! / Shit! / Damn! (vulgar expletive)",
+        "zh-CN": "卧槽！ / 该死！ / 他妈的！ (核心粗话)"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "The most versatile profanity in Italian. Used for anger, shock, emphasis, or pain.",
+        "zh-CN": "意语中使用最广泛的国骂级感叹词，宣泄愤怒、震惊或极度强调。注意场合！"
+      },
+      "exampleSentence": {
+        "it": "Cazzo, mi sono fatto male al dito!",
+        "en": "Fuck, I hurt my finger!",
+        "zh-CN": "卧槽，我手指砸伤了！"
+      },
+      "media": {
+        "image": "/media/images/pose-sugoi-okoru-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-07",
+      "word": "Un casino",
+      "pinyinHint": "wùn kà-zī-nuò",
+      "phoneticIPA": "/un kaˈziːno/",
+      "translations": {
+        "en": "A huge mess / A ton of / Chaos",
+        "zh-CN": "大乱子 / 乱七八糟 / 一大堆 / 巨多"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "Originally meant brothel; now means chaos or huge quantity ('Mi manchi un casino').",
+        "zh-CN": "现意为极其混乱或数量巨大。如'Fa un casino di rumore'(吵得要死)。"
+      },
+      "exampleSentence": {
+        "it": "C'era un casino di traffico in tangenziale stamattina.",
+        "en": "There was crazy traffic on the ring road this morning.",
+        "zh-CN": "今天早上环线上堵得一塌糊涂。"
+      },
+      "media": {
+        "image": "/media/images/undoukai-pyramid-kuzureru.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-08",
+      "word": "Meno male!",
+      "pinyinHint": "mèi-nuò mà-lèi!",
+      "phoneticIPA": "/ˈmeːno ˈmaːle/",
+      "translations": {
+        "en": "Thank goodness! / What a relief!",
+        "zh-CN": "幸好！ / 谢天谢地！ / 太万幸了！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Literally 'less bad'. Uttered with a sigh of relief.",
+        "zh-CN": "字面意思'少受点坏影响'，如释重负时必说的感叹。"
+      },
+      "exampleSentence": {
+        "it": "Non hai perso il treno? Meno male!",
+        "en": "You didn't miss the train? Thank goodness!",
+        "zh-CN": "你没错过火车？太万幸了！"
+      },
+      "media": {
+        "image": "/media/images/teinen-slowlife.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-09",
+      "word": "Figurati!",
+      "pinyinHint": "fī-gù-rà-tǐ!",
+      "phoneticIPA": "/fiˈɡuːrati/",
+      "translations": {
+        "en": "Don't mention it! / No big deal! / Imagine that!",
+        "zh-CN": "客气啥！ / 小事一桩！ / 别见外！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Very warm colloquial response to thanks or apologies. Formal is 'Si figuri!'.",
+        "zh-CN": "亲切随和的应答语，回复他人感谢或道歉：'哪里的事，客气啥！'。"
+      },
+      "exampleSentence": {
+        "it": "— Grazie mille dell'aiuto! — Figurati, è stato un piacere!",
+        "en": "— Thanks a lot for the help! — Don't mention it, it was a pleasure!",
+        "zh-CN": "——非常感谢你的帮助！——客气啥，乐意效劳！"
+      },
+      "media": {
+        "image": "/media/images/ojigi-aisatsu-business-woman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-10",
+      "word": "Magari!",
+      "pinyinHint": "mà-gà-rǐ!",
+      "phoneticIPA": "/maˈɡaːri/",
+      "translations": {
+        "en": "I wish! / If only! / Would that it were so!",
+        "zh-CN": "要是能那样就好了！ / 但愿如此！ / 想得美！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Deeply expressive Mediterranean sentiment longing for an idealized outcome.",
+        "zh-CN": "地中海文化特有的愿景感叹词，表达强烈而美好的期盼。"
+      },
+      "exampleSentence": {
+        "it": "Hai vinto alla lotteria? — Magari!",
+        "en": "Did you win the lottery? — I wish!",
+        "zh-CN": "你中彩票了？——要是真中就好了！"
+      },
+      "media": {
+        "image": "/media/images/yume-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-11",
+      "word": "Stronzo",
+      "pinyinHint": "sǐ-tu-ruòn-zuò",
+      "phoneticIPA": "/ˈstrɔndzo/",
+      "translations": {
+        "en": "Asshole / Jerk / Bastard (insult)",
+        "zh-CN": "混蛋 / 狗杂种 / 讨厌鬼 (常见骂人词)"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "noun",
+      "gender": "m",
+      "pronunciationNotes": {
+        "en": "One of the most widespread insults in Italian. Feminine is 'stronza'.",
+        "zh-CN": "意语最常见、杀伤力强的辱骂词之一，指自私卑劣之人，女性用stronza。"
+      },
+      "exampleSentence": {
+        "it": "Quel tipo mi ha tagliato la strada, che stronzo!",
+        "en": "That guy cut me off in traffic, what an asshole!",
+        "zh-CN": "那家伙别我车，真是一个混蛋！"
+      },
+      "media": {
+        "image": "/media/images/joushi-buka-men2-okoru.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-12",
+      "word": "Vaffanculo!",
+      "pinyinHint": "vàf-fàn-kù-luò!",
+      "phoneticIPA": "/vaffanˈkuːlo/",
+      "translations": {
+        "en": "Fuck off! / Go to hell! (strong curse)",
+        "zh-CN": "滚蛋！ / 去你的！ / 滚犊子！ (经典粗口)"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Contracted from 'va a fare in culo'. Iconic Italian dismissal.",
+        "zh-CN": "意大利最臭名昭著的经典脏话，火气极大时的驱赶斥责语。千万谨慎使用！"
+      },
+      "exampleSentence": {
+        "it": "Ma lasciami in pace e vaffanculo!",
+        "en": "Just leave me alone and fuck off!",
+        "zh-CN": "别烦我，滚一边去！"
+      },
+      "media": {
+        "image": "/media/images/pose-sugoi-okoru-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-13",
+      "word": "Mamma mia!",
+      "pinyinHint": "màm-mà mī-à!",
+      "phoneticIPA": "/ˈmamma ˈmiːa/",
+      "translations": {
+        "en": "My goodness! / Oh my god! / Wow!",
+        "zh-CN": "我的妈呀！ / 天哪！ / 哎呀！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Authentic exclamation for shock, joy, exasperation, or sheer disbelief.",
+        "zh-CN": "意大利人的文化符号名片，表达震惊、绝望、狂喜或惊叹。"
+      },
+      "exampleSentence": {
+        "it": "Mamma mia, che bontà questa pizza!",
+        "en": "Oh my goodness, how delicious is this pizza!",
+        "zh-CN": "我的天，这披萨也太好吃了！"
+      },
+      "media": {
+        "image": "/media/images/bikkuri-me-tobideru-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-14",
+      "word": "Che schifo!",
+      "pinyinHint": "kè sǐ-kī-fuò!",
+      "phoneticIPA": "/ke ˈskiːfo/",
+      "translations": {
+        "en": "How disgusting! / That's gross!",
+        "zh-CN": "太恶心了！ / 太难吃了！ / 恶心死了！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'ch' is hard /k/. Expresses intense disgust with food, dirt, or behavior.",
+        "zh-CN": "'chi'发ki音，强烈表达对食物难吃、环境肮脏或卑劣行为的厌恶反感。"
+      },
+      "exampleSentence": {
+        "it": "C'è un capello nella minestra, che schifo!",
+        "en": "There's a hair in the soup, how disgusting!",
+        "zh-CN": "汤里有一根头发，恶心死了！"
+      },
+      "media": {
+        "image": "/media/images/pose-kusai.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-15",
+      "word": "Ti va?",
+      "pinyinHint": "tǐ và?",
+      "phoneticIPA": "/ti ˈva/",
+      "translations": {
+        "en": "Do you feel like it? / Are you up for it?",
+        "zh-CN": "你想去吗？ / 你意下如何？ / 去不去？"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Everyday informal suggestion: 'Ti va di uscire?' (Feel like going out?).",
+        "zh-CN": "朋友间发出提议最地道的方式：'Ti va un gelato?'(想不想吃冰淇淋？)。"
+      },
+      "exampleSentence": {
+        "it": "Ti va di andare al cinema stasera?",
+        "en": "Do you feel like going to the movies tonight?",
+        "zh-CN": "今晚你想去看电影吗？"
+      },
+      "media": {
+        "image": "/media/images/talk-man-woman-casual.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-16",
+      "word": "Tranquillo!",
+      "pinyinHint": "tu-ràn-kuīl-luò!",
+      "phoneticIPA": "/traŋˈkwillo/",
+      "translations": {
+        "en": "Relax! / Don't worry! / Chill! / Take it easy!",
+        "zh-CN": "放轻松！ / 别慌！ / 没事儿！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Double 'll' is held. Used to soothe someone stressed or panicking.",
+        "zh-CN": "常用来安抚焦虑或感到抱歉的朋友，女孩子说'Tranquilla!'。"
+      },
+      "exampleSentence": {
+        "it": "Tranquillo, abbiamo tutto il tempo di arrivare.",
+        "en": "Relax, we have plenty of time to get there.",
+        "zh-CN": "别慌，我们有充裕的时间赶到。"
+      },
+      "media": {
+        "image": "/media/images/figure-service.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-17",
+      "word": "Ci sta",
+      "pinyinHint": "qī sǐ-tà",
+      "phoneticIPA": "/tʃi ˈsta/",
+      "translations": {
+        "en": "It works / That makes sense / I'm down / Sounds good",
+        "zh-CN": "没毛病 / 可以有 / 挺合理的 / 我赞成"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Very trendy colloquial assent: 'Un drink adesso? — Sì, ci sta!'",
+        "zh-CN": "当下年轻人极度高频的认同短语，表示'合情合理、可以接受、我同意'。"
+      },
+      "exampleSentence": {
+        "it": "Una birra fresca dopo questa camminata ci sta proprio!",
+        "en": "A cold beer after this walk really hits the spot!",
+        "zh-CN": "走完这趟路来杯冰啤酒，真是太到位了！"
+      },
+      "media": {
+        "image": "/media/images/figure-goodjob.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-18",
+      "word": "Fare brutta figura",
+      "pinyinHint": "fà-rèi bu-rùt-tà fī-gù-rà",
+      "phoneticIPA": "/ˈfaːre ˈbrutta fiˈɡuːra/",
+      "translations": {
+        "en": "To make a bad impression / To look bad / Lose face",
+        "zh-CN": "丢人现眼 / 丢脸 / 留坏印象 / 失礼"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Cornerstone concept of Italian social etiquette: avoiding public embarrassment.",
+        "zh-CN": "意大利社交文化核心禁忌，强调维持体面，极力避免当众出丑丢面子。"
+      },
+      "exampleSentence": {
+        "it": "Vestiti bene, non vogliamo fare brutta figura al matrimonio.",
+        "en": "Dress well, we don't want to make a bad impression at the wedding.",
+        "zh-CN": "穿得体面点，我们可不想在婚礼上丢人现眼。"
+      },
+      "media": {
+        "image": "/media/images/pose-syazai-sliding-dogeza-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-19",
+      "word": "Fare bella figura",
+      "pinyinHint": "fà-rèi bèl-là fī-gù-rà",
+      "phoneticIPA": "/ˈfaːre ˈbɛlla fiˈɡuːra/",
+      "translations": {
+        "en": "To make a great impression / Look sharp / Shine",
+        "zh-CN": "给人留下好印象 / 讲究体面 / 出彩"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "The opposite of 'brutta figura' — presenting yourself impeccably.",
+        "zh-CN": "与丢脸相反，指做事体面、穿着光鲜、给人留下极佳深刻印象。"
+      },
+      "exampleSentence": {
+        "it": "Portiamo una bottiglia di buon vino per fare bella figura.",
+        "en": "Let's bring a bottle of good wine to make a great impression.",
+        "zh-CN": "我们带瓶好酒去，这样显得体面大方。"
+      },
+      "media": {
+        "image": "/media/images/businessman-dekiru.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-20",
+      "word": "Non mi va",
+      "pinyinHint": "nuòn mǐ và",
+      "phoneticIPA": "/non mi ˈva/",
+      "translations": {
+        "en": "I don't feel like it / I don't want to",
+        "zh-CN": "我不想去 / 我没心情 / 我不想干"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Direct colloquial refusal of an invitation or proposal.",
+        "zh-CN": "口语直接拒绝提议：'Non mi va di studiare stasera'(今晚我不想学)。"
+      },
+      "exampleSentence": {
+        "it": "Grazie dell'invito, ma stasera non mi va di uscire.",
+        "en": "Thanks for the invite, but tonight I don't feel like going out.",
+        "zh-CN": "谢谢邀请，但我今晚真没心情出门。"
+      },
+      "media": {
+        "image": "/media/images/vegetable-yasai-kirai.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-21",
+      "word": "Che bordello!",
+      "pinyinHint": "kè buòr-dèl-luò!",
+      "phoneticIPA": "/ke borˈdɛllo/",
+      "translations": {
+        "en": "What chaos! / What an insane mess!",
+        "zh-CN": "太混乱了！ / 乱成一锅粥！ / 闹翻天了！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Synonym with 'casino', refers to a noisy, unruly, chaotic situation.",
+        "zh-CN": "形容喧闹嘈杂、极度混乱无序的场面，粗俗但极常听见。"
+      },
+      "exampleSentence": {
+        "it": "C'era un bordello incredibile allo stadio ieri sera.",
+        "en": "There was incredible chaos at the stadium last night.",
+        "zh-CN": "昨晚球场里简直乱成了一锅粥。"
+      },
+      "media": {
+        "image": "/media/images/friends-abareru.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-22",
+      "word": "Beccare",
+      "pinyinHint": "bèk-kà-rèi",
+      "phoneticIPA": "/bekˈkaːre/",
+      "translations": {
+        "en": "To bump into / To catch / To hook up with",
+        "zh-CN": "撞见 / 碰上 / 逮住 (俚语)"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Double 'cc' is hard /kk/. 'Ci becchiamo dopo' = Let's catch up later.",
+        "zh-CN": "年轻人极常用动词：'Ci becchiamo dopo'(我们回头碰头见)。"
+      },
+      "exampleSentence": {
+        "it": "Ho beccato Marco al bar mentre prendeva il caffè.",
+        "en": "I bumped into Marco at the bar while he was having coffee.",
+        "zh-CN": "我在咖啡吧正好撞见了在喝咖啡的马可。"
+      },
+      "media": {
+        "image": "/media/images/cat-nezumi-oikakeru.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-23",
+      "word": "Ci vediamo dopo, raga",
+      "pinyinHint": "qī vèi-dià-muò duò-può, rà-gà",
+      "phoneticIPA": "/tʃi veˈdjaːmo ˈdɔpo ˈraːɡa/",
+      "translations": {
+        "en": "See you later, guys!",
+        "zh-CN": "待会儿见，兄弟们 / 朋友们！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'Raga' is the universal Italian youth slang abbreviation for 'ragazzi' (guys/folks).",
+        "zh-CN": "'raga'是ragazzi的简写口头语，相当于英文的'guys'或中文的'兄弟们/大家'。"
+      },
+      "exampleSentence": {
+        "it": "Io devo andare a lezione, ci vediamo dopo, raga!",
+        "en": "I have to go to class, see you later guys!",
+        "zh-CN": "我得上课去了，待会儿见兄弟们！"
+      },
+      "media": {
+        "image": "/media/images/aisatsu-sayounara-2.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-24",
+      "word": "Macché!",
+      "pinyinHint": "màk-kè!",
+      "phoneticIPA": "/makˈke/",
+      "translations": {
+        "en": "No way! / Not at all! / As if!",
+        "zh-CN": "哪有的事！ / 怎么可能！ / 才不是呢！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Double 'cch' is strong /kk/. Used to vigorously deny or brush off something.",
+        "zh-CN": "强烈否认或反驳对方假定时使用，发音短促有力。"
+      },
+      "exampleSentence": {
+        "it": "Hai finito tutto il lavoro? — Macché, sono ancora a metà!",
+        "en": "Did you finish all the work? — No way, I'm still halfway through!",
+        "zh-CN": "你工作都做完了？——哪有的事，刚做了一半！"
+      },
+      "media": {
+        "image": "/media/images/animal-quiz-inu-batsu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-25",
+      "word": "Ma va?!",
+      "pinyinHint": "mà và?!",
+      "phoneticIPA": "/ma ˈva/",
+      "translations": {
+        "en": "Really?! / You don't say?! / Seriously?!",
+        "zh-CN": "真的假的？！ / 怎么会？！ / 别扯了？！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Tone determines whether it means genuine disbelief or sarcastic obviousness.",
+        "zh-CN": "根据语调既可表示难以置信的惊讶，也可反讽'这还用你说？'。"
+      },
+      "exampleSentence": {
+        "it": "Ha lasciato il lavoro a tempo indeterminato?! — Ma va?!",
+        "en": "He quit his permanent job?! — You don't say?!",
+        "zh-CN": "他把铁饭碗工作辞了？！——真的假的？！"
+      },
+      "media": {
+        "image": "/media/images/animal-buta-shock.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-26",
+      "word": "Sei un grande!",
+      "pinyinHint": "sǎi ùn gu-ràn-dèi!",
+      "phoneticIPA": "/sɛi uŋ ˈɡrande/",
+      "translations": {
+        "en": "You're the best! / You rock! / You legend!",
+        "zh-CN": "你太强了！ / 太给力了！ / 你是真大佬！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Ultimate informal compliment to a friend who helped you out.",
+        "zh-CN": "意式哥们儿之间极高褒奖，朋友帮了大忙时脱口而出。"
+      },
+      "exampleSentence": {
+        "it": "Grazie per avermi riparato la macchina, sei un grande!",
+        "en": "Thanks for fixing my car, you're the best!",
+        "zh-CN": "谢谢帮我修好车，你太给力了兄弟！"
+      },
+      "media": {
+        "image": "/media/images/trophy-school-girl.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-27",
+      "word": "Che figura di merda!",
+      "pinyinHint": "kè fī-gù-rà dǐ mèr-dà!",
+      "phoneticIPA": "/ke fiˈɡuːra di ˈmɛrda/",
+      "translations": {
+        "en": "What an embarrassing shitshow! / What an utter disgrace!",
+        "zh-CN": "太丢人现眼了！ / 颜面扫地！ / 丢死人了！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "The vulgar, amplified version of 'brutta figura'. Uttered in extreme embarrassment.",
+        "zh-CN": "brutta figura的强力脏话升级版，形容当众遭遇极度尴尬耻辱的场面。"
+      },
+      "exampleSentence": {
+        "it": "Mi sono dimenticato il nome del capo davanti a tutti, che figura di merda!",
+        "en": "I forgot the boss's name in front of everyone, what an embarrassing disgrace!",
+        "zh-CN": "我当着全公司面把老板名字忘了，太丢人了！"
+      },
+      "media": {
+        "image": "/media/images/test0.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-28",
+      "word": "Mi fa cagare",
+      "pinyinHint": "mǐ fà kà-gà-rèi",
+      "phoneticIPA": "/mi fa kaˈɡaːre/",
+      "translations": {
+        "en": "It sucks! / It's absolute crap! (vulgar)",
+        "zh-CN": "太烂了！ / 难吃/难看死了！ / 极其恶劣！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Crude expression of intense distaste towards food, movies, or art.",
+        "zh-CN": "粗鲁直白地表达某样东西极度难看、难吃或粗制滥造。"
+      },
+      "exampleSentence": {
+        "it": "Quel film d'azione mi fa cagare, non guardarlo.",
+        "en": "That action movie sucks balls, don't watch it.",
+        "zh-CN": "那部动作片拍得跟屎一样烂，别看了。"
+      },
+      "media": {
+        "image": "/media/images/syokuji-sakana-kitanai.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-29",
+      "word": "Rompere le scatole",
+      "pinyinHint": "ruòm-pèi-rèi lèi sǐ-kà-tuò-lèi",
+      "phoneticIPA": "/ˈrompere le ˈskaːtole/",
+      "translations": {
+        "en": "To bust someone's balls / To annoy / To pester",
+        "zh-CN": "烦人 / 惹人讨厌 / 讨嫌 / 找茬"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Politer version of 'rompere i coglioni' (to bust balls).",
+        "zh-CN": "委婉表达别人烦扰捣乱的短语，比rompere i coglioni文明。"
+      },
+      "exampleSentence": {
+        "it": "Smettila di rompermi le scatole mentre studio!",
+        "en": "Stop busting my balls while I'm studying!",
+        "zh-CN": "我学习呢，别在这儿烦我！"
+      },
+      "media": {
+        "image": "/media/images/hako-nakami-nandarou-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-30",
+      "word": "A cazzo di cane",
+      "pinyinHint": "à kàt-suò dǐ kà-nèi",
+      "phoneticIPA": "/a ˈkattso di ˈkaːne/",
+      "translations": {
+        "en": "Haphazardly / Half-assed / Shoddily done",
+        "zh-CN": "敷衍了事 / 粗制滥造 / 乱七八糟地胡搞"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Famous Italian idiomatic curse meaning something done with zero care or method.",
+        "zh-CN": "极为传神生动的意式粗鄙俚语，形容做事毫无条理、敷衍草率至极。"
+      },
+      "exampleSentence": {
+        "it": "Questo lavoro è stato fatto proprio a cazzo di cane.",
+        "en": "This job was done completely half-assed.",
+        "zh-CN": "这活儿干得真是毫无章法、敷衍了事。"
+      },
+      "media": {
+        "image": "/media/images/tosou-airbrush-bad.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-31",
+      "word": "Cazzata",
+      "pinyinHint": "kàt-sà-tà",
+      "phoneticIPA": "/katˈtsaːta/",
+      "translations": {
+        "en": "Bullshit / Nonsense / Dumb mistake",
+        "zh-CN": "胡扯 / 鬼话 / 蠢事 / 脑残行为"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Double 'zz' is /tts/. 'Non dire cazzate!' = Don't talk bullshit!",
+        "zh-CN": "指荒谬言论或愚蠢犯错，'Non dire cazzate'表示别扯淡胡说。"
+      },
+      "exampleSentence": {
+        "it": "Non credere a quello che dice, sono tutte cazzate.",
+        "en": "Don't believe what he says, it's all bullshit.",
+        "zh-CN": "别信他说的话，全都是胡说八道。"
+      },
+      "media": {
+        "image": "/media/images/uso-hakkenki-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-32",
+      "word": "Non me ne frega niente",
+      "pinyinHint": "nuòn mèi nèi fu-rè-gà nièn-tèi",
+      "phoneticIPA": "/non me ne ˈfrɛːɡa ˈnjɛnte/",
+      "translations": {
+        "en": "I couldn't care less / I don't give a damn",
+        "zh-CN": "我根本不在乎 / 关我屁事 / 关我啥事"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Colloquial verb 'fregarsene'. Very common expression of total indifference.",
+        "zh-CN": "极高频日常俚语，表示彻底冷漠无感或不屑一顾。"
+      },
+      "exampleSentence": {
+        "it": "Cosa ne pensa la gente? Non me ne frega niente!",
+        "en": "What do people think? I don't give a damn!",
+        "zh-CN": "别人怎么看？关我屁事！"
+      },
+      "media": {
+        "image": "/media/images/hima-taikutsu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-33",
+      "word": "Testa di cazzo",
+      "pinyinHint": "tèi-sǐ-tà dǐ kàt-suò",
+      "phoneticIPA": "/ˈtɛsta di ˈkattso/",
+      "translations": {
+        "en": "Dickhead / Jerk / Total idiot (insult)",
+        "zh-CN": "脑残 / 蠢蛋 / 王八蛋 (典型辱骂语)"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "noun",
+      "gender": "f",
+      "pronunciationNotes": {
+        "en": "Very offensive direct insult to someone's intelligence or behavior.",
+        "zh-CN": "极度尖锐的辱骂用语，骂人行为卑鄙不可理喻。"
+      },
+      "exampleSentence": {
+        "it": "Quel testa di cazzo non rispetta le regole del condominio.",
+        "en": "That dickhead doesn't respect the building rules.",
+        "zh-CN": "那个王八蛋从来不遵守公寓规矩。"
+      },
+      "media": {
+        "image": "/media/images/animal-monkey-gelada-hihi.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-34",
+      "word": "Minchia!",
+      "pinyinHint": "mīn-kǐ-yà!",
+      "phoneticIPA": "/ˈmiŋkja/",
+      "translations": {
+        "en": "Holy shit! / Damn! / Whoa! (Sicilian exclamation)",
+        "zh-CN": "哇塞！ / 卧槽！ / 妈呀！ (经典西西里感叹词)"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Originally Sicilian, now universally understood across Italy for surprise.",
+        "zh-CN": "原为西西里俚语，现已风靡全意大利，表达极大震惊或惊叹。"
+      },
+      "exampleSentence": {
+        "it": "Minchia, quanto costa quella macchina sportiva?!",
+        "en": "Holy shit, how much does that sports car cost?!",
+        "zh-CN": "卧槽，那辆跑车要多少钱啊？！"
+      },
+      "media": {
+        "image": "/media/images/akuma-shadow.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-35",
+      "word": "Che bomba!",
+      "pinyinHint": "kè buòm-bà!",
+      "phoneticIPA": "/ke ˈbɔmba/",
+      "translations": {
+        "en": "It's a blast! / Fantastic! / The bomb!",
+        "zh-CN": "太炸裂了！ / 太给力了！ / 绝绝子！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Slang for something exceptionally exciting, flavorful, or powerful.",
+        "zh-CN": "形容某事物极度震撼、美味或精彩绝伦，炸裂般的好。"
+      },
+      "exampleSentence": {
+        "it": "Questo panino con la porchetta è una bomba!",
+        "en": "This roast pork sandwich is the bomb!",
+        "zh-CN": "这个意式烤猪肉帕尼尼简直绝了，太炸裂了！"
+      },
+      "media": {
+        "image": "/media/images/honoo-hi-fire.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-36",
+      "word": "Andare liscio",
+      "pinyinHint": "àn-dà-rèi lī-shuò",
+      "phoneticIPA": "/anˈdaːre ˈliʃʃo/",
+      "translations": {
+        "en": "To go smoothly / Without a hitch",
+        "zh-CN": "进展顺利 / 顺顺当当 / 一帆风顺"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'sc' before 'i' makes /ʃ/ (like 'sh'). 'È andato tutto liscio' = All went smoothly.",
+        "zh-CN": "'sci'发拼音sh音，字面'走得平滑'，表示事情顺当顺利。"
+      },
+      "exampleSentence": {
+        "it": "Come è andato l'esame? — Tutto liscio come l'olio!",
+        "en": "How did the exam go? — Smooth as butter!",
+        "zh-CN": "考试考得怎么样？——像油一样顺，顺顺当当！"
+      },
+      "media": {
+        "image": "/media/images/pose-yubisashi-kakunin-businessman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-37",
+      "word": "Dai che ce la fai!",
+      "pinyinHint": "dài kè qè là fài!",
+      "phoneticIPA": "/dai ke tʃe la ˈfai/",
+      "translations": {
+        "en": "Come on, you got this! / You can do it!",
+        "zh-CN": "加油，你一定可以的！ / 挺住，你能行！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Phrasal verb 'farcela' (to manage/succeed). Very encouraging.",
+        "zh-CN": "使用代词动词farcela，意大利朋友间最热血的加油打气句。"
+      },
+      "exampleSentence": {
+        "it": "Manca solo un chilometro al traguardo, dai che ce la fai!",
+        "en": "Only one kilometer to the finish line, come on, you got this!",
+        "zh-CN": "离终点就剩最后一公里了，加油你能行的！"
+      },
+      "media": {
+        "image": "/media/images/pose-ganbarou-woman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-38",
+      "word": "Spaccare",
+      "pinyinHint": "sǐ-pàk-kà-rèi",
+      "phoneticIPA": "/spakˈkaːre/",
+      "translations": {
+        "en": "To rock / To kill it / To nail it",
+        "zh-CN": "超神 / 炸场 / 搞定一切 / 帅炸了"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "verb",
+      "pronunciationNotes": {
+        "en": "Literally 'to smash/break'. Double 'cc' is /kk/. 'Hai spaccato!' = You killed it!",
+        "zh-CN": "字面为打碎，俚语意为'帅爆了/超常发挥/征服全场'。"
+      },
+      "exampleSentence": {
+        "it": "La tua band ieri sera ha spaccato di brutto!",
+        "en": "Your band totally rocked the stage last night!",
+        "zh-CN": "你们乐队昨晚的演出简直帅炸了！"
+      },
+      "media": {
+        "image": "/media/images/yuusya-game.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-39",
+      "word": "Avere culo",
+      "pinyinHint": "à-vèi-rèi kù-luò",
+      "phoneticIPA": "/aˈveːre ˈkuːlo/",
+      "translations": {
+        "en": "To be damn lucky / Pure luck (slang)",
+        "zh-CN": "走狗屎运 / 运气爆棚 (俚语)"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Colloquial expression equating luck with good fortune: 'Che culo!' = What luck!",
+        "zh-CN": "意式俚语用culo表示运气，'Che culo!'表示'太走运了/真是狗屎运！'。"
+      },
+      "exampleSentence": {
+        "it": "Hai trovato parcheggio proprio lì? Che culo!",
+        "en": "You found a parking spot right there? What luck!",
+        "zh-CN": "你在那儿居然找到了停车位？真走狗屎运！"
+      },
+      "media": {
+        "image": "/media/images/test100.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "is-40",
+      "word": "Ci mancherebbe!",
+      "pinyinHint": "qī màn-kè-rèb-bèi!",
+      "phoneticIPA": "/tʃi maŋkeˈrɛbbe/",
+      "translations": {
+        "en": "Of course! / Don't mention it! / It goes without saying!",
+        "zh-CN": "那当然！ / 哪里的话！ / 义不容辞！"
+      },
+      "category": "italian-slang",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'ch' is hard /k/. Conditional of 'mancare'. Warm reassurance.",
+        "zh-CN": "极其优雅又亲切的意大利式应答，意为'那还用说，必须的！'。"
+      },
+      "exampleSentence": {
+        "it": "— Posso farti una domanda? — Ci mancherebbe altro, dimmi pure!",
+        "en": "— May I ask you a question? — Of course, please go ahead!",
+        "zh-CN": "——能问你个问题吗？——哪里的话，随时问！"
+      },
+      "media": {
+        "image": "/media/images/ojigi-tenin-woman.webp",
+        "audio": null
+      }
+    }
+  ]
+}

@@ -3,14 +3,18 @@ import Navbar, { StudyMode } from './components/Navbar';
 import Dashboard from './components/Dashboard';
 import { AuthScreen } from './components/Auth/AuthScreen';
 import { FlashcardView } from './components/Flashcards/FlashcardView';
+import { FallingWordsView } from './components/Arcade/FallingWordsView';
+import { WordFillPlaceholder } from './components/Arcade/WordFillPlaceholder';
+import { SettingsView } from './components/Settings/SettingsView';
 import { SyncModal } from './components/Sync/SyncModal';
 import { authService, UserAccount } from './services/authService';
 import { VOCABULARY_PACKS, getPackById } from './data/italianVocabulary';
 import { useTranslation } from './i18n';
-import { ArrowLeft, CheckSquare, Gamepad2, Sparkles } from 'lucide-react';
+
+import { storageService } from './services/storageService';
 
 export const App: React.FC = () => {
-  const { t, currentLang } = useTranslation();
+  const { currentLang } = useTranslation();
   const [currentUser, setCurrentUser] = useState<UserAccount | null>(() => authService.getCurrentUser());
   const [activeMode, setActiveMode] = useState<StudyMode>('dashboard');
   const [selectedPackId, setSelectedPackId] = useState<string>('greetings-courtesy');
@@ -23,6 +27,15 @@ export const App: React.FC = () => {
     });
     return () => unsubscribe();
   }, []);
+
+  // Background cloud synchronization on load
+  useEffect(() => {
+    if (currentUser?.id && !currentUser.isGuest) {
+      storageService.syncWithCloud(currentUser.id).catch((err) => {
+        console.warn('Initial cloud sync silent notice:', err);
+      });
+    }
+  }, [currentUser?.id, currentUser?.isGuest]);
 
   // 1. Local Authentication Barrier
   if (!currentUser) {
@@ -38,17 +51,28 @@ export const App: React.FC = () => {
       <Navbar
         activeMode={activeMode}
         onSelectMode={(mode) => {
-          setIsSRSMode(false);
+          if (mode === 'flashcards') {
+            setIsSRSMode(true);
+          } else {
+            setIsSRSMode(false);
+          }
           setActiveMode(mode);
         }}
         selectedPackTitle={currentPack.title[currentLang]}
         currentUser={currentUser}
-        onOpenSync={() => setIsSyncModalOpen(true)}
         onLogout={() => authService.logout()}
       />
 
       {/* 3. Main Content Container */}
-      <main className={`flex-1 max-w-7xl w-full mx-auto px-3 sm:px-6 lg:px-8 ${activeMode === 'flashcards' ? 'py-2 sm:py-6' : 'py-6 sm:py-8'}`}>
+      <main
+        className={`flex-1 max-w-7xl w-full mx-auto ${
+          activeMode === 'fallingWords'
+            ? 'px-2 sm:px-6 lg:px-8 py-1 sm:py-4 flex flex-col'
+            : activeMode === 'flashcards'
+            ? 'px-3 sm:px-6 lg:px-8 py-2 sm:py-6'
+            : 'px-3 sm:px-6 lg:px-8 py-6 sm:py-8'
+        }`}
+      >
         {activeMode === 'dashboard' && (
           <Dashboard
             userId={currentUser.id}
@@ -66,36 +90,16 @@ export const App: React.FC = () => {
           />
         )}
 
-        {/* Phase 3, 4, 5 Study Engines */}
+        {/* Study Engines and Configuration Views */}
         {activeMode !== 'dashboard' && (
-          <div className="space-y-4 sm:space-y-6 animate-in fade-in duration-200">
-            {/* Top Sub-Bar to return to Dashboard & display active session (For modes other than Flashcards which has its own unified header) */}
-            {activeMode !== 'flashcards' && (
-              <div className="flex items-center justify-between pb-4 border-b border-zen-border/40 dark:border-zen-dark-border">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setIsSRSMode(false);
-                    setActiveMode('dashboard');
-                  }}
-                  className="inline-flex items-center gap-2 text-xs sm:text-sm font-bold text-zen-text-muted dark:text-zen-dark-text-muted hover:text-zen-primary dark:hover:text-zen-dark-primary transition-colors cursor-pointer"
-                >
-                  <ArrowLeft className="w-4 h-4" />
-                  <span>{t('common.back')} · {t('nav.dashboard')}</span>
-                </button>
-
-                <div className="flex items-center gap-2">
-                  <span className="text-xs text-zen-text-muted dark:text-zen-dark-text-muted hidden sm:inline">
-                    {t('common.activePack')}:
-                  </span>
-                  <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/40 dark:border-zen-dark-border text-zen-primary dark:text-zen-dark-primary">
-                    {currentPack.title[currentLang]} ({currentPack.words.length})
-                  </span>
-                </div>
-              </div>
-            )}
-
-            {/* Interactive Flashcard Engine (Phase 3) */}
+          <div
+            className={`${
+              activeMode === 'fallingWords'
+                ? 'flex-1 flex flex-col w-full'
+                : 'space-y-4 sm:space-y-6'
+            } animate-in fade-in duration-200`}
+          >
+            {/* Interactive Flashcard Engine */}
             {activeMode === 'flashcards' && (
               <FlashcardView
                 userId={currentUser.id}
@@ -108,54 +112,46 @@ export const App: React.FC = () => {
               />
             )}
 
-            {/* Quiz Engine Placeholder (Phase 4) */}
-            {activeMode === 'quiz' && (
-              <div className="rounded-3xl bg-zen-surface-lowest dark:bg-zen-dark-surface p-8 sm:p-12 border border-zen-border/60 dark:border-zen-dark-border text-center space-y-6 shadow-zen-sm">
-                <div className="w-16 h-16 mx-auto rounded-3xl bg-purple-500/10 text-purple-600 dark:text-purple-400 flex items-center justify-center">
-                  <CheckSquare className="w-8 h-8" />
-                </div>
-                <div className="max-w-md mx-auto space-y-2">
-                  <h3 className="text-2xl font-headline font-bold text-zen-text dark:text-zen-dark-text">
-                    {t('quiz.title')}
-                  </h3>
-                  <p className="text-sm text-zen-text-muted dark:text-zen-dark-text-muted">
-                    {t('quiz.subtitle')}
-                  </p>
-                </div>
-                <div className="p-4 max-w-lg mx-auto rounded-2xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/40 dark:border-zen-dark-border text-xs text-zen-text-muted dark:text-zen-dark-text-muted flex items-center justify-center gap-2">
-                  <Sparkles className="w-4 h-4 text-purple-600 dark:text-purple-400" />
-                  <span>
-                    {currentLang === 'zh-CN'
-                      ? `已就绪【${currentPack.title['zh-CN']}】测试词库。待接入 Phase 4 多选闯关引擎。`
-                      : `Prepared "${currentPack.title.en}". Ready for Phase 4 Quiz Engine.`}
-                  </span>
-                </div>
-              </div>
+            {/* Falling Words Arcade Engine */}
+            {activeMode === 'fallingWords' && (
+              <FallingWordsView
+                userId={currentUser.id}
+                initialPackId={selectedPackId}
+                onBackToDashboard={() => {
+                  setIsSRSMode(false);
+                  setActiveMode('dashboard');
+                }}
+              />
             )}
 
-            {/* Falling Words Arcade Placeholder (Phase 5) */}
-            {activeMode === 'fallingWords' && (
-              <div className="rounded-3xl bg-zen-surface-lowest dark:bg-zen-dark-surface p-8 sm:p-12 border border-zen-border/60 dark:border-zen-dark-border text-center space-y-6 shadow-zen-sm">
-                <div className="w-16 h-16 mx-auto rounded-3xl bg-rose-500/10 text-rose-600 dark:text-rose-400 flex items-center justify-center">
-                  <Gamepad2 className="w-8 h-8" />
-                </div>
-                <div className="max-w-md mx-auto space-y-2">
-                  <h3 className="text-2xl font-headline font-bold text-zen-text dark:text-zen-dark-text">
-                    {t('fallingWords.title')}
-                  </h3>
-                  <p className="text-sm text-zen-text-muted dark:text-zen-dark-text-muted">
-                    {t('fallingWords.subtitle')}
-                  </p>
-                </div>
-                <div className="p-4 max-w-lg mx-auto rounded-2xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/40 dark:border-zen-dark-border text-xs text-zen-text-muted dark:text-zen-dark-text-muted flex items-center justify-center gap-2">
-                  <Sparkles className="w-4 h-4 text-rose-600 dark:text-rose-400" />
-                  <span>
-                    {currentLang === 'zh-CN'
-                      ? `已载入【${currentPack.title['zh-CN']}】词库。待接入 Phase 5 下落街机引擎。`
-                      : `Loaded "${currentPack.title.en}". Ready for Phase 5 Arcade Engine.`}
-                  </span>
-                </div>
-              </div>
+            {/* Word Forge Placeholder with Cat Meme */}
+            {(activeMode === 'wordFill' || activeMode === 'quiz') && (
+              <WordFillPlaceholder
+                onBackToDashboard={() => {
+                  setIsSRSMode(false);
+                  setActiveMode('dashboard');
+                }}
+                onPlayFallingWords={() => {
+                  setIsSRSMode(false);
+                  setActiveMode('fallingWords');
+                }}
+                onStartFlashcards={() => {
+                  setIsSRSMode(false);
+                  setActiveMode('flashcards');
+                }}
+              />
+            )}
+
+            {/* System Preferences & Data Management (Settings) */}
+            {activeMode === 'settings' && (
+              <SettingsView
+                userId={currentUser.id}
+                onBackToDashboard={() => {
+                  setIsSRSMode(false);
+                  setActiveMode('dashboard');
+                }}
+                onOpenSyncModal={() => setIsSyncModalOpen(true)}
+              />
             )}
           </div>
         )}
@@ -169,9 +165,9 @@ export const App: React.FC = () => {
       />
 
       {/* 5. Global Zen Footer */}
-      <footer className={`border-t border-zen-border/40 dark:border-zen-dark-border/60 py-6 text-center text-xs text-zen-text-muted dark:text-zen-dark-text-muted ${activeMode === 'flashcards' ? 'hidden sm:block' : ''}`}>
+      <footer className={`border-t border-zen-border/40 dark:border-zen-dark-border/60 py-6 text-center text-xs text-zen-text-muted dark:text-zen-dark-text-muted ${activeMode === 'flashcards' || activeMode === 'fallingWords' ? 'hidden sm:block' : ''}`}>
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
-          <p>© 2026 Zen Italian · {currentLang === 'zh-CN' ? '专为中文母语者定制的意语学习系统' : 'Italian Learning System for Chinese Speakers'}</p>
+          <p>© 2026 ItaLink · {currentLang === 'zh-CN' ? '现代智能意语词汇闪卡系统' : 'Modern Italian Flashcard System'}</p>
           <div className="flex items-center gap-4 text-xs font-mono">
             <span>v1.0.0</span>
             <span>•</span>

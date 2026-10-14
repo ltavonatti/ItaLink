@@ -9,6 +9,8 @@ class AudioService {
   private voicesLoaded: boolean = false;
   private audioCtx: AudioContext | null = null;
   private sfxEnabled: boolean = true;
+  private currentAudioInstance: HTMLAudioElement | null = null;
+  private audioPreloadCache: Map<string, HTMLAudioElement> = new Map();
 
   constructor() {
     if (typeof window !== 'undefined') {
@@ -167,6 +169,144 @@ class AudioService {
   }
 
   /**
+   * Play crisp, rewarding arcade hit sound when matching correctly
+   */
+  public playHitSound(): void {
+    if (!this.sfxEnabled) return;
+    const ctx = this.getAudioContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(587.33, now); // D5
+      osc.frequency.exponentialRampToValueAtTime(880, now + 0.08); // A5
+
+      gain.gain.setValueAtTime(0.15, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.1);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.1);
+    } catch {
+      // AudioContext policy catch
+    }
+  }
+
+  /**
+   * Play arcade miss / floor collision / wrong answer sound
+   */
+  public playMissSound(): void {
+    if (!this.sfxEnabled) return;
+    const ctx = this.getAudioContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(180, now);
+      osc.frequency.exponentialRampToValueAtTime(70, now + 0.18);
+
+      gain.gain.setValueAtTime(0.18, now);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.18);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start(now);
+      osc.stop(now + 0.18);
+    } catch {
+      // AudioContext policy catch
+    }
+  }
+
+  /**
+   * Play ascending combo celebration sound for streaks (e.g. 3, 5, 10, ...)
+   */
+  public playComboSound(combo: number = 3): void {
+    if (!this.sfxEnabled) return;
+    const ctx = this.getAudioContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      const freqs = [523.25, 659.25, 783.99, combo >= 5 ? 1046.5 : null].filter(Boolean) as number[];
+      freqs.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.06);
+
+        gain.gain.setValueAtTime(0.12, now + idx * 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + idx * 0.06 + 0.22);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now + idx * 0.06);
+        osc.stop(now + idx * 0.06 + 0.22);
+      });
+    } catch {
+      // AudioContext policy catch
+    }
+  }
+
+  /**
+   * Play game over sound: dramatic descending sequence
+   */
+  public playGameOverSound(): void {
+    if (!this.sfxEnabled) return;
+    const ctx = this.getAudioContext();
+    if (!ctx) return;
+
+    try {
+      const now = ctx.currentTime;
+      const notes = [440, 392, 349.23, 293.66];
+      notes.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, now + idx * 0.12);
+
+        gain.gain.setValueAtTime(0.14, now + idx * 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.12 + 0.25);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(now + idx * 0.12);
+        osc.stop(now + idx * 0.12 + 0.25);
+      });
+    } catch {
+      // AudioContext policy catch
+    }
+  }
+
+  /**
+   * Play subtle click / tap sound for UI interactions
+   */
+  public playClick(): void {
+    this.playFlipSound();
+  }
+
+  /**
+   * Play completion / victory celebration sound
+   */
+  public playComplete(): void {
+    this.playComboSound(5);
+  }
+
+  /**
    * Speak Italian text at specified rate (normal = 1.0, slow = 0.8)
    */
   public speak(text: string, rate: number = 1.0): Promise<void> {
@@ -219,25 +359,78 @@ class AudioService {
   }
 
   /**
-   * Play local audio file with automatic fallback handling
+   * Preload audio file into browser memory for 0ms instantaneous playback
    */
-  public playAudioFile(url: string): Promise<boolean> {
+  public preloadAudio(url: string): void {
+    if (typeof window === 'undefined' || !url || this.audioPreloadCache.has(url)) return;
+    try {
+      const audio = new Audio();
+      audio.preload = 'auto';
+      audio.src = url;
+      this.audioPreloadCache.set(url, audio);
+    } catch {
+      // Audio preloading failed silently
+    }
+  }
+
+  /**
+   * Play local audio file with pitch-preserved speed adjustment (default 1.0x, slow 0.75x)
+   */
+  public playAudioFile(url: string, rate: number = 1.0): Promise<boolean> {
     return new Promise((resolve) => {
       try {
-        const audio = new Audio(url);
-        audio.onended = () => resolve(true);
-        audio.onerror = () => resolve(false);
-        audio.play().catch(() => resolve(false));
+        this.stop();
+
+        // Reuse cached audio or instantiate new HTMLAudioElement
+        let audio = this.audioPreloadCache.get(url);
+        if (!audio) {
+          audio = new Audio(url);
+          this.audioPreloadCache.set(url, audio);
+        } else {
+          audio.currentTime = 0;
+        }
+
+        // Configure pitch preservation for slow-speed phonetics clarity
+        audio.playbackRate = Math.max(0.5, Math.min(rate, 2.0));
+        (audio as any).preservesPitch = true;
+        (audio as any).mozPreservesPitch = true;
+        (audio as any).webkitPreservesPitch = true;
+
+        this.currentAudioInstance = audio;
+
+        audio.onended = () => {
+          this.currentAudioInstance = null;
+          resolve(true);
+        };
+        audio.onerror = () => {
+          this.currentAudioInstance = null;
+          resolve(false);
+        };
+
+        audio.play().catch(() => {
+          this.currentAudioInstance = null;
+          resolve(false);
+        });
       } catch {
+        this.currentAudioInstance = null;
         resolve(false);
       }
     });
   }
 
   /**
-   * Stop any playing audio immediately
+   * Stop any playing audio immediately (both HTML5 Audio and speech synthesis)
    */
   public stop(): void {
+    if (this.currentAudioInstance) {
+      try {
+        this.currentAudioInstance.pause();
+        this.currentAudioInstance.currentTime = 0;
+      } catch {
+        // Ignore audio stop error
+      }
+      this.currentAudioInstance = null;
+    }
     if (this.synth) {
       this.synth.cancel();
     }

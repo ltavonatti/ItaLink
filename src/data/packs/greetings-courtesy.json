@@ -1,8 +1,8 @@
 {
   "id": "greetings-courtesy",
   "title": {
-    "en": "Greetings & Courtesy",
-    "zh-CN": "问候与礼貌表达"
+    "en": "Greetings & Socializing",
+    "zh-CN": "问候与社交表达"
   },
   "description": {
     "en": "Essential everyday greetings, polite expressions, and farewells in Italian.",
@@ -32,7 +32,9 @@
       },
       "media": {
         "image": "/media/images/gc-01-ciao.svg",
-        "audio": null
+        "audio": "/media/audio/it_gc-01_ciao.mp3",
+        "exampleAudio": "/media/audio/it_gc-01_ciao_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -56,8 +58,10 @@
         "zh-CN": "早上好，罗西夫人！"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/aisatsu-kodomo-otona.webp",
+        "audio": "/media/audio/it_gc-02_buongiorno.mp3",
+        "exampleAudio": "/media/audio/it_gc-02_buongiorno_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -81,8 +85,10 @@
         "zh-CN": "大家晚上好！"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/party-drink-rojou-noimikai.webp",
+        "audio": "/media/audio/it_gc-03_buonasera.mp3",
+        "exampleAudio": "/media/audio/it_gc-03_buonasera_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -106,8 +112,10 @@
         "zh-CN": "我去睡觉了，晚安！"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/study-night-boy.webp",
+        "audio": "/media/audio/it_gc-04_buonanotte.mp3",
+        "exampleAudio": "/media/audio/it_gc-04_buonanotte_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -132,7 +140,9 @@
       },
       "media": {
         "image": "/media/images/gc-05-grazie.svg",
-        "audio": null
+        "audio": "/media/audio/it_gc-05_grazie.mp3",
+        "exampleAudio": "/media/audio/it_gc-05_grazie_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -156,8 +166,10 @@
         "zh-CN": "非常感谢你的礼物！"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/ojigi-aisatsu-business-woman.webp",
+        "audio": "/media/audio/it_gc-06_grazie_mille.mp3",
+        "exampleAudio": "/media/audio/it_gc-06_grazie_mille_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -181,8 +193,10 @@
         "zh-CN": "请进，请随便坐。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/ojigi-tenin-woman.webp",
+        "audio": "/media/audio/it_gc-07_prego.mp3",
+        "exampleAudio": "/media/audio/it_gc-07_prego_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -206,8 +220,10 @@
         "zh-CN": "请来一杯咖啡。"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/onegai-gomen-man.webp",
+        "audio": "/media/audio/it_gc-08_per_favore.mp3",
+        "exampleAudio": "/media/audio/it_gc-08_per_favore_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -231,8 +247,10 @@
         "zh-CN": "抱歉我迟到了！"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/onegai-gomen-woman.webp",
+        "audio": "/media/audio/it_gc-09_scusa.mp3",
+        "exampleAudio": "/media/audio/it_gc-09_scusa_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -256,8 +274,10 @@
         "zh-CN": "打扰一下，请问现在几点了？"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/business-ojigi-man.webp",
+        "audio": "/media/audio/it_gc-10_scusi.mp3",
+        "exampleAudio": "/media/audio/it_gc-10_scusi_example.mp3",
+        "voiceSpeaker": "Diego"
       }
     },
     {
@@ -281,8 +301,10 @@
         "zh-CN": "感谢一切，再见！"
       },
       "media": {
-        "image": null,
-        "audio": null
+        "image": "/media/images/aisatsu-sayounara.webp",
+        "audio": "/media/audio/it_gc-11_arrivederci.mp3",
+        "exampleAudio": "/media/audio/it_gc-11_arrivederci_example.mp3",
+        "voiceSpeaker": "Elsa"
       }
     },
     {
@@ -306,7 +328,709 @@
         "zh-CN": "很高兴认识你！"
       },
       "media": {
-        "image": null,
+        "image": "/media/images/akusyu-man-woman.webp",
+        "audio": "/media/audio/it_gc-12_piacere.mp3",
+        "exampleAudio": "/media/audio/it_gc-12_piacere_example.mp3",
+        "voiceSpeaker": "Diego"
+      }
+    },
+    {
+      "id": "gc-13",
+      "word": "Come stai?",
+      "pinyinHint": "kè-mèi sǐ-dài",
+      "phoneticIPA": "/ˈkome ˈstai/",
+      "translations": {
+        "en": "How are you? (informal)",
+        "zh-CN": "你好吗？ / 最近怎么样？(非正式)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Casual greeting asked to friends. 'Stai' has an open 'ai' diphthong.",
+        "zh-CN": "常用于熟人之间的问候。'stai'中s不送气，ai为双元音。"
+      },
+      "exampleSentence": {
+        "it": "Ciao Giulia, come stai oggi?",
+        "en": "Hi Giulia, how are you today?",
+        "zh-CN": "你好茱莉亚，今天怎么样？"
+      },
+      "media": {
+        "image": "/media/images/talk-man-woman-casual.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-14",
+      "word": "Sto bene",
+      "pinyinHint": "sǐ-tuò bèi-nèi",
+      "phoneticIPA": "/sto ˈbɛne/",
+      "translations": {
+        "en": "I'm doing well / I am good",
+        "zh-CN": "我很好 / 我挺好的"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Standard response to 'come stai?'. 'Bene' has an open 'e' sound.",
+        "zh-CN": "回答'come stai?'的标准用语。'bene'第一个e开口较大。"
+      },
+      "exampleSentence": {
+        "it": "Sto bene, grazie, e tu?",
+        "en": "I'm good, thanks, and you?",
+        "zh-CN": "我挺好的，谢谢，你呢？"
+      },
+      "media": {
+        "image": "/media/images/character-heart-genki.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-15",
+      "word": "Benvenuto",
+      "pinyinHint": "bèn-vèi-nù-tuò",
+      "phoneticIPA": "/benveˈnuto/",
+      "translations": {
+        "en": "Welcome",
+        "zh-CN": "欢迎 (对单数男性或通用)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Changes gender: benvenuta (female), benvenuti (plural). 'V' is a labiodental fricative.",
+        "zh-CN": "阳性单数形式，对女性用benvenuta，复数用benvenuti。'v'要咬下唇发音。"
+      },
+      "exampleSentence": {
+        "it": "Benvenuto in Italia!",
+        "en": "Welcome to Italy!",
+        "zh-CN": "欢迎来到意大利！"
+      },
+      "media": {
+        "image": "/media/images/mon-gate-asia-open-half.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-16",
+      "word": "A presto",
+      "pinyinHint": "à pu-rèi-sǐ-tuò",
+      "phoneticIPA": "/a ˈprɛsto/",
+      "translations": {
+        "en": "See you soon",
+        "zh-CN": "一会儿见 / 待会儿见"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'Presto' has a light trilled R and stress on the first syllable.",
+        "zh-CN": "'presto'中pr需轻微颤音，重音在第一音节。"
+      },
+      "exampleSentence": {
+        "it": "È stato un piacere, a presto!",
+        "en": "It was a pleasure, see you soon!",
+        "zh-CN": "很高兴见到你，一会儿见！"
+      },
+      "media": {
+        "image": "/media/images/aisatsu-sayounara-2.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-17",
+      "word": "A dopo",
+      "pinyinHint": "à duò-può",
+      "phoneticIPA": "/a ˈdɔpo/",
+      "translations": {
+        "en": "See you later",
+        "zh-CN": "回头见 / 待会儿见 (今天晚些时候)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Used when you expect to see the person later the same day.",
+        "zh-CN": "专用于当天晚些时候还会见面的情况，o为纯元音。"
+      },
+      "exampleSentence": {
+        "it": "Vado a fare una telefonata, a dopo!",
+        "en": "I'm going to make a phone call, see you later!",
+        "zh-CN": "我去打个电话，回头见！"
+      },
+      "media": {
+        "image": "/media/images/syufu-miokuri.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-18",
+      "word": "A domani",
+      "pinyinHint": "à duò-mà-nǐ",
+      "phoneticIPA": "/a doˈmaːni/",
+      "translations": {
+        "en": "See you tomorrow",
+        "zh-CN": "明天见"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Stress on 'ma'. Clear pure 'i' at the end.",
+        "zh-CN": "重音在'ma'上，末尾i音清晰短促。"
+      },
+      "exampleSentence": {
+        "it": "La lezione è finita, a domani!",
+        "en": "The class is finished, see you tomorrow!",
+        "zh-CN": "下课了，明天见！"
+      },
+      "media": {
+        "image": "/media/images/text-day5-ashita.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-19",
+      "word": "Come ti chiami?",
+      "pinyinHint": "kè-mèi tǐ qià-mǐ",
+      "phoneticIPA": "/ˈkome ti ˈkjaːmi/",
+      "translations": {
+        "en": "What is your name? (informal)",
+        "zh-CN": "你叫什么名字？ (非正式)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'ch' sounds like 'k', followed by 'ia' (/kja/).",
+        "zh-CN": "意语中'ch'发k音，'chi'类似汉语拼音'k+y'，不读'吃'。"
+      },
+      "exampleSentence": {
+        "it": "Piacere di conoscerti, come ti chiami?",
+        "en": "Nice to meet you, what's your name?",
+        "zh-CN": "很高兴认识你，你叫什么名字？"
+      },
+      "media": {
+        "image": "/media/images/syoukai-business-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-20",
+      "word": "Mi chiamo...",
+      "pinyinHint": "mǐ qià-muò",
+      "phoneticIPA": "/mi ˈkjaːmo/",
+      "translations": {
+        "en": "My name is...",
+        "zh-CN": "我叫... / 我的名字是..."
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Standard introduction phrase. 'Ch' sounds like hard 'k'.",
+        "zh-CN": "自我介绍必备短语。'ch'发硬音k。"
+      },
+      "exampleSentence": {
+        "it": "Mi chiamo Luca e studio a Roma.",
+        "en": "My name is Luca and I study in Rome.",
+        "zh-CN": "我叫卢卡，在罗马读书。"
+      },
+      "media": {
+        "image": "/media/images/jikosyoukai-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-21",
+      "word": "Di dove sei?",
+      "pinyinHint": "dǐ duò-vèi sǎi",
+      "phoneticIPA": "/di ˈdove ˈsɛi/",
+      "translations": {
+        "en": "Where are you from? (informal)",
+        "zh-CN": "你是哪里人？ / 你来自哪里？"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'Sei' has a clear diphthong /ɛi/. 'V' requires lower lip contact.",
+        "zh-CN": "'dove'的v需咬唇，'sei'类似汉语'晒'的读音但更清脆。"
+      },
+      "exampleSentence": {
+        "it": "Di dove sei? Io vengo da Pechino.",
+        "en": "Where are you from? I come from Beijing.",
+        "zh-CN": "你是哪里人？我来自北京。"
+      },
+      "media": {
+        "image": "/media/images/sekaichizu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-22",
+      "word": "Sono cinese",
+      "pinyinHint": "suò-nuò qī-nèi-zèi",
+      "phoneticIPA": "/ˈsoːno tʃiˈneːze/",
+      "translations": {
+        "en": "I am Chinese",
+        "zh-CN": "我是中国人"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'ci' sounds like 'chee' (/tʃi/). 's' between vowels is voiced /z/.",
+        "zh-CN": "'ci'发音同汉语拼音'q'，'nese'里的s在元音间发浊音z。"
+      },
+      "exampleSentence": {
+        "it": "Sono cinese, ma abito a Milano.",
+        "en": "I am Chinese, but I live in Milan.",
+        "zh-CN": "我是中国人，但我住在米兰。"
+      },
+      "media": {
+        "image": "/media/images/landmark-hotoke-ushiku-daibutsu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-23",
+      "word": "Sono italiano",
+      "pinyinHint": "suò-nuò yī-tà-lià-nuò",
+      "phoneticIPA": "/ˈsoːno itaˈljaːno/",
+      "translations": {
+        "en": "I am Italian",
+        "zh-CN": "我是意大利人"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Feminine form is 'italiana'. Stress on 'lja'.",
+        "zh-CN": "女性表述为'italiana'。注意't'不送气，重音在'lia'上。"
+      },
+      "exampleSentence": {
+        "it": "Lui è italiano, è nato a Firenze.",
+        "en": "He is Italian, he was born in Florence.",
+        "zh-CN": "他是意大利人，出生在佛罗伦萨。"
+      },
+      "media": {
+        "image": "/media/images/world-giza-sphynx.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-24",
+      "word": "Buona giornata",
+      "pinyinHint": "buò-nà jiòr-nà-tà",
+      "phoneticIPA": "/ˈbwɔːna dʒorˈnaːta/",
+      "translations": {
+        "en": "Have a nice day!",
+        "zh-CN": "祝你度过愉快的一天！"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Used when parting during daytime. 'G' before 'i' is soft /dʒ/.",
+        "zh-CN": "白天告别时的祝福。'gior'发音同拼音'jior'，r轻弹。"
+      },
+      "exampleSentence": {
+        "it": "Grazie per l'aiuto, buona giornata!",
+        "en": "Thanks for your help, have a good day!",
+        "zh-CN": "感谢你的帮助，祝你度过愉快的一天！"
+      },
+      "media": {
+        "image": "/media/images/window01-hare.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-25",
+      "word": "Buona serata",
+      "pinyinHint": "buò-nà sǎi-rà-tà",
+      "phoneticIPA": "/ˈbwɔːna seˈraːta/",
+      "translations": {
+        "en": "Have a nice evening!",
+        "zh-CN": "祝你度过愉快的夜晚！"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Used when parting in the evening before nightfall.",
+        "zh-CN": "傍晚告别时使用，区别于睡前道晚安的buonanotte。"
+      },
+      "exampleSentence": {
+        "it": "Ci vediamo domani, buona serata!",
+        "en": "See you tomorrow, have a good evening!",
+        "zh-CN": "明天见，祝你度过愉快的夜晚！"
+      },
+      "media": {
+        "image": "/media/images/bg-school-room-yuyake.jpg",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-26",
+      "word": "Buon weekend",
+      "pinyinHint": "buò-n wī-kèn-d",
+      "phoneticIPA": "/bwon wiˈkɛnd/",
+      "translations": {
+        "en": "Have a good weekend!",
+        "zh-CN": "周末愉快！"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Adopted English loanword combined with Italian 'buon'.",
+        "zh-CN": "意大利人周五道别最常用的短语，借用英文weekend。"
+      },
+      "exampleSentence": {
+        "it": "Buon weekend a te e alla tua famiglia!",
+        "en": "Have a good weekend to you and your family!",
+        "zh-CN": "祝你和你的家人周末愉快！"
+      },
+      "media": {
+        "image": "/media/images/weekmark6-sat.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-27",
+      "word": "Buon lavoro",
+      "pinyinHint": "buò-n là-vuò-ruò",
+      "phoneticIPA": "/bwon laˈvoːro/",
+      "translations": {
+        "en": "Have a good workday / Good shift!",
+        "zh-CN": "工作顺利！ / 加油上班！"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Extremely common in bars, shops, and offices when leaving.",
+        "zh-CN": "意大利日常去咖啡吧、商店或同事上班时极其常用的礼貌祝语。"
+      },
+      "exampleSentence": {
+        "it": "Grazie del caffè, buon lavoro!",
+        "en": "Thanks for the coffee, have a good shift!",
+        "zh-CN": "谢谢咖啡，工作顺利！"
+      },
+      "media": {
+        "image": "/media/images/work-shigoto-osame-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-28",
+      "word": "Buona fortuna",
+      "pinyinHint": "buò-nà fuòr-tù-nà",
+      "phoneticIPA": "/ˈbwɔːna forˈtuːna/",
+      "translations": {
+        "en": "Good luck",
+        "zh-CN": "祝你好运"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Literal good luck phrase. Stress on 'tu'.",
+        "zh-CN": "字面意义上的好运，重音在'tu'上。"
+      },
+      "exampleSentence": {
+        "it": "Buona fortuna per il tuo esame!",
+        "en": "Good luck on your exam!",
+        "zh-CN": "祝你考试好运！"
+      },
+      "media": {
+        "image": "/media/images/pose-ganbarou-woman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-29",
+      "word": "In bocca al lupo",
+      "pinyinHint": "yīn buò-kà àl lù-può",
+      "phoneticIPA": "/in ˈbɔkka al ˈluːpo/",
+      "translations": {
+        "en": "Break a leg! / Good luck! (idiomatic)",
+        "zh-CN": "祝你好运！ (地道成语，意为入狼之口)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Double 'cc' in 'bocca' is held slightly longer.",
+        "zh-CN": "最地道的意式祝福。'bocca'双写cc需停顿发双辅音。"
+      },
+      "exampleSentence": {
+        "it": "Hai il colloquio oggi? In bocca al lupo!",
+        "en": "You have the interview today? Break a leg!",
+        "zh-CN": "你今天面试？祝你好运！"
+      },
+      "media": {
+        "image": "/media/images/pose-makasenasai-boy.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-30",
+      "word": "Viva il lupo",
+      "pinyinHint": "vī-và yīl lù-può",
+      "phoneticIPA": "/ˈviːva il ˈluːpo/",
+      "translations": {
+        "en": "Thanks! (Traditional response to 'in bocca al lupo')",
+        "zh-CN": "谢谢！ (回应'in bocca al lupo'的标准回答)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Never say 'grazie' to 'in bocca al lupo'! Say 'viva il lupo' (or 'crepi').",
+        "zh-CN": "收到'in bocca al lupo'时绝不能说grazie，必须说viva il lupo或crepi。"
+      },
+      "exampleSentence": {
+        "it": "— In bocca al lupo! — Viva il lupo!",
+        "en": "— Break a leg! — Thanks!",
+        "zh-CN": "——祝你好运！——谢谢！"
+      },
+      "media": {
+        "image": "/media/images/figure-goodjob.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-31",
+      "word": "Tanti auguri",
+      "pinyinHint": "tàn-tǐ àu-gù-rǐ",
+      "phoneticIPA": "/ˈtanti auˈɡuːri/",
+      "translations": {
+        "en": "Best wishes! / Happy Birthday!",
+        "zh-CN": "衷心祝贺！ / 祝愿！"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Universal celebration phrase for holidays, anniversaries, and birthdays.",
+        "zh-CN": "全能庆祝用语，适用于节日、纪念日及生日。't'不送气。"
+      },
+      "exampleSentence": {
+        "it": "Tanti auguri di Buon Natale!",
+        "en": "Best wishes for a Merry Christmas!",
+        "zh-CN": "祝你圣诞快乐！"
+      },
+      "media": {
+        "image": "/media/images/wedding-syukufuku.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-32",
+      "word": "Buon compleanno",
+      "pinyinHint": "buò-n kuòm-pǐ-lè-àn-nuò",
+      "phoneticIPA": "/bwon kompleˈanno/",
+      "translations": {
+        "en": "Happy Birthday!",
+        "zh-CN": "生日快乐！"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Double 'nn' must be held longer than single n.",
+        "zh-CN": "'compleanno'的双写nn发音需拉长，重音在'an'。"
+      },
+      "exampleSentence": {
+        "it": "Oggi fai vent'anni? Buon compleanno!",
+        "en": "You're turning 20 today? Happy Birthday!",
+        "zh-CN": "你今天二十岁了？生日快乐！"
+      },
+      "media": {
+        "image": "/media/images/birthday-cake.png",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-33",
+      "word": "Congratulazioni",
+      "pinyinHint": "kuòn-gù-rà-tù-là-ziò-nǐ",
+      "phoneticIPA": "/koŋɡratulatˈtsjoːni/",
+      "translations": {
+        "en": "Congratulations!",
+        "zh-CN": "祝贺你！ / 恭喜！"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'z' before 'io' is pronounced as strong double /tts/.",
+        "zh-CN": "'zi'读作清脆的'ci'音(/ts/)，重音在'o'上。"
+      },
+      "exampleSentence": {
+        "it": "Hai superato l'esame? Congratulazioni!",
+        "en": "You passed the exam? Congratulations!",
+        "zh-CN": "你考过了？太恭喜你了！"
+      },
+      "media": {
+        "image": "/media/images/trophy-school-girl.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-34",
+      "word": "Salute!",
+      "pinyinHint": "sà-lù-tèi",
+      "phoneticIPA": "/saˈluːte/",
+      "translations": {
+        "en": "Cheers! / Bless you (after a sneeze)",
+        "zh-CN": "干杯！ / 保重！ (打喷嚏时的礼貌用语)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Used both for toasting drinks and when someone sneezes.",
+        "zh-CN": "双重用途：既可作为祝酒词，又可在他人打喷嚏时表示'保重'。"
+      },
+      "exampleSentence": {
+        "it": "Salute a tutti noi e a questa bella serata!",
+        "en": "Cheers to all of us and to this lovely evening!",
+        "zh-CN": "为我们大家和这美妙的夜晚干杯！"
+      },
+      "media": {
+        "image": "/media/images/party-drink-rojou-noimikai.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-35",
+      "word": "Cin cin!",
+      "pinyinHint": "qīn qīn",
+      "phoneticIPA": "/tʃin tʃin/",
+      "translations": {
+        "en": "Cheers! (clinking glasses)",
+        "zh-CN": "干杯！ (碰杯声)"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "expression",
+      "pronunciationNotes": {
+        "en": "Directly pronounced /tʃin tʃin/, miming the sound of glasses.",
+        "zh-CN": "最亲切的碰杯词，源自碰杯声，读音同汉语'亲亲'。"
+      },
+      "exampleSentence": {
+        "it": "Alziamo i calici, cin cin!",
+        "en": "Let's raise our glasses, cheers!",
+        "zh-CN": "举起酒杯，干杯！"
+      },
+      "media": {
+        "image": "/media/images/wakeru-drink.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-36",
+      "word": "Scusami tanto",
+      "pinyinHint": "sǐ-kù-zà-mǐ tàn-tuò",
+      "phoneticIPA": "/ˈskuːzami ˈtanto/",
+      "translations": {
+        "en": "I am so sorry (informal)",
+        "zh-CN": "太抱歉了 / 非常对不起"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "More emotional than simple 'scusa'. 's' in scusa is voiced /z/.",
+        "zh-CN": "比单纯的'scusa'更加真诚的道歉。'tanto'重音在tan。"
+      },
+      "exampleSentence": {
+        "it": "Sono arrivato in ritardo, scusami tanto!",
+        "en": "I arrived late, I am so sorry!",
+        "zh-CN": "我迟到了，实在太对不起了！"
+      },
+      "media": {
+        "image": "/media/images/pose-syazai-sliding-dogeza-man.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-37",
+      "word": "Non fa niente",
+      "pinyinHint": "nuòn fà nièn-tèi",
+      "phoneticIPA": "/non fa ˈnjɛnte/",
+      "translations": {
+        "en": "It doesn't matter / No problem / Never mind",
+        "zh-CN": "没关系 / 没事儿 / 不碍事"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Literally 'does nothing'. Smoothly spoken together.",
+        "zh-CN": "字面意思'无所谓，不产生影响'，用来安慰对方不用道歉。"
+      },
+      "exampleSentence": {
+        "it": "Hai rovesciato un po' d'acqua? Non fa niente!",
+        "en": "You spilled some water? No problem at all!",
+        "zh-CN": "洒了点水？没关系，不碍事！"
+      },
+      "media": {
+        "image": "/media/images/yurusu.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-38",
+      "word": "Di niente",
+      "pinyinHint": "dǐ nièn-tèi",
+      "phoneticIPA": "/di ˈnjɛnte/",
+      "translations": {
+        "en": "You're welcome / Don't mention it",
+        "zh-CN": "不客气 / 没什么"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "Very common alternative to 'prego' when someone thanks you.",
+        "zh-CN": "日常回复'grazie'的高频短语，相当于'小事一桩'。"
+      },
+      "exampleSentence": {
+        "it": "— Grazie per il passaggio. — Di niente, figurati!",
+        "en": "— Thanks for the ride. — You're welcome!",
+        "zh-CN": "——谢谢你载我一程。——客气啥，没事！"
+      },
+      "media": {
+        "image": "/media/images/ojigi-tenin-woman.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-39",
+      "word": "Con piacere",
+      "pinyinHint": "kuòn pǐ-yà-qèi-rèi",
+      "phoneticIPA": "/kom pjaˈtʃeːre/",
+      "translations": {
+        "en": "With pleasure / Gladly",
+        "zh-CN": "十分乐意 / 乐意至极"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'Piacere' has soft 'ce' (/tʃe/). Very polite and friendly acceptance.",
+        "zh-CN": "礼貌接受邀请或帮助他人时的回答，展现亲切热诚。"
+      },
+      "exampleSentence": {
+        "it": "Vieni a cena stasera? — Con piacere!",
+        "en": "Are you coming to dinner tonight? — With pleasure!",
+        "zh-CN": "今晚来一起吃饭吗？——非常乐意！"
+      },
+      "media": {
+        "image": "/media/images/character-ochoushimono.webp",
+        "audio": null
+      }
+    },
+    {
+      "id": "gc-40",
+      "word": "Ci vediamo",
+      "pinyinHint": "qī vèi-dià-muò",
+      "phoneticIPA": "/tʃi veˈdjaːmo/",
+      "translations": {
+        "en": "See you around / We'll see each other",
+        "zh-CN": "回头见 / 我们晚点见"
+      },
+      "category": "greetings-courtesy",
+      "partOfSpeech": "phrase",
+      "pronunciationNotes": {
+        "en": "'Ci' sounds like 'chee'. Reflexive verb for 'seeing each other'.",
+        "zh-CN": "熟人道别口头禅，'ci'发拼音q，'vediamo'重音在'dia'。"
+      },
+      "exampleSentence": {
+        "it": "Devo scappare adesso, ci vediamo dopo!",
+        "en": "I must run now, see you later!",
+        "zh-CN": "我现在得走了，回头见！"
+      },
+      "media": {
+        "image": "/media/images/aisatsu-sayounara.webp",
         "audio": null
       }
     }

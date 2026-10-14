@@ -16,6 +16,7 @@ import {
   calculateNextReview,
   getStudyDate,
 } from './srsService';
+import cloudService from './cloudService';
 
 export type CardMasteryState = 'mastered' | 'learning' | 'unseen';
 
@@ -57,13 +58,110 @@ export interface SyncResult {
  */
 export interface SyncStorageProvider {
   getProgress(userId: string): Promise<UserStudyProgress>;
-  saveProgress(progress: UserStudyProgress): Promise<void>;
+  saveProgress(progress: UserStudyProgress, targetUserId?: string): Promise<void>;
   recordReview(userId: string, wordId: string, isMastered: boolean): Promise<UserStudyProgress>;
   recordSRSReview(userId: string, wordId: string, rating: SRSRating): Promise<UserStudyProgress>;
   updateSRSSettings(userId: string, settings: Partial<SRSSettings>): Promise<UserStudyProgress>;
+  resetDailySRSQuota(userId: string): Promise<UserStudyProgress>;
+  resetLearningCards(userId: string): Promise<UserStudyProgress>;
   exportData(userId: string): Promise<string>;
   importData(userId: string, rawJson: string): Promise<SyncResult>;
-  resetProgress(userId: string): Promise<void>;
+  resetProgress(userId: string): Promise<UserStudyProgress>;
+  syncWithCloud(userId: string): Promise<UserStudyProgress>;
+}
+
+export function mergeProgress(local: UserStudyProgress, remote: UserStudyProgress): UserStudyProgress {
+  // 1. Mastery merge: union of all word records
+  const mergedMastery: Record<string, CardReviewRecord> = { ...local.mastery };
+  for (const [wId, rRec] of Object.entries(remote.mastery || {})) {
+    const lRec = mergedMastery[wId];
+    if (!lRec) {
+      mergedMastery[wId] = { ...rRec };
+    } else {
+      const rTime = rRec.lastReviewedAt || 0;
+      const lTime = lRec.lastReviewedAt || 0;
+      if (rTime > lTime) {
+        mergedMastery[wId] = { ...rRec };
+      } else if (rTime === lTime) {
+        mergedMastery[wId] = {
+          wordId: wId,
+          status: (rRec.status === 'mastered' || lRec.status === 'mastered') ? 'mastered' : (rRec.status === 'learning' || lRec.status === 'learning') ? 'learning' : 'unseen',
+          correctCount: Math.max(lRec.correctCount, rRec.correctCount),
+          incorrectCount: Math.max(lRec.incorrectCount, rRec.incorrectCount),
+          lastReviewedAt: lTime,
+        };
+      }
+    }
+  }
+
+  // 2. SRS card states merge
+  const mergedSRS: Record<string, SRSCardState> = { ...local.srs };
+  for (const [wId, rCard] of Object.entries(remote.srs || {})) {
+    const lCard = mergedSRS[wId];
+    if (!lCard) {
+      mergedSRS[wId] = { ...rCard };
+    } else {
+      const rTime = rCard.lastReviewedAt || 0;
+      const lTime = lCard.lastReviewedAt || 0;
+      if (rTime > lTime) {
+        mergedSRS[wId] = { ...rCard };
+      } else if (rTime === lTime) {
+        if ((rCard.repetitions || 0) > (lCard.repetitions || 0)) {
+          mergedSRS[wId] = { ...rCard };
+        }
+      }
+    }
+  }
+
+  // 3. Stats merge
+  let masteredCount = 0;
+  let learningCount = 0;
+  Object.values(mergedSRS).forEach((c) => {
+    if (c.state === 'review') masteredCount++;
+    if (c.state === 'learning' || c.state === 'relearning') learningCount++;
+  });
+
+  const lastActiveDate = (local.stats?.lastActiveDate || '') > (remote.stats?.lastActiveDate || '')
+    ? (local.stats?.lastActiveDate || '')
+    : (remote.stats?.lastActiveDate || '');
+
+  const mergedStats: UserStats = {
+    totalReviews: Math.max(local.stats?.totalReviews || 0, remote.stats?.totalReviews || 0),
+    masteredCount,
+    needPracticeCount: learningCount,
+    streakDays: Math.max(local.stats?.streakDays || 0, remote.stats?.streakDays || 0),
+    lastActiveDate: lastActiveDate || new Date().toISOString().split('T')[0],
+  };
+
+  // 4. Settings merge (newer timestamp takes precedence)
+  const srsSettings = (remote.updatedAt || 0) > (local.updatedAt || 0)
+    ? { ...DEFAULT_SRS_SETTINGS, ...local.srsSettings, ...remote.srsSettings }
+    : { ...DEFAULT_SRS_SETTINGS, ...remote.srsSettings, ...local.srsSettings };
+
+  // 5. Daily SRS quota merge
+  const localDaily = local.srsDaily;
+  const remoteDaily = remote.srsDaily;
+  let srsDaily: DailySRSProgress = localDaily;
+  if (remoteDaily && remoteDaily.date === localDaily?.date) {
+    srsDaily = {
+      date: localDaily.date,
+      newCardsCompleted: Math.max(localDaily.newCardsCompleted || 0, remoteDaily.newCardsCompleted || 0),
+      reviewsCompleted: Math.max(localDaily.reviewsCompleted || 0, remoteDaily.reviewsCompleted || 0),
+    };
+  } else if (remoteDaily && remoteDaily.date > (localDaily?.date || '')) {
+    srsDaily = remoteDaily;
+  }
+
+  return {
+    userId: local.userId || remote.userId,
+    mastery: mergedMastery,
+    stats: mergedStats,
+    srs: mergedSRS,
+    srsSettings,
+    srsDaily,
+    updatedAt: Math.max(local.updatedAt || 0, remote.updatedAt || 0, Date.now()),
+    version: 2,
+  };
 }
 
 const STORAGE_PREFIX = 'zen_italian_progress_';
@@ -119,6 +217,11 @@ class LocalStorageSyncProvider implements SyncStorageProvider {
       // Schema Migration & Integrity Safeguards
       let modified = false;
 
+      if (!parsed.userId) {
+        parsed.userId = userId;
+        modified = true;
+      }
+
       if (!parsed.srs) {
         parsed.srs = {};
         // Backfill SRS records from legacy mastery if any exists
@@ -145,6 +248,11 @@ class LocalStorageSyncProvider implements SyncStorageProvider {
       if (!parsed.srsSettings) {
         parsed.srsSettings = { ...DEFAULT_SRS_SETTINGS };
         modified = true;
+      } else {
+        parsed.srsSettings = {
+          ...DEFAULT_SRS_SETTINGS,
+          ...parsed.srsSettings,
+        };
       }
 
       const currentStudyDay = getStudyDate(Date.now(), parsed.srsSettings.dayCutoffHour);
@@ -163,7 +271,7 @@ class LocalStorageSyncProvider implements SyncStorageProvider {
       }
 
       if (modified) {
-        await this.saveProgress(parsed);
+        await this.saveProgress(parsed, userId);
       }
 
       return parsed;
@@ -173,11 +281,19 @@ class LocalStorageSyncProvider implements SyncStorageProvider {
     }
   }
 
-  public async saveProgress(progress: UserStudyProgress): Promise<void> {
+  public async saveProgress(progress: UserStudyProgress, targetUserId?: string): Promise<void> {
     if (typeof window === 'undefined' || !window.localStorage) return;
     try {
+      const uid = progress.userId || targetUserId;
+      if (!uid) return;
+      progress.userId = uid;
       progress.updatedAt = Date.now();
-      window.localStorage.setItem(this.getKey(progress.userId), JSON.stringify(progress));
+      window.localStorage.setItem(this.getKey(uid), JSON.stringify(progress));
+
+      // Schedule background cloud sync (skip for guests)
+      if (uid !== 'guest_user' && cloudService.isConfigured()) {
+        cloudService.scheduleDebouncedSync(progress);
+      }
     } catch (err) {
       console.error('Failed to save study progress:', err);
     }
@@ -257,7 +373,7 @@ class LocalStorageSyncProvider implements SyncStorageProvider {
     const card = progress.srs[wordId] || DEFAULT_CARD_STATE(wordId);
     const wasNew = card.state === 'new';
 
-    // Compute next interval via SuperMemo-2 / Anki scheduler
+    // Compute next interval via SuperMemo-2 spaced repetition scheduler
     const result = calculateNextReview(card, rating);
 
     card.state = result.nextState;
@@ -274,7 +390,7 @@ class LocalStorageSyncProvider implements SyncStorageProvider {
     // Increment daily quota counters
     if (wasNew) {
       progress.srsDaily.newCardsCompleted += 1;
-    } else {
+    } else if (card.state === 'review') {
       progress.srsDaily.reviewsCompleted += 1;
     }
 
@@ -320,7 +436,8 @@ class LocalStorageSyncProvider implements SyncStorageProvider {
       progress.stats.lastActiveDate = today;
     }
 
-    await this.saveProgress(progress);
+    progress.userId = userId;
+    await this.saveProgress(progress, userId);
     return progress;
   }
 
@@ -329,11 +446,46 @@ class LocalStorageSyncProvider implements SyncStorageProvider {
     settings: Partial<SRSSettings>
   ): Promise<UserStudyProgress> {
     const progress = await this.getProgress(userId);
+    progress.userId = userId;
     progress.srsSettings = {
+      ...DEFAULT_SRS_SETTINGS,
       ...progress.srsSettings,
       ...settings,
     };
-    await this.saveProgress(progress);
+    await this.saveProgress(progress, userId);
+    return progress;
+  }
+
+  public async resetDailySRSQuota(userId: string): Promise<UserStudyProgress> {
+    const progress = await this.getProgress(userId);
+    progress.userId = userId;
+    const currentStudyDay = getStudyDate(Date.now(), progress.srsSettings?.dayCutoffHour || 4);
+    progress.srsDaily = {
+      date: currentStudyDay,
+      newCardsCompleted: 0,
+      reviewsCompleted: 0,
+    };
+    await this.saveProgress(progress, userId);
+    return progress;
+  }
+
+  public async resetLearningCards(userId: string): Promise<UserStudyProgress> {
+    const progress = await this.getProgress(userId);
+    progress.userId = userId;
+    if (progress.srs) {
+      for (const id in progress.srs) {
+        if (progress.srs[id].state === 'learning' || progress.srs[id].state === 'relearning') {
+          progress.srs[id] = DEFAULT_CARD_STATE(id);
+        }
+      }
+    }
+    const currentStudyDay = getStudyDate(Date.now(), progress.srsSettings?.dayCutoffHour || 4);
+    progress.srsDaily = {
+      date: currentStudyDay,
+      newCardsCompleted: 0,
+      reviewsCompleted: 0,
+    };
+    await this.saveProgress(progress, userId);
     return progress;
   }
 
@@ -388,9 +540,40 @@ class LocalStorageSyncProvider implements SyncStorageProvider {
     }
   }
 
-  public async resetProgress(userId: string): Promise<void> {
+  public async resetProgress(userId: string): Promise<UserStudyProgress> {
     const fresh = getDefaultProgress(userId);
-    await this.saveProgress(fresh);
+    fresh.stats.streakDays = 0;
+    await this.saveProgress(fresh, userId);
+    if (userId !== 'guest_user' && cloudService.isConfigured()) {
+      await cloudService.pushCloudProgress(fresh);
+    }
+    return fresh;
+  }
+
+  public async syncWithCloud(userId: string): Promise<UserStudyProgress> {
+    const local = await this.getProgress(userId);
+    if (userId === 'guest_user' || !cloudService.isConfigured()) {
+      return local;
+    }
+
+    try {
+      const remote = await cloudService.fetchCloudProgress(userId);
+      if (!remote) {
+        // No cloud copy exists yet; upload local progress
+        await cloudService.pushCloudProgress(local);
+        return local;
+      }
+
+      // Merge local and remote
+      const merged = mergeProgress(local, remote);
+      const uid = merged.userId || userId;
+      window.localStorage.setItem(this.getKey(uid), JSON.stringify(merged));
+      await cloudService.pushCloudProgress(merged);
+      return merged;
+    } catch (err) {
+      console.warn('[StorageService] syncWithCloud failed:', err);
+      return local;
+    }
   }
 }
 
