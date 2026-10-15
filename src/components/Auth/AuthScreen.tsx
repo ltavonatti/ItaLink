@@ -22,8 +22,37 @@ interface AuthScreenProps {
   onAuthenticated: (user: UserAccount) => void;
 }
 
+/**
+ * Localize Supabase and network auth error messages into Chinese when applicable
+ */
+function getLocalizedAuthError(rawMsg: string | undefined, isZh: boolean, fallback: string): string {
+  if (!rawMsg) return fallback;
+  if (!isZh) return rawMsg;
+
+  const lower = rawMsg.toLowerCase();
+  if (lower.includes('invalid login credentials')) {
+    return '邮箱或密码错误，请核对后重试。';
+  }
+  if (lower.includes('email not confirmed')) {
+    return '邮箱尚未激活验证，请先查收邮件并点击确认链接。';
+  }
+  if (lower.includes('user already registered') || lower.includes('already exists')) {
+    return '该邮箱已被注册，请直接登录。';
+  }
+  if (lower.includes('password should be at least') || lower.includes('password is too short')) {
+    return '密码长度不能少于 6 位。';
+  }
+  if (lower.includes('rate limit') || lower.includes('too many requests')) {
+    return '请求过于频繁，请稍候再试。';
+  }
+  if (lower.includes('network') || lower.includes('fetch') || lower.includes('failed to fetch')) {
+    return '网络连接失败，请检查网络设置。';
+  }
+  return rawMsg;
+}
+
 export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
-  const { currentLang, toggleLanguage } = useTranslation();
+  const { t, currentLang, setLanguage } = useTranslation();
   const [isSignUp, setIsSignUp] = useState(false);
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
@@ -35,6 +64,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
   const [showGuestWarningModal, setShowGuestWarningModal] = useState(false);
 
   const isCloudReady = cloudService.isConfigured();
+  const isZh = currentLang === 'zh-CN';
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,27 +75,15 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
     try {
       if (isSignUp) {
         if (password !== confirmPassword) {
-          throw new Error(
-            currentLang === 'zh-CN'
-              ? '两次输入的密码不一致，请重新输入。'
-              : 'Passwords do not match. Please re-enter.'
-          );
+          throw new Error(t('auth.passwordMismatch'));
         }
         if (password.length < 6) {
-          throw new Error(
-            currentLang === 'zh-CN'
-              ? '密码长度不能少于 6 位。'
-              : 'Password must be at least 6 characters.'
-          );
+          throw new Error(t('auth.passwordMinLength'));
         }
 
         const result = await authService.signUp(username, email, password);
         if (result.requiresConfirmation) {
-          setSuccessNotice(
-            currentLang === 'zh-CN'
-              ? `注册确认邮件已发送至 ${email}。请查收邮件完成验证后登录。`
-              : `Confirmation email sent to ${email}. Please check your inbox and confirm your address before signing in.`
-          );
+          setSuccessNotice(t('auth.emailConfirmSent', { email }));
           setIsSignUp(false);
           setPassword('');
           setConfirmPassword('');
@@ -77,7 +95,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
         onAuthenticated(user);
       }
     } catch (err: any) {
-      setError(err?.message || 'Authentication failed. Please check your credentials.');
+      setError(getLocalizedAuthError(err?.message, isZh, t('auth.authFailedFallback')));
     } finally {
       setLoading(false);
     }
@@ -91,7 +109,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
       const guest = await authService.guestLogin();
       onAuthenticated(guest);
     } catch (err: any) {
-      setError(err?.message || 'Guest access failed.');
+      setError(getLocalizedAuthError(err?.message, isZh, t('auth.guestFailed')));
     } finally {
       setLoading(false);
     }
@@ -111,19 +129,41 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
               ItaLink
             </span>
             <span className="text-[10px] text-zen-text-muted dark:text-zen-dark-text-muted font-mono">
-              Italiano · {currentLang === 'zh-CN' ? '智能意语学习' : 'Spaced Repetition'}
+              Italiano · {t('auth.brandTagline')}
             </span>
           </div>
         </div>
 
-        <button
-          type="button"
-          onClick={toggleLanguage}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-bold bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text hover:border-zen-primary transition-all cursor-pointer"
-        >
-          <Globe className="w-3.5 h-3.5 text-zen-primary dark:text-zen-dark-primary" />
-          <span>{currentLang === 'zh-CN' ? '中文' : 'EN'}</span>
-        </button>
+        {/* Dynamic Language Switcher Segmented Control */}
+        <div className="flex items-center bg-zen-surface-container dark:bg-zen-dark-surface-high p-1 rounded-full border border-zen-border/60 dark:border-zen-dark-border shadow-xs gap-1">
+          <div className="pl-1.5 pr-0.5 text-zen-text-muted">
+            <Globe className="w-3.5 h-3.5" />
+          </div>
+          <button
+            type="button"
+            onClick={() => setLanguage('en')}
+            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              currentLang === 'en'
+                ? 'bg-zen-primary text-white shadow-xs'
+                : 'text-zen-text-muted hover:text-zen-text dark:hover:text-zen-dark-text'
+            }`}
+            title="Switch interface to English"
+          >
+            <span>EN</span>
+          </button>
+          <button
+            type="button"
+            onClick={() => setLanguage('zh-CN')}
+            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+              currentLang === 'zh-CN'
+                ? 'bg-zen-primary text-white shadow-xs'
+                : 'text-zen-text-muted hover:text-zen-text dark:hover:text-zen-dark-text'
+            }`}
+            title="切换界面语言为简体中文"
+          >
+            <span>中文</span>
+          </button>
+        </div>
       </div>
 
       {/* Main Authentication Card */}
@@ -134,34 +174,16 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">
             <Cloud className="w-3.5 h-3.5" />
             <span>
-              {isCloudReady
-                ? currentLang === 'zh-CN'
-                  ? '云端同步已连接 · Supabase'
-                  : 'Cloud Sync Connected · Supabase'
-                : currentLang === 'zh-CN'
-                ? '本地离线存储模式'
-                : 'Local Offline Storage Mode'}
+              {isCloudReady ? t('auth.cloudConnected') : t('auth.localMode')}
             </span>
           </div>
 
           <h2 className="text-2xl sm:text-3xl font-headline font-bold text-zen-text dark:text-zen-dark-text tracking-tight">
-            {isSignUp
-              ? currentLang === 'zh-CN'
-                ? '创建云端学习档案'
-                : 'Create Account'
-              : currentLang === 'zh-CN'
-              ? '登录您的学习账号'
-              : 'Welcome Back'}
+            {isSignUp ? t('auth.createAccount') : t('auth.welcomeBack')}
           </h2>
 
           <p className="text-xs sm:text-sm text-zen-text-muted dark:text-zen-dark-text-muted">
-            {isSignUp
-              ? currentLang === 'zh-CN'
-                ? '注册账号以自动将学习进度、艾宾浩斯复习曲线与打卡数据漫游至云端。'
-                : 'Sign up to auto-sync your SRS intervals, review streaks, and mastery to the cloud.'
-              : currentLang === 'zh-CN'
-              ? '登录账号以即时同步您的多端学习记录。'
-              : 'Sign in to access your saved progress and multi-device cloud backups.'}
+            {isSignUp ? t('auth.signUpSubtitle') : t('auth.signInSubtitle')}
           </p>
         </div>
 
@@ -180,7 +202,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                 : 'text-zen-text-muted dark:text-zen-dark-text-muted hover:text-zen-text'
             }`}
           >
-            {currentLang === 'zh-CN' ? '账号登录' : 'Sign In'}
+            {t('auth.tabSignIn')}
           </button>
           <button
             type="button"
@@ -195,7 +217,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                 : 'text-zen-text-muted dark:text-zen-dark-text-muted hover:text-zen-text'
             }`}
           >
-            {currentLang === 'zh-CN' ? '新用户注册' : 'Sign Up'}
+            {t('auth.tabSignUp')}
           </button>
         </div>
 
@@ -220,7 +242,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
           {isSignUp && (
             <div>
               <label className="block text-xs font-bold text-zen-text dark:text-zen-dark-text mb-1.5">
-                {currentLang === 'zh-CN' ? '用户昵称' : 'Display Name / Username'}
+                {t('auth.usernameLabel')}
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-zen-text-muted">
@@ -231,7 +253,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                   required
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
-                  placeholder={currentLang === 'zh-CN' ? '例如：Marco' : 'e.g. Marco'}
+                  placeholder={t('auth.usernamePlaceholder')}
                   className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-sm text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary transition-colors"
                 />
               </div>
@@ -240,7 +262,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
 
           <div>
             <label className="block text-xs font-bold text-zen-text dark:text-zen-dark-text mb-1.5">
-              {currentLang === 'zh-CN' ? '电子邮箱' : 'Email Address'}
+              {t('auth.emailLabel')}
             </label>
             <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-zen-text-muted">
@@ -251,7 +273,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                placeholder="name@example.com"
+                placeholder={t('auth.emailPlaceholder')}
                 className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-sm text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary transition-colors"
               />
             </div>
@@ -259,7 +281,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
 
           <div>
             <label className="block text-xs font-bold text-zen-text dark:text-zen-dark-text mb-1.5">
-              {currentLang === 'zh-CN' ? '密码 (最少6位)' : 'Password (min. 6 characters)'}
+              {t('auth.passwordLabel')}
             </label>
             <div className="relative">
               <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-zen-text-muted">
@@ -271,7 +293,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                 minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="••••••••"
+                placeholder={t('auth.passwordPlaceholder')}
                 className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-sm text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary transition-colors"
               />
             </div>
@@ -280,7 +302,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
           {isSignUp && (
             <div>
               <label className="block text-xs font-bold text-zen-text dark:text-zen-dark-text mb-1.5">
-                {currentLang === 'zh-CN' ? '确认密码' : 'Confirm Password'}
+                {t('auth.confirmPasswordLabel')}
               </label>
               <div className="relative">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-zen-text-muted">
@@ -292,7 +314,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                   minLength={6}
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  placeholder="••••••••"
+                  placeholder={t('auth.passwordPlaceholder')}
                   className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-sm text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary transition-colors"
                 />
               </div>
@@ -307,12 +329,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
             {isSignUp ? (
               <>
                 <UserPlus className="w-4 h-4" />
-                <span>{loading ? '...' : currentLang === 'zh-CN' ? '注册并开启云端同步' : 'Create Account & Sync'}</span>
+                <span>{loading ? t('auth.signingUpBtn') : t('auth.signUpBtn')}</span>
               </>
             ) : (
               <>
                 <LogIn className="w-4 h-4" />
-                <span>{loading ? '...' : currentLang === 'zh-CN' ? '登录云端账号' : 'Sign In to Cloud Account'}</span>
+                <span>{loading ? t('auth.signingInBtn') : t('auth.signInBtn')}</span>
               </>
             )}
           </button>
@@ -325,7 +347,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
           </div>
           <div className="relative flex justify-center text-xs">
             <span className="px-3 bg-zen-surface-lowest dark:bg-zen-dark-surface text-zen-text-muted font-medium">
-              {currentLang === 'zh-CN' ? '免注册体验' : 'Or Experience Instantly'}
+              {t('auth.orDivider')}
             </span>
           </div>
         </div>
@@ -341,10 +363,10 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
             <Sparkles className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
             <div className="text-left">
               <span className="block font-bold">
-                {currentLang === 'zh-CN' ? '以访客身份继续' : 'Continue as Guest'}
+                {t('auth.guestBtnTitle')}
               </span>
               <span className="text-[10px] text-amber-600/80 dark:text-amber-400/80 font-normal">
-                {currentLang === 'zh-CN' ? '仅存本地 · 无云端同步' : 'Local only · No cloud save'}
+                {t('auth.guestBtnSubtitle')}
               </span>
             </div>
           </div>
@@ -355,7 +377,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
 
       {/* Footer Info */}
       <p className="mt-6 text-center text-xs text-zen-text-muted">
-        ItaLink · {currentLang === 'zh-CN' ? '现代智能意语闪卡与艾宾浩斯复习系统' : 'Modern Italian Vocabulary & Spaced Repetition'}
+        ItaLink · {t('auth.footerDesc')}
       </p>
 
       {/* Guest Mode Warning Confirmation Modal */}
@@ -379,10 +401,10 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
               </div>
               <div>
                 <h3 className="text-lg font-headline font-bold text-zen-text dark:text-zen-dark-text">
-                  {currentLang === 'zh-CN' ? '访客模式警告' : 'Guest Mode Notice'}
+                  {t('auth.guestNoticeTitle')}
                 </h3>
                 <p className="text-xs text-amber-600 dark:text-amber-400 font-semibold">
-                  {currentLang === 'zh-CN' ? '学习进度将 不会 保存到云端' : 'Progress will NOT be saved to cloud'}
+                  {t('auth.guestNoticeSubtitle')}
                 </p>
               </div>
             </div>
@@ -390,26 +412,12 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
             {/* Warning Details Body */}
             <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 text-xs text-zen-text dark:text-zen-dark-text space-y-2 mb-6">
               <p className="font-semibold text-amber-700 dark:text-amber-300">
-                {currentLang === 'zh-CN'
-                  ? '以访客身份进入系统时：'
-                  : 'When entering as a guest:'}
+                {t('auth.guestNoticeIntro')}
               </p>
               <ul className="list-disc list-inside space-y-1 text-zen-text-muted dark:text-zen-dark-text-muted pl-1">
-                <li>
-                  {currentLang === 'zh-CN'
-                    ? '所有词汇熟练度、艾宾浩斯复习计划与连续打卡记录仅保存在此浏览器中。'
-                    : 'All flashcard reviews, SRS intervals, and streak days are saved only on this browser.'}
-                </li>
-                <li>
-                  {currentLang === 'zh-CN'
-                    ? '清理浏览器缓存、在无痕模式下浏览或更换设备，数据将永久丢失且无法恢复。'
-                    : 'Clearing browser cache, using incognito mode, or switching devices will permanently erase all data.'}
-                </li>
-                <li>
-                  {currentLang === 'zh-CN'
-                    ? '若需长期学习，强烈建议注册免费账号开启自动云端保存。'
-                    : 'To ensure your study journey is safe, we strongly recommend signing up for free.'}
-                </li>
+                <li>{t('auth.guestNoticeP1')}</li>
+                <li>{t('auth.guestNoticeP2')}</li>
+                <li>{t('auth.guestNoticeP3')}</li>
               </ul>
             </div>
 
@@ -420,7 +428,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                 onClick={() => setShowGuestWarningModal(false)}
                 className="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold bg-zen-primary text-white hover:bg-zen-primary-dark transition-all cursor-pointer shadow-sm text-center"
               >
-                {currentLang === 'zh-CN' ? '返回登录 / 注册' : 'Go Back to Sign In'}
+                {t('auth.guestNoticeBack')}
               </button>
 
               <button
@@ -429,11 +437,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                 disabled={loading}
                 className="py-2.5 px-4 rounded-xl text-xs font-semibold bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/60 dark:border-zen-dark-border text-zen-text-muted hover:text-zen-text hover:border-amber-500/40 transition-all cursor-pointer text-center"
               >
-                {loading
-                  ? '...'
-                  : currentLang === 'zh-CN'
-                  ? '我已知晓，以访客继续'
-                  : 'I Understand, Continue as Guest'}
+                {loading ? t('auth.guestNoticeLoading') : t('auth.guestNoticeConfirm')}
               </button>
             </div>
 
