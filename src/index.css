@@ -4,6 +4,7 @@
 
 @layer base {
   :root {
+    color-scheme: light;
     /* Live Theme Tokens - Light Mode (Mediterranean Azure & Crisp Alabaster) */
     --zen-primary: #0066cc;
     --zen-surface: #f8fafc;
@@ -16,17 +17,18 @@
   }
 
   .dark {
-    /* Live Theme Tokens - Dark Mode (Riviera Midnight & Electric Azure) */
-    --zen-dark-bg: #090d16;
-    --zen-dark-surface: #0f172a;
+    color-scheme: dark;
+    /* Live Theme Tokens - Dark Mode (Riviera Midnight & Electric Azure - Calibrated & Harmonious) */
+    --zen-dark-bg: #0b0f19;
+    --zen-dark-surface: #131c2e;
     --zen-dark-surface-high: #1e293b;
-    --zen-dark-surface-lowest: #050811;
-    --zen-dark-text: #f8fafc;
+    --zen-dark-surface-lowest: #070b14;
+    --zen-dark-text: #f1f5f9;
     --zen-dark-text-muted: #94a3b8;
-    --zen-dark-border: #1e293b;
+    --zen-dark-border: #243049;
     --zen-dark-primary: #38bdf8;
-    --zen-dark-on-primary: #090d16;
-    --zen-dark-secondary: #60a5fa;
+    --zen-dark-on-primary: #0b0f19;
+    --zen-dark-secondary: #818cf8;
   }
 
   html, body {
@@ -42,6 +44,33 @@
     background-color: var(--zen-dark-bg);
     color: var(--zen-dark-text);
   }
+
+  /* Form controls color-scheme & dark mode base overrides */
+  .dark input,
+  .dark textarea,
+  .dark select {
+    color-scheme: dark;
+  }
+
+  /* Browser autofill styling to ensure dark backgrounds and clear text in Dark Mode */
+  .dark input:-webkit-autofill,
+  .dark input:-webkit-autofill:hover,
+  .dark input:-webkit-autofill:focus,
+  .dark textarea:-webkit-autofill,
+  .dark select:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px #1e293b inset !important;
+    -webkit-text-fill-color: #f1f5f9 !important;
+    caret-color: #f1f5f9 !important;
+    transition: background-color 5000s ease-in-out 0s;
+  }
+
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #ffffff inset !important;
+    -webkit-text-fill-color: #0f172a !important;
+    caret-color: #0f172a !important;
+  }
 }
 
 /* Modern Card Container */
@@ -54,10 +83,10 @@
 }
 
 .dark .zen-card {
-  background: var(--zen-dark-surface, #0f172a);
-  color: var(--zen-dark-text, #f8fafc);
+  background: var(--zen-dark-surface, #131c2e);
+  color: var(--zen-dark-text, #f1f5f9);
   box-shadow: 0px 4px 24px -2px rgba(0, 0, 0, 0.5);
-  border-color: var(--zen-dark-border, #1e293b);
+  border-color: var(--zen-dark-border, #243049);
   border-radius: 1rem;
 }
 

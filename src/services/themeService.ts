@@ -16,9 +16,8 @@ class ThemeService {
       const saved = localStorage.getItem(THEME_STORAGE_KEY) as ThemeMode | null;
       if (saved === 'dark' || saved === 'light') {
         this.currentTheme = saved;
-      } else if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        this.currentTheme = 'dark';
       } else {
+        // Explicit requirement: default theme must strictly be white/light
         this.currentTheme = 'light';
       }
       this.applyTheme(this.currentTheme);

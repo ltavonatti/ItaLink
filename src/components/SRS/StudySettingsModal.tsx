@@ -322,7 +322,7 @@ export const StudySettingsModal: React.FC<StudySettingsModalProps> = ({
               <select
                 value={cutoffHour}
                 onChange={(e) => setCutoffHour(Number(e.target.value))}
-                className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-zen-surface-lowest dark:bg-zen-dark-surface border border-zen-border/50 text-zen-text dark:text-zen-dark-text cursor-pointer"
+                className="text-xs font-mono font-bold px-2.5 py-1 rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 cursor-pointer focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary"
               >
                 <option value={0}>00:00 (Midnight)</option>
                 <option value={2}>02:00 AM</option>

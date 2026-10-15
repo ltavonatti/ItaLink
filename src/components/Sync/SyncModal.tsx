@@ -498,7 +498,7 @@ export const SyncModal: React.FC<SyncModalProps> = ({
                         value={authEmail}
                         onChange={(e) => setAuthEmail(e.target.value)}
                         placeholder={currentLang === 'zh-CN' ? '邮箱地址' : 'Email address'}
-                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-zen-surface-lowest dark:bg-zen-dark-surface border border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary"
+                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary"
                         required
                       />
                     </div>
@@ -510,7 +510,7 @@ export const SyncModal: React.FC<SyncModalProps> = ({
                         value={authPassword}
                         onChange={(e) => setAuthPassword(e.target.value)}
                         placeholder={currentLang === 'zh-CN' ? '密码 (至少 6 位)' : 'Password (min. 6 chars)'}
-                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-zen-surface-lowest dark:bg-zen-dark-surface border border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary"
+                        className="w-full pl-9 pr-3 py-2 text-xs rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary"
                         required
                       />
                     </div>
@@ -572,7 +572,7 @@ export const SyncModal: React.FC<SyncModalProps> = ({
                         value={customUrl}
                         onChange={(e) => setCustomUrl(e.target.value)}
                         placeholder="https://xyzcompany.supabase.co"
-                        className="w-full p-2 font-mono text-[11px] rounded-lg bg-zen-surface-container/50 dark:bg-zen-dark-surface-high/50 border border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text focus:outline-none"
+                        className="w-full p-2 font-mono text-[11px] rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary"
                       />
                     </div>
 
@@ -585,7 +585,7 @@ export const SyncModal: React.FC<SyncModalProps> = ({
                         value={customKey}
                         onChange={(e) => setCustomKey(e.target.value)}
                         placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6..."
-                        className="w-full p-2 font-mono text-[11px] rounded-lg bg-zen-surface-container/50 dark:bg-zen-dark-surface-high/50 border border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text focus:outline-none"
+                        className="w-full p-2 font-mono text-[11px] rounded-lg bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary"
                       />
                     </div>
 
@@ -664,7 +664,7 @@ export const SyncModal: React.FC<SyncModalProps> = ({
                       readOnly
                       value={exportJson}
                       rows={5}
-                      className="w-full p-3 font-mono text-[11px] rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text focus:outline-none resize-none select-all"
+                      className="w-full p-3 font-mono text-[11px] rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary resize-none select-all"
                     />
                   </div>
 
@@ -701,7 +701,7 @@ export const SyncModal: React.FC<SyncModalProps> = ({
                     onChange={(e) => setImportJson(e.target.value)}
                     rows={5}
                     placeholder={currentLang === 'zh-CN' ? '在此粘贴备份 JSON 文本...' : 'Paste JSON payload here...'}
-                    className="w-full p-3 font-mono text-[11px] rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary resize-none"
+                    className="w-full p-3 font-mono text-[11px] rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary resize-none"
                   />
 
                   <button

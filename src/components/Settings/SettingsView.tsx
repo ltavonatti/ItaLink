@@ -721,7 +721,7 @@ export const SettingsView: React.FC<SettingsViewProps> = ({
                 value={resetConfirmInput}
                 onChange={(e) => setResetConfirmInput(e.target.value)}
                 placeholder={t('settings.resetModalPlaceholder')}
-                className="w-full px-3.5 py-2.5 rounded-xl bg-zen-surface-container dark:bg-zen-dark-surface-high border-2 border-zen-border/60 dark:border-zen-dark-border focus:border-red-500 dark:focus:border-red-500 outline-none font-mono font-bold text-center text-sm tracking-widest text-zen-text dark:text-zen-dark-text"
+                className="w-full px-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border-2 border-slate-200 dark:border-slate-700 focus:border-red-500 dark:focus:border-red-500 outline-none font-mono font-bold text-center text-sm tracking-widest text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500"
                 autoFocus
               />
             </div>

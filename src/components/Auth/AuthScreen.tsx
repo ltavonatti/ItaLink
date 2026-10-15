@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Lock,
   User,
@@ -13,10 +13,13 @@ import {
   ArrowRight,
   CheckCircle2,
   X,
+  Sun,
+  Moon,
 } from 'lucide-react';
 import { authService, UserAccount } from '../../services/authService';
 import cloudService from '../../services/cloudService';
 import { useTranslation } from '../../i18n';
+import themeService, { ThemeMode } from '../../services/themeService';
 
 interface AuthScreenProps {
   onAuthenticated: (user: UserAccount) => void;
@@ -62,6 +65,19 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
   const [successNotice, setSuccessNotice] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [showGuestWarningModal, setShowGuestWarningModal] = useState(false);
+  const [theme, setTheme] = useState<ThemeMode>(() => themeService.getTheme());
+
+  useEffect(() => {
+    const unsub = themeService.subscribe((currentTheme) => {
+      setTheme(currentTheme);
+    });
+    return () => unsub();
+  }, []);
+
+  const handleToggleTheme = () => {
+    const next = themeService.toggleTheme();
+    setTheme(next);
+  };
 
   const isCloudReady = cloudService.isConfigured();
   const isZh = currentLang === 'zh-CN';
@@ -134,34 +150,52 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
           </div>
         </div>
 
-        {/* Dynamic Language Switcher Segmented Control */}
-        <div className="flex items-center bg-zen-surface-container dark:bg-zen-dark-surface-high p-1 rounded-full border border-zen-border/60 dark:border-zen-dark-border shadow-xs gap-1">
-          <div className="pl-1.5 pr-0.5 text-zen-text-muted">
-            <Globe className="w-3.5 h-3.5" />
+        {/* Controls: Language Switcher & Theme Toggle */}
+        <div className="flex items-center gap-2">
+          {/* Dynamic Language Switcher Segmented Control */}
+          <div className="flex items-center bg-zen-surface-container dark:bg-zen-dark-surface-high p-1 rounded-full border border-zen-border/60 dark:border-zen-dark-border shadow-xs gap-1">
+            <div className="pl-1.5 pr-0.5 text-zen-text-muted">
+              <Globe className="w-3.5 h-3.5" />
+            </div>
+            <button
+              type="button"
+              onClick={() => setLanguage('en')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                currentLang === 'en'
+                  ? 'bg-zen-primary text-white shadow-xs'
+                  : 'text-zen-text-muted hover:text-zen-text dark:hover:text-zen-dark-text'
+              }`}
+              title="Switch interface to English"
+            >
+              <span>EN</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setLanguage('zh-CN')}
+              className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
+                currentLang === 'zh-CN'
+                  ? 'bg-zen-primary text-white shadow-xs'
+                  : 'text-zen-text-muted hover:text-zen-text dark:hover:text-zen-dark-text'
+              }`}
+              title="切换界面语言为简体中文"
+            >
+              <span>中文</span>
+            </button>
           </div>
+
+          {/* Quick Theme Toggle */}
           <button
             type="button"
-            onClick={() => setLanguage('en')}
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-              currentLang === 'en'
-                ? 'bg-zen-primary text-white shadow-xs'
-                : 'text-zen-text-muted hover:text-zen-text dark:hover:text-zen-dark-text'
-            }`}
-            title="Switch interface to English"
+            onClick={handleToggleTheme}
+            className="p-1.5 rounded-full bg-zen-surface-container dark:bg-zen-dark-surface-high border border-zen-border/60 dark:border-zen-dark-border text-zen-text dark:text-zen-dark-text hover:border-zen-primary dark:hover:border-zen-dark-primary transition-all shadow-xs cursor-pointer flex items-center justify-center"
+            title={theme === 'dark' ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+            aria-label="Toggle Theme Mode"
           >
-            <span>EN</span>
-          </button>
-          <button
-            type="button"
-            onClick={() => setLanguage('zh-CN')}
-            className={`flex items-center gap-1 px-2.5 py-1 rounded-full text-xs font-bold transition-all cursor-pointer ${
-              currentLang === 'zh-CN'
-                ? 'bg-zen-primary text-white shadow-xs'
-                : 'text-zen-text-muted hover:text-zen-text dark:hover:text-zen-dark-text'
-            }`}
-            title="切换界面语言为简体中文"
-          >
-            <span>中文</span>
+            {theme === 'dark' ? (
+              <Sun className="w-4 h-4 text-amber-400 hover:rotate-45 transition-transform" />
+            ) : (
+              <Moon className="w-4 h-4 text-indigo-600 hover:-rotate-12 transition-transform" />
+            )}
           </button>
         </div>
       </div>
@@ -254,7 +288,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   placeholder={t('auth.usernamePlaceholder')}
-                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-sm text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary transition-colors"
+                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary focus:border-transparent transition-all"
                 />
               </div>
             </div>
@@ -274,7 +308,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder={t('auth.emailPlaceholder')}
-                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-sm text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary transition-colors"
+                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary focus:border-transparent transition-all"
               />
             </div>
           </div>
@@ -294,7 +328,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder={t('auth.passwordPlaceholder')}
-                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-sm text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary transition-colors"
+                className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary focus:border-transparent transition-all"
               />
             </div>
           </div>
@@ -315,7 +349,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({ onAuthenticated }) => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder={t('auth.passwordPlaceholder')}
-                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-zen-surface-container/60 dark:bg-zen-dark-surface-high/60 border border-zen-border/60 dark:border-zen-dark-border text-sm text-zen-text dark:text-zen-dark-text focus:outline-none focus:border-zen-primary transition-colors"
+                  className="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm text-slate-900 dark:text-slate-100 placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-zen-primary dark:focus:ring-zen-dark-primary focus:border-transparent transition-all"
                 />
               </div>
             </div>
