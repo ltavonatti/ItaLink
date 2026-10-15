@@ -1,6 +1,6 @@
 -- ============================================================================
--- PASSO ITALIAN - SUPABASE DATABASE SCHEMA
--- Zero-Manual Cloud Synchronization with Row Level Security (RLS)
+-- ITALINK - SUPABASE DATABASE SCHEMA
+-- Zero-Manual Cloud Synchronization with Strict Row Level Security (RLS)
 -- ============================================================================
 
 -- 1. Create table for user study progress
@@ -18,24 +18,39 @@ ON public.user_study_progress (user_id);
 -- 3. Enable Row Level Security (RLS)
 ALTER TABLE public.user_study_progress ENABLE ROW LEVEL SECURITY;
 
--- 4. Create RLS Policies
--- Users can read their own study progress
+-- 4. Create Strict RLS Policies
+-- Authenticated users can ONLY select their own rows
+DROP POLICY IF EXISTS "Users can read own progress" ON public.user_study_progress;
 CREATE POLICY "Users can read own progress"
 ON public.user_study_progress
 FOR SELECT
-USING (auth.uid()::text = user_id OR user_id = id);
+TO authenticated
+USING (auth.uid()::text = user_id);
 
--- Users can insert their own study progress
+-- Authenticated users can ONLY insert their own rows
+DROP POLICY IF EXISTS "Users can insert own progress" ON public.user_study_progress;
 CREATE POLICY "Users can insert own progress"
 ON public.user_study_progress
 FOR INSERT
-WITH CHECK (auth.uid()::text = user_id OR user_id = id);
+TO authenticated
+WITH CHECK (auth.uid()::text = user_id);
 
--- Users can update their own study progress
+-- Authenticated users can ONLY update their own rows
+DROP POLICY IF EXISTS "Users can update own progress" ON public.user_study_progress;
 CREATE POLICY "Users can update own progress"
 ON public.user_study_progress
 FOR UPDATE
-USING (auth.uid()::text = user_id OR user_id = id);
+TO authenticated
+USING (auth.uid()::text = user_id)
+WITH CHECK (auth.uid()::text = user_id);
+
+-- Authenticated users can delete their own rows (e.g. account wipe)
+DROP POLICY IF EXISTS "Users can delete own progress" ON public.user_study_progress;
+CREATE POLICY "Users can delete own progress"
+ON public.user_study_progress
+FOR DELETE
+TO authenticated
+USING (auth.uid()::text = user_id);
 
 -- 5. Auto-update timestamp trigger
 CREATE OR REPLACE FUNCTION public.handle_updated_at()
@@ -51,4 +66,3 @@ CREATE TRIGGER set_updated_at
 BEFORE UPDATE ON public.user_study_progress
 FOR EACH ROW
 EXECUTE FUNCTION public.handle_updated_at();
-
